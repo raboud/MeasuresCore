@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Types", "Types\Types.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Types.Test", "Types.Test\Types.Test.csproj", "{F20CD4BD-9BD2-4A98-BC3E-75C9CA8048B5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasureCore.Domain", "MeasuresCore.Domain\MeasureCore.Domain.csproj", "{307F6966-3362-4B35-B5F4-7C1FA544A17C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasureCore.Domain", "MeasureCore.Domain\MeasureCore.Domain.csproj", "{307F6966-3362-4B35-B5F4-7C1FA544A17C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{1A8D2EC2-376C-44E4-9C09-62FA4DA229FD}"
 EndProject

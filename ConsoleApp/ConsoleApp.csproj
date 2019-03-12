@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MeasureCore.Data\MeasureCore.Data.csproj" />
-    <ProjectReference Include="..\MeasuresCore.Domain\MeasureCore.Domain.csproj" />
+    <ProjectReference Include="..\MeasureCore.Domain\MeasureCore.Domain.csproj" />
   </ItemGroup>
 
 </Project>

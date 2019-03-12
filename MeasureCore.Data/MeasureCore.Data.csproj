@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MeasuresCore.Domain\MeasureCore.Domain.csproj" />
+    <ProjectReference Include="..\MeasureCore.Domain\MeasureCore.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
