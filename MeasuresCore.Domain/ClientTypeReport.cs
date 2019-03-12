@@ -10,7 +10,7 @@ namespace RandREng.MeasuresCore.Domain
         public int ClientTypeId { get; set; }
         public string Location { get; set; }
     
-        public StoreType StoreType { get; set; }
+        public CustomerType StoreType { get; set; }
         public ReportType ReportType { get; set; }
     }
 }

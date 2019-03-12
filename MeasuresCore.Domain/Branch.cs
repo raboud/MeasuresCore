@@ -31,8 +31,6 @@ namespace RandREng.MeasuresCore.Domain
         public string FaxNumber { get; set; }
         public string ManagerId { get; set; }
         public bool Active { get; set; }
-        public Nullable<double> Latitude { get; set; }
-        public Nullable<double> Longitude { get; set; }
         public string LabelPrinter { get; set; }
     }
 }

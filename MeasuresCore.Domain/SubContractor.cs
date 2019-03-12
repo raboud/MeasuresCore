@@ -47,8 +47,6 @@ namespace RandREng.MeasuresCore.Domain
     
         public List<Bill> Bills { get; set; }
         public List<BillDetail> BillDetails { get; set; }
-//        public List<InstallationCrew> InstallationCrews { get; set; }
-//        public List<InstallationCrew> InstallationCrews1 { get; set; }
         public List<OrderCustom> OrderCustomDetails { get; set; }
     }
 }

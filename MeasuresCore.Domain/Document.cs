@@ -8,14 +8,14 @@ namespace RandREng.MeasuresCore.Domain
     {
 		public Document()
 		{
-			this.OrdersDocuments = new List<OrderDocument>();
+			this.OrdersDocuments = new List<DocumentOrder>();
 		}
 
 		public int Id { get; set; }
         public string Description { get; set; }
         public string PathAndFilename { get; set; }
 
-		public List<OrderDocument> OrdersDocuments { get; set; }
+		public List<DocumentOrder> OrdersDocuments { get; set; }
 		//[NotMapped]
 		//public List<OrderSOMerchandiseDetail> OrderSOMerchandiseDetails { get; set; }
 		//[NotMapped]

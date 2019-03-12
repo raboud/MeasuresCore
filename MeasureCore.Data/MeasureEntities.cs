@@ -3,21 +3,20 @@ using RandREng.MeasuresCore.Domain;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace RandREng.MeasuresCore.Data
 {
 	public class MeasureEntities : DbContext
 	{
-		public DbSet<Store> Stores { get; set; }
 		public DbSet<Branch> Branches { get; set; }
 		public DbSet<BusinessUnit> BusinessUnits { get; set; }
-		public DbSet<StoreType> StoreTypes { get; set; }
 		public DbSet<Program> Programs { get; set; }
 		public DbSet<Market> Markets { get; set; }
 
 		public DbSet<Order> Orders { get; set; }
 		public DbSet<Document> Documents { get; set; }
-		public DbSet<Customer> Customers { get; set; }
+		public DbSet<Client> Customers { get; set; }
 		public DbSet<Employee> Employees { get; set; }
 
 		public DbSet<Item> Items { get; set; }
@@ -59,36 +58,44 @@ namespace RandREng.MeasuresCore.Data
 		public DbSet<Check> Checks { get; set; }
 		public DbSet<CheckCBDetail> CheckCBDetails { get; set; }
 		public DbSet<MeasureCustomerStore> MeasureCustomerStores { get; set; }
-		public DbSet<StoreWithBranch> StoreWithBranches { get; set; }
 
 		public MeasureEntities(DbContextOptions<MeasureEntities> options)
 			: base(options)
 		{ }
+        public MeasureEntities()
+            : base()
+        { }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        optionsBuilder.ConfigureSqlServer("Server=(localdb)\\MSSQLLocalDB;Initial Catalog=CatalogDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        //    }
+        //}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+//                optionsBuilder.UseInMemoryDatabase("tet");
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=test;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            }
+            base.OnConfiguring(optionsBuilder);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<OrderDocument>().HasKey(s => new { s.OrderId, s.DocumentId });
+            modelBuilder.Entity<PhoneNumberContact>().HasKey(s => new { s.PhoneNumberId, s.ContactId });
+            modelBuilder.Entity<PhoneNumberClient>().HasKey(s => new { s.PhoneNumberId, s.ClientId });
+
+			modelBuilder.Entity<DocumentOrder>().HasKey(s => new { s.OrderId, s.DocumentId });
 			modelBuilder.Entity<InstallationCrewType>().HasKey(s => new { s.InstallationCrewId, s.JobTypeId });
 
-			//modelBuilder.Entity<Branch>().OwnsOne(s => s.Address);
-			//modelBuilder.Entity<Store>().OwnsOne(s => s.Address);
-			//modelBuilder.Entity<Store>().OwnsOne(s => s.BillingAddress);
-			//modelBuilder.Entity<Customer>().OwnsOne(s => s.Address);
-			//modelBuilder.Entity<Employee>().OwnsOne(s => s.Address);
-			//modelBuilder.Entity<Order>().OwnsOne(s => s.Address);
-			//modelBuilder.Entity<SubContractor>().OwnsOne(s => s.Address);
-			//modelBuilder.Entity<CompanyInfo>().OwnsOne(s => s.Address);
-			//modelBuilder.Entity<MeasureCustomerStore>().OwnsOne(s => s.Address);
-			//modelBuilder.Entity<StoreWithBranch>().OwnsOne(s => s.Address);
-			//modelBuilder.Entity<Tech>().OwnsOne(s => s.Address);
+            modelBuilder.Entity<Client>()
+                .Property(p => p.Name)
+                .HasComputedColumnSql("ISnull(CompanyName, LastName + ', ' + FirstName)");
 
-
-			//modelBuilder.Entity<ItemCosting>().OwnsOne(s => s.Cost);
-			//modelBuilder.Entity<ItemMatCosting>().OwnsOne(s => s.MatCost);
-			//modelBuilder.Entity<ItemPricing>().OwnsOne(s => s.Price);
-			//modelBuilder.Entity<ItemRetailPricing>().OwnsOne(s => s.Retail);
-			//modelBuilder.Entity<MaterialCost>().OwnsOne(s => s.Cost);
-			//modelBuilder.Entity<MaterialPrice>().OwnsOne(s => s.Price);
 
 			foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
 			{
@@ -103,6 +110,7 @@ namespace RandREng.MeasuresCore.Data
 					modelBuilder.Entity(entityType.Name).Property<DateTime>("LastModified");
 				}
 			}
+            base.OnModelCreating(modelBuilder);
 		}
 
 		public override int SaveChanges()

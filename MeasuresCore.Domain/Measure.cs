@@ -18,7 +18,7 @@ namespace RandREng.MeasuresCore.Domain
         public List<MeasureEmail> Emails { get; set; }
         public List<MeasureMaterial> Materials { get; set; }
         public AspNetUser EnterredBy { get; set; }
-        public Customer Customer { get; set; }
+        public Client Customer { get; set; }
         public List<Slot> Slots { get; set; }
     }
 }

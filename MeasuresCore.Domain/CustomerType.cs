@@ -4,10 +4,10 @@ using System.Collections.Generic;
 namespace RandREng.MeasuresCore.Domain
 {
     
-    public partial class StoreType
+    public partial class CustomerType
     {
         public int Id { get; set; }
-        public string StoreTypeName { get; set; }
+        public string Name { get; set; }
         public string ImageName { get; set; }
         public byte[] Logo { get; set; }
         public string QBClass { get; set; }

@@ -18,7 +18,7 @@ namespace RandREng.MeasuresCore.Domain
         }
     
         public int Id { get; set; }
-        public Nullable<int> StoreTypeId { get; set; }
+        public Nullable<int> CustomerTypeId { get; set; }
 		[Money]
         public Nullable<decimal> MinimumPrice { get; set; }
 		[Money]
@@ -48,15 +48,7 @@ namespace RandREng.MeasuresCore.Domain
         public Nullable<int> MarkDownMin { get; set; }
         public Nullable<int> MarkDownMax { get; set; }
     
-        //public List<BasicLabor> BasicLabors { get; set; }
         public BusinessUnit BusinessUnit { get; set; }
-        //public JobType JobType { get; set; }
-        //public List<MaterialCost> MaterialCosts { get; set; }
-        //public List<MaterialPrice> MaterialPrices { get; set; }
-        public StoreType StoreType { get; set; }
-        //public List<ProgramMarketMapping> MaterialTypesMarketMappings { get; set; }
-        //public List<Option> Options { get; set; }
-        //public List<Order> Orders { get; set; }
-        //public List<ProgramReport> ProgramReports { get; set; }
+        public CustomerType CustomerType { get; set; }
     }
 }

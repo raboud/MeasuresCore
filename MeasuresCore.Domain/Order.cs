@@ -9,7 +9,7 @@ namespace RandREng.MeasuresCore.Domain
     {
 		public Order()
 		{
-			this.OrdersDocuments = new List<OrderDocument>();
+			this.OrdersDocuments = new List<DocumentOrder>();
 		}
 		public int Id { get; set; }
         public int CustomerId { get; set; }
@@ -85,7 +85,7 @@ namespace RandREng.MeasuresCore.Domain
         public Address Address { get; set; }
         public List<ChargeBack> ChargeBacks { get; set; }
         public List<CheckDetail> CheckDetails { get; set; }
-        public Customer Customer { get; set; }
+        public Client Customer { get; set; }
         public List<Discrepancy> Discrepancies { get; set; }
         public Employee ReviewedBy { get; set; }
         public Employee CreatedBy { get; set; }
@@ -93,8 +93,6 @@ namespace RandREng.MeasuresCore.Domain
         public Employee AssignedTo { get; set; }
         public EntryMethod EntryMethod { get; set; }
         public Program Program { get; set; }
-        public List<MeasureCompCalcData> MeasureCompCalcDatas { get; set; }
-        public List<MeasureCompOrderData> MeasureCompOrderDatas { get; set; }
         public List<OrderItems> Items { get; set; }
         public List<OrderCustom> OrderCustomDetails { get; set; }
         public List<OrderDiagram> OrderDiagrams { get; set; }
@@ -108,6 +106,6 @@ namespace RandREng.MeasuresCore.Domain
         public List<VOC> VOCs { get; set; }
         public List<WorkOrder> WorkOrders { get; set; }
 
-		public List<OrderDocument> OrdersDocuments { get; set; } 
+		public List<DocumentOrder> OrdersDocuments { get; set; } 
 	}
 }
