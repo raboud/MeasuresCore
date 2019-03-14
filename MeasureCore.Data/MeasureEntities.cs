@@ -7,9 +7,11 @@ using System.Runtime.CompilerServices;
 
 namespace RandREng.MeasuresCore.Data
 {
-	public class MeasureEntities : DbContext
+    public class MeasureEntities : DbContext
 	{
-		public DbSet<Branch> Branches { get; set; }
+        public DbSet<PhoneNumberType> PhoneNumberTypes { get; set; }
+
+        public DbSet<Branch> Branches { get; set; }
 		public DbSet<BusinessUnit> BusinessUnits { get; set; }
 		public DbSet<Program> Programs { get; set; }
 		public DbSet<Market> Markets { get; set; }
@@ -146,4 +148,5 @@ namespace RandREng.MeasuresCore.Data
 
 		*/
 	}
+
 }

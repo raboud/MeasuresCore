@@ -8,6 +8,8 @@ namespace RandREng.MeasuresCore.Domain
     {
         public int Id { get; set; }
         public string Number { get; set; }
+        public int PhoneNumberTypeId { get; set; }
+        public PhoneNumberType PhoneNumberType { get; set; }
     }
 
     public class PhoneNumberContact
