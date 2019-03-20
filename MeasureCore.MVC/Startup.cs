@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RandREng.Extensions.ServiceCollection;
+using RandREng.MeasuresCore.Data;
 
 namespace MeasureCore.MVC
 {
@@ -35,6 +37,7 @@ namespace MeasureCore.MVC
 
             services.AddMvc()
                 .AddNewtonsoftJson();
+            services.AddCustomDbContext<MeasureContext>(this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

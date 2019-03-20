@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace RandREng.MeasuresCore.Data
 {
-    public class MeasureEntities : DbContext
+    public class MeasureContext : DbContext
 	{
         public DbSet<PhoneNumberType> PhoneNumberTypes { get; set; }
 
@@ -61,10 +61,10 @@ namespace RandREng.MeasuresCore.Data
 		public DbSet<CheckCBDetail> CheckCBDetails { get; set; }
 		public DbSet<MeasureCustomerStore> MeasureCustomerStores { get; set; }
 
-		public MeasureEntities(DbContextOptions<MeasureEntities> options)
+		public MeasureContext(DbContextOptions<MeasureContext> options)
 			: base(options)
 		{ }
-        public MeasureEntities()
+        public MeasureContext()
             : base()
         { }
 

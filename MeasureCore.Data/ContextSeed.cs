@@ -1,153 +1,26 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using Polly;
 using Polly.Retry;
 using RandREng.MeasuresCore.Domain;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace RandREng.MeasuresCore.Data
 {
-    public static class OptionBuilderExt
-    {
-        public static DbContextOptionsBuilder ConfigureFromSettings(this DbContextOptionsBuilder optionsBuilder, IConfiguration configuration)
-        {
-            switch (configuration["DatabaseType"])
-            {
-                case "InMemory":
-                    optionsBuilder.ConfigureInMemory(configuration["DatabaseConnection"]);
-                    break;
-
-                case "SqlServer":
-                    optionsBuilder.ConfigureSqlServer(configuration["DatabaseConnection"]);
-                    break;
-
-                case "SqlLite":
-                    optionsBuilder.ConfigureSqlLite(configuration["DatabaseConnection"]);
-                    break;
-            }
-            return optionsBuilder;
-        }
-
-        public static DbContextOptionsBuilder<T> ConfigureFromSettings<T>(this DbContextOptionsBuilder<T> optionsBuilder, IConfiguration configuration) where T : DbContext
-        {
-            switch (configuration["DatabaseType"])
-            {
-                case "InMemory":
-                    optionsBuilder.ConfigureInMemory<T>(configuration["DatabaseConnection"]);
-                    break;
-
-                case "SqlServer":
-                    optionsBuilder.ConfigureSqlServer<T>(configuration["DatabaseConnection"]);
-                    break;
-
-                case "SqlLite":
-                    optionsBuilder.ConfigureSqlLite<T>(configuration["DatabaseConnection"]);
-                    break;
-            }
-            return optionsBuilder;
-        }
-
-        public static DbContextOptionsBuilder<T> ConfigureInMemory<T>(this DbContextOptionsBuilder<T> optionsBuilder, string dbName) where T : DbContext
-        {
-            optionsBuilder.UseInMemoryDatabase<T>(dbName)._ConfigureCommon();
-            return optionsBuilder;
-        }
-
-        public static DbContextOptionsBuilder ConfigureInMemory(this DbContextOptionsBuilder optionsBuilder, string dbName)
-        {
-            optionsBuilder.UseInMemoryDatabase(dbName)._ConfigureCommon();
-            return optionsBuilder;
-        }
-
-        public static DbContextOptionsBuilder<T> ConfigureSqlServer<T>(this DbContextOptionsBuilder<T> optionsBuilder, string connection) where T : DbContext
-        {
-            optionsBuilder.UseSqlServer<T>(
-                connection,
-                sqlServerOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.MigrationsAssembly(typeof(MeasureEntities).GetTypeInfo().Assembly.GetName().Name);
-                    //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
-                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                }
-            )._ConfigureCommon();
-            return optionsBuilder;
-        }
-
-        public static DbContextOptionsBuilder ConfigureSqlServer(this DbContextOptionsBuilder optionsBuilder, string connection)
-        {
-            optionsBuilder.UseSqlServer(
-                connection,
-                sqlServerOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.MigrationsAssembly(typeof(MeasureEntities).GetTypeInfo().Assembly.GetName().Name);
-                    //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
-                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                }
-            )._ConfigureCommon();
-            return optionsBuilder;
-        }
-        public static DbContextOptionsBuilder<T> ConfigureSqlLite<T>(this DbContextOptionsBuilder<T> optionsBuilder, string connection) where T : DbContext
-        {
-            optionsBuilder.UseSqlite<T>(
-                connection,
-                sqliteOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.MigrationsAssembly(typeof(MeasureEntities).GetTypeInfo().Assembly.GetName().Name);
-                    //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
-                    //                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                }
-            )._ConfigureCommon();
-            return optionsBuilder;
-        }
-        public static DbContextOptionsBuilder ConfigureSqlLite(this DbContextOptionsBuilder optionsBuilder, string connection)
-        {
-            optionsBuilder.UseSqlite(
-                connection,
-                sqliteOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.MigrationsAssembly(typeof(MeasureEntities).GetTypeInfo().Assembly.GetName().Name);
-                    //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
-//                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                }
-            )._ConfigureCommon();
-            return optionsBuilder;
-        }
-
-
-        private static void _ConfigureSqlServer(DbContextOptionsBuilder optionsBuilder, string connection)
-        {
-            optionsBuilder._ConfigureCommon();
-        }
-
-        private static void _ConfigureCommon(this DbContextOptionsBuilder optionsBuilder)
-        {
-            // Changing default behavior when client evaluation occurs to throw. 
-            // Default in EF Core would be to log a warning when client evaluation is performed.
-            optionsBuilder.ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
-            //Check Client vs. Server evaluation: https://docs.microsoft.com/en-us/ef/core/querying/client-eval
-
-        }
-
-    }
-
     public class ContextSeed
     {
-        public MeasureEntities Context;
+        public MeasureContext Context;
         public ILogger<ContextSeed> Logger;
         public string ContentRootPath { get; set; }
 
-        public Task SeedAsync(MeasureEntities context, IHostingEnvironment env, ILogger<ContextSeed> logger)
+        public Task SeedAsync(MeasureContext context, IHostingEnvironment env, ILogger<ContextSeed> logger)
         {
             this.Context = context;
             this.Logger = logger;
@@ -155,7 +28,7 @@ namespace RandREng.MeasuresCore.Data
             return SeedAsync();
         }
 
-        public Task SeedAsync(MeasureEntities context, ILogger<ContextSeed> logger, string contentRootPath)
+        public Task SeedAsync(MeasureContext context, ILogger<ContextSeed> logger, string contentRootPath)
         {
             this.Context = context;
             this.Logger = logger;
@@ -171,7 +44,7 @@ namespace RandREng.MeasuresCore.Data
 
             await policy.ExecuteAsync(async () =>
             {
-                string fileName = Path.Combine(ContentRootPath, "Setup", "Catalog.json");
+                string fileName = Path.Combine(ContentRootPath, "Setup", "setup.json");
                 if (File.Exists(fileName))
                 {
                     QueryTrackingBehavior initialState = Context.ChangeTracker.QueryTrackingBehavior;

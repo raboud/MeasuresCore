@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -17,6 +17,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\BuildingBlocks\WebHost.Extensions\Extensions.WebHost.csproj" />
     <ProjectReference Include="..\MeasureCore.Data\MeasureCore.Data.csproj" />
     <ProjectReference Include="..\MeasureCore.Domain\MeasureCore.Domain.csproj" />
     <ProjectReference Include="..\Types\Types.csproj" />

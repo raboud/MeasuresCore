@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeasureCore.MVC", "MeasureC
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FEA0C318-FFED-4D39-8781-265718CA43DD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{AD65805F-496A-42F9-B0F2-06728EF6852F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.WebHost", "BuildingBlocks\WebHost.Extensions\Extensions.WebHost.csproj", "{DAEAC23A-4EAC-4F83-8300-44922B39A99A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,9 +55,16 @@ Global
 		{FEA0C318-FFED-4D39-8781-265718CA43DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEA0C318-FFED-4D39-8781-265718CA43DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEA0C318-FFED-4D39-8781-265718CA43DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAEAC23A-4EAC-4F83-8300-44922B39A99A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAEAC23A-4EAC-4F83-8300-44922B39A99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAEAC23A-4EAC-4F83-8300-44922B39A99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAEAC23A-4EAC-4F83-8300-44922B39A99A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DAEAC23A-4EAC-4F83-8300-44922B39A99A} = {AD65805F-496A-42F9-B0F2-06728EF6852F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A778CD26-0DEF-42E5-9995-3B86AA2656EC}

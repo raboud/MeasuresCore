@@ -2,12 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>RandREng.MeasureCore.Data</AssemblyName>
+    <RootNamespace>RandREng.MeasureCore.Data</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20190312154224_init.cs" />
-    <Compile Remove="Migrations\20190312154224_init.Designer.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
@@ -19,15 +17,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="Polly" Version="7.0.3" />
+    <PackageReference Include="Polly" Version="7.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MeasureCore.Domain\MeasureCore.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
