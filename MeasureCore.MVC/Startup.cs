@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,11 +36,14 @@ namespace MeasureCore.MVC
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddCustomMVC(this.Configuration);
+            //services.AddMvc()
+            //    .AddNewtonsoftJson()
+            //    .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            services.AddMvc()
-                .AddNewtonsoftJson();
             services.AddCustomDbContext<MeasureContext>(this.Configuration);
             services.AddCustomHealthCheck(this.Configuration);
+            services.AddScoped<ContextSeed>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +62,17 @@ namespace MeasureCore.MVC
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseHealthChecks("/hc", new HealthCheckOptions()
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+            });
+
+            app.UseHealthChecks("/liveness", new HealthCheckOptions
+            {
+                Predicate = r => r.Name.Contains("self")
+            });
 
             app.UseRouting(routes =>
             {

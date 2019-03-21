@@ -1330,7 +1330,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Created = table.Column<DateTime>(nullable: false),
                     CustomerTypeId = table.Column<int>(nullable: true),
                     EmployeeId = table.Column<int>(nullable: true),
-                    EmployeeId1 = table.Column<int>(nullable: true),
                     LastModified = table.Column<DateTime>(nullable: false),
                     MarketId = table.Column<int>(nullable: true),
                     TechId = table.Column<int>(nullable: true)
@@ -1353,12 +1352,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     table.ForeignKey(
                         name: "FK_Store_Employees_EmployeeId",
                         column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Store_Employees_EmployeeId1",
-                        column: x => x.EmployeeId1,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -3507,11 +3500,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "IX_Store_EmployeeId",
                 table: "Store",
                 column: "EmployeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Store_EmployeeId1",
-                table: "Store",
-                column: "EmployeeId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Store_MarketId",

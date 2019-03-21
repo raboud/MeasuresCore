@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 //using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Newtonsoft.Json.Serialization;
 //using Newtonsoft.Json.Serialization;
 //using Swashbuckle.AspNetCore.Swagger;
 //using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -106,59 +108,36 @@ namespace RandREng.Extensions.ServiceCollection
             return services;
         }
 
-        //public static IServiceCollection AddCustomMVC(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    IHealthChecksBuilder hcBuilder = services.AddHealthChecks();
+        public static IServiceCollection AddCustomMVC(this IServiceCollection services, IConfiguration configuration)
+        {
 
-        //    hcBuilder
-        //        .AddSqlServer(configuration["ConnectionString"]);
+            services.AddMvc(options =>
+            {
+//                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+            })
+            .AddControllersAsServices()
+            .AddNewtonsoftJson(
+                options => {
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                }
+            )
+            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
+            services.AddMvcCore()
+                .AddAuthorization();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
-        //    services.AddHealthChecks(checks =>
-        //    {
-        //        //int minutes = 1;
-        //        //if (int.TryParse(configuration["HealthCheck:Timeout"], out int minutesParsed))
-        //        //{
-        //        //	minutes = minutesParsed;
-        //        //}
-        //        //checks.(configuration["ConnectionString"], name: "CatalogDb", , TimeSpan.FromMinutes(minutes));
-
-        //        //string accountName = configuration.GetValue<string>("AzureStorageAccountName");
-        //        //string accountKey = configuration.GetValue<string>("AzureStorageAccountKey");
-        //        //if (!string.IsNullOrEmpty(accountName) && !string.IsNullOrEmpty(accountKey))
-        //        //{
-        //        //	checks.AddAzureBlobStorage(accountName, accountKey);
-        //        //}
-        //    });
-
-        //    services.AddMvc(options =>
-        //    {
-        //        options.Filters.Add(typeof(HttpGlobalExceptionFilter));
-        //    })
-        //    .AddControllersAsServices()
-        //    .AddJsonOptions(
-        //        options => {
-        //            options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-        //            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-        //        }
-        //    )
-        //    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-        //    services.AddMvcCore()
-        //        .AddAuthorization();
-
-        //    services.AddCors(options =>
-        //    {
-        //        options.AddPolicy("CorsPolicy",
-        //            builder => builder.AllowAnyOrigin()
-        //            .AllowAnyMethod()
-        //            .AllowAnyHeader()
-        //            .AllowCredentials());
-        //    });
-
-        //    return services;
-        //}
+            return services;
+        }
 
         public static IServiceCollection AddCustomDbContext<TContext>(this IServiceCollection services, IConfiguration configuration) where TContext : DbContext
         {

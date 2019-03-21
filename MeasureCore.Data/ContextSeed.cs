@@ -20,25 +20,16 @@ namespace RandREng.MeasuresCore.Data
         public ILogger<ContextSeed> Logger;
         public string ContentRootPath { get; set; }
 
-        public Task SeedAsync(MeasureContext context, IHostingEnvironment env, ILogger<ContextSeed> logger)
+        public ContextSeed(MeasureContext context, IHostingEnvironment env, ILogger<ContextSeed> logger)
         {
             this.Context = context;
             this.Logger = logger;
             ContentRootPath = env.ContentRootPath;
-            return SeedAsync();
         }
 
-        public Task SeedAsync(MeasureContext context, ILogger<ContextSeed> logger, string contentRootPath)
+        public async Task SeedAsync()
         {
-            this.Context = context;
-            this.Logger = logger;
-            this.ContentRootPath = contentRootPath;
-            return SeedAsync();
-        }
-
-        private async Task SeedAsync()
-        {
-            Logger.LogInformation("Enterring SeedAsync");
+            Logger.LogInformation("Entering SeedAsync");
 
             AsyncRetryPolicy policy = CreatePolicy(nameof(ContextSeed));
 
@@ -87,6 +78,7 @@ namespace RandREng.MeasuresCore.Data
 
         async Task ProcessPhoneNumberType(dynamic items)
         {
+            Logger.LogInformation("Entering ProcessPhoneNumberType");
             List<PhoneNumberType> data = await Context.PhoneNumberTypes.ToListAsync();
             foreach (string item in items)
             {
@@ -95,7 +87,9 @@ namespace RandREng.MeasuresCore.Data
                     Context.PhoneNumberTypes.Add(new PhoneNumberType() { Name = item });
                 }
             }
-            await Context.SaveChangesAsync();
+            int change = await Context.SaveChangesAsync();
+            Logger.LogInformation($"ProcessPhoneNumberType updated {change}");
+
         }
 
         //async Task ProcessVendors(dynamic items)
@@ -148,7 +142,7 @@ namespace RandREng.MeasuresCore.Data
 
         //async Task ProcessProducts(dynamic items)
         //{
-        //    Logger.LogInformation("Enterring ProcessProducts");
+        //    Logger.LogInformation("Entering ProcessProducts");
 
         //    List<Brand> brands = await Context.Brands.ToListAsync();
         //    List<Vendor> vendors = await Context.Vendors.ToListAsync();

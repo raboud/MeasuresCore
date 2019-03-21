@@ -4,6 +4,8 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using RandREng.Extensions.DbContexts;
+using Microsoft.Extensions.Configuration;
 
 namespace RandREng.MeasuresCore.Data
 {
@@ -61,12 +63,18 @@ namespace RandREng.MeasuresCore.Data
 		public DbSet<CheckCBDetail> CheckCBDetails { get; set; }
 		public DbSet<MeasureCustomerStore> MeasureCustomerStores { get; set; }
 
-		public MeasureContext(DbContextOptions<MeasureContext> options)
+        private IConfiguration _config { get; set; }
+
+        public MeasureContext(DbContextOptions<MeasureContext> options, IConfiguration config)
 			: base(options)
-		{ }
-        public MeasureContext()
+		{
+            this._config = config;
+        }
+        public MeasureContext(IConfiguration config)
             : base()
-        { }
+        {
+            this._config = config;
+        }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -80,8 +88,15 @@ namespace RandREng.MeasuresCore.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-//                optionsBuilder.UseInMemoryDatabase("tet");
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=test;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                //                optionsBuilder.UseInMemoryDatabase("tet");
+                if (this._config != null)
+                {
+                    optionsBuilder.ConfigureFromSettings<MeasureContext>(this._config);
+                }
+                else
+                {
+                    optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=test;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                }
             }
             base.OnConfiguring(optionsBuilder);
         }

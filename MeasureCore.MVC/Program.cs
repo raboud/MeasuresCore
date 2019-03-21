@@ -27,9 +27,8 @@ namespace MeasureCore.MVC
                 {
                     var env = services.GetService<IWebHostEnvironment>().ContentRootPath;
                     var logger = services.GetService<ILogger<ContextSeed>>();
-
-                    new ContextSeed()
-                        .SeedAsync(context, logger, env)
+                    services.GetService<ContextSeed>()
+                        .SeedAsync()
                         .Wait();
                 })
                 .Run();

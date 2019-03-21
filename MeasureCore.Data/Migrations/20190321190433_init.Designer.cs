@@ -10,7 +10,7 @@ using RandREng.MeasuresCore.Data;
 namespace RandREng.MeasureCore.Data.Migrations
 {
     [DbContext(typeof(MeasureContext))]
-    [Migration("20190320191754_init")]
+    [Migration("20190321190433_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -2342,8 +2342,6 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int?>("EmployeeId");
 
-                    b.Property<int?>("EmployeeId1");
-
                     b.Property<DateTime>("LastModified");
 
                     b.Property<int?>("MarketId");
@@ -2359,8 +2357,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasIndex("CustomerTypeId");
 
                     b.HasIndex("EmployeeId");
-
-                    b.HasIndex("EmployeeId1");
 
                     b.HasIndex("MarketId");
 
@@ -4137,11 +4133,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Employee")
                         .WithMany("Stores")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee")
-                        .WithMany("Stores1")
-                        .HasForeignKey("EmployeeId1")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Market")

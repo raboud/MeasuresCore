@@ -10,7 +10,7 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            using (MeasureContext context = new MeasureContext())
+            using (MeasureContext context = new MeasureContext(null))
             {
                 Client parent = new Client { CompanyName = "Home Depot", Address = new Address() };
                 Client store = new Client { CompanyName = "Store 127", Address = new Address(), Parent = parent };

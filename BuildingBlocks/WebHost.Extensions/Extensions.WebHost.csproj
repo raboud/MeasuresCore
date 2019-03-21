@@ -11,7 +11,9 @@
     <PackageReference Include="AspNetCore.HealthChecks.AzureStorage" Version="2.2.1" />
     <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="2.2.1" />
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="3.0.0-preview3-19115-03" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="3.0.0-preview3-19115-03" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0-preview3-19153-02" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0-preview3.19153.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0-preview3.19153.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0-preview3.19153.1" />

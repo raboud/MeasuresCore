@@ -6,9 +6,14 @@
     <RootNamespace>RandREng.MeasureCore.Data</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Migrations\20190320191754_init.cs" />
+    <Compile Remove="Migrations\20190320191754_init.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="3.0.0-preview3-19115-03" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.0-preview3.19153.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.0-preview3.19153.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0-preview3.19153.1" />
@@ -21,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BuildingBlocks\WebHost.Extensions\Extensions.WebHost.csproj" />
     <ProjectReference Include="..\MeasureCore.Domain\MeasureCore.Domain.csproj" />
   </ItemGroup>
 

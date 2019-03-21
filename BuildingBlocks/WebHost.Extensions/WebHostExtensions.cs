@@ -75,7 +75,17 @@ namespace RandREng.Extensions.WebHost
         private static void InvokeSeeder<TContext>(Action<TContext, IServiceProvider> seeder, TContext context, IServiceProvider services)
             where TContext : DbContext  
         {
-            context.Database.Migrate();
+            IConfiguration config = services.GetService<IConfiguration>();
+            string dbType = config["DatabaseType"];
+
+            if (dbType == "SqlLite")
+            {
+                context.Database.OpenConnection();
+            }
+            if (dbType == "SqlLite" || dbType == "SqlServer")
+            {
+                context.Database.Migrate();
+            }
             seeder(context, services);
         }
     }
