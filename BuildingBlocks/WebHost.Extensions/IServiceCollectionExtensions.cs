@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 //using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 //using Newtonsoft.Json.Serialization;
 //using Swashbuckle.AspNetCore.Swagger;
 //using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -35,49 +36,75 @@ namespace RandREng.Extensions.ServiceCollection
         //    return services;
         //}
 
-        //public static IServiceCollection AddCustomHealthCheck(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    var accountName = configuration.GetValue<string>("AzureStorageAccountName");
-        //    var accountKey = configuration.GetValue<string>("AzureStorageAccountKey");
+        public static IServiceCollection AddCustomHealthCheck(this IServiceCollection services, IConfiguration configuration)
+        {
+            string accountName = configuration.GetValue<string>("AzureStorageAccountName");
+            string accountKey = configuration.GetValue<string>("AzureStorageAccountKey");
 
-        //    var hcBuilder = services.AddHealthChecks();
+            string name = configuration.GetValue<string>("HealthCheck:Name");
 
-        //    hcBuilder
-        //        .AddCheck("self", () => HealthCheckResult.Healthy())
-        //        .AddSqlServer(
-        //            configuration["ConnectionString"],
-        //            name: "CatalogDB-check",
-        //            tags: new string[] { "catalogdb" });
+            IHealthChecksBuilder hcBuilder = services.AddHealthChecks();
 
-        //    if (!string.IsNullOrEmpty(accountName) && !string.IsNullOrEmpty(accountKey))
-        //    {
-        //        hcBuilder
-        //            .AddAzureBlobStorage(
-        //                $"DefaultEndpointsProtocol=https;AccountName={accountName};AccountKey={accountKey};EndpointSuffix=core.windows.net",
-        //                name: "catalog-storage-check",
-        //                tags: new string[] { "catalogstorage" });
-        //    }
+            if (!string.IsNullOrEmpty(name))
+            {
+                hcBuilder
+                    .AddCheck(name, () => HealthCheckResult.Healthy());
 
-        //    //if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
-        //    //{
-        //    //	hcBuilder
-        //    //		.AddAzureServiceBusTopic(
-        //    //			configuration["EventBusConnection"],
-        //    //			topicName: "eshop_event_bus",
-        //    //			name: "catalog-servicebus-check",
-        //    //			tags: new string[] { "servicebus" });
-        //    //}
-        //    //else
-        //    //{
-        //    //	hcBuilder
-        //    //		.AddRabbitMQ(
-        //    //			$"amqp://{configuration["EventBusConnection"]}",
-        //    //			name: "catalog-rabbitmqbus-check",
-        //    //			tags: new string[] { "rabbitmqbus" });
-        //    //}
+            }
+            bool bDb = configuration.GetValue<bool>("HealthCheck:DB:Enable");
+            if (bDb)
+            {
+                string hcname = configuration.GetValue<string>("HealthCheck:DB:Name");
+                string[] tags = configuration.GetSection("HealthCheck:DB:tags").Get<string[]>();
+                hcBuilder
+                    .AddSqlServer(
+                        configuration["ConnectionString"],
+                        name: hcname,
+                        tags: tags);
+            }
 
-        //    return services;
-        //}
+            bool bStorage = configuration.GetValue<bool>("HealthCheck:AzureBlobStorage:Enable");
+            if (bStorage && !string.IsNullOrEmpty(accountName) && !string.IsNullOrEmpty(accountKey))
+            {
+                string hcname = configuration.GetValue<string>("HealthCheck:AzureBlobStorage:Name");
+                string[] tags = configuration.GetSection("HealthCheck:AzureBlobStorage:tags").Get<string[]>();
+
+                hcBuilder
+                    .AddAzureBlobStorage(
+                        $"DefaultEndpointsProtocol=https;AccountName={accountName};AccountKey={accountKey};EndpointSuffix=core.windows.net",
+                        name: hcname,
+                        tags: tags);
+            }
+
+            bool bService = configuration.GetValue<bool>("HealthCheck:AzureServiceBusTopic:Enable");
+            if (bService && configuration.GetValue<bool>("AzureServiceBusEnabled"))
+            {
+                string hcname = configuration.GetValue<string>("HealthCheck:AzureServiceBusTopic:Name");
+                string topic = configuration.GetValue<string>("HealthCheck:AzureServiceBusTopic:topicName");
+                string[] tags = configuration.GetSection("HealthCheck:AzureServiceBusTopic:tags").Get<string[]>();
+                hcBuilder
+                    .AddAzureServiceBusTopic(
+                        configuration["EventBusConnection"],
+                        topicName: topic,
+                        name: hcname,
+                        tags: tags);
+            }
+
+            bool bRabbit = configuration.GetValue<bool>("HealthCheck:RabbitMQ:Enable");
+            if (bRabbit && !configuration.GetValue<bool>("AzureServiceBusEnabled"))
+            {
+                string hcname = configuration.GetValue<string>("HealthCheck:RabbitMQ:Name");
+                string[] tags = configuration.GetSection("HealthCheck:RabbitMQ:tags").Get<string[]>();
+
+                hcBuilder
+                    .AddRabbitMQ(
+                        $"amqp://{configuration["EventBusConnection"]}",
+                        name: hcname,
+                        tags: tags);
+            }
+
+            return services;
+        }
 
         //public static IServiceCollection AddCustomMVC(this IServiceCollection services, IConfiguration configuration)
         //{
@@ -139,17 +166,6 @@ namespace RandREng.Extensions.ServiceCollection
             {
                 options.ConfigureFromSettings<TContext>(configuration);
             });
-
-            //services.AddDbContext<IntegrationEventLogContext>(options =>
-            //{
-            //	options.UseSqlServer(configuration["ConnectionString"],
-            //						 sqlServerOptionsAction: sqlOptions =>
-            //						 {
-            //							 sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-            //							 //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
-            //							 sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-            //						 });
-            //});
 
             return services;
         }

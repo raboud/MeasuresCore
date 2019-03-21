@@ -38,6 +38,7 @@ namespace MeasureCore.MVC
             services.AddMvc()
                 .AddNewtonsoftJson();
             services.AddCustomDbContext<MeasureContext>(this.Configuration);
+            services.AddCustomHealthCheck(this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
