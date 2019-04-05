@@ -7,7 +7,5 @@ namespace RandREng.MeasuresCore.Domain
     {
         public int Id { get; set; }
         public string JobStatusDescription { get; set; }
-    
-        public List<Order> Orders { get; set; }
     }
 }

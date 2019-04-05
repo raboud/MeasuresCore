@@ -8,6 +8,8 @@ namespace RandREng.MeasuresCore.Domain
     {
         public int Id { get; set; }
         public string CheckNumber { get; set; }
+
+        [Date]
         public Nullable<System.DateTime> CheckDate { get; set; }
 		[Money]
 		public Nullable<decimal> Amount { get; set; }

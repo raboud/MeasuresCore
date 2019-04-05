@@ -22,8 +22,5 @@ namespace RandREng.MeasuresCore.Domain
         public UnitOfMeasure UnitOfMeasure { get; set; }
         public List<MaterialCost> MaterialCosts { get; set; }
         public List<MaterialPrice> MaterialPrices { get; set; }
-//        public List<BasicLabor> BasicLabors { get; set; }
-//        public List<Item> Items { get; set; }
-//        public List<Option> Options { get; set; }
     }
 }

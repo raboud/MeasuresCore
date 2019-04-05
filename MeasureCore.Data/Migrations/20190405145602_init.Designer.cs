@@ -10,7 +10,7 @@ using RandREng.MeasuresCore.Data;
 namespace RandREng.MeasureCore.Data.Migrations
 {
     [DbContext(typeof(MeasureContext))]
-    [Migration("20190321190433_init")]
+    [Migration("20190405145602_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool?>("Closed");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("EnteredBy");
 
@@ -44,8 +46,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<int?>("LastEditedBy");
 
                     b.Property<DateTime?>("LastEditedDate");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int?>("MeasureError");
 
@@ -72,19 +72,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.ToTable("ActionReport");
                 });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.Admin", b =>
-                {
-                    b.Property<int>("EmployeeId");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.HasKey("EmployeeId");
-
-                    b.ToTable("Admin");
-                });
-
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.AspNetUser", b =>
                 {
                     b.Property<string>("Id")
@@ -96,7 +83,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("ConfirmationToken");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Email");
 
@@ -107,8 +96,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<string>("FirstName");
 
                     b.Property<bool>("IsConfirmed");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<string>("LastName");
 
@@ -143,18 +130,19 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<decimal>("Insurance")
                         .HasColumnType("Money");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int>("OwnerId");
 
                     b.Property<bool>("Paid");
 
-                    b.Property<DateTime>("PayDay");
+                    b.Property<DateTime>("PayDay")
+                        .HasColumnType("Date");
 
                     b.Property<string>("QBTxnId");
 
@@ -189,11 +177,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("Comments");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<DateTime?>("Date");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Name");
 
@@ -229,13 +217,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("FaxNumber");
 
                     b.Property<string>("LabelPrinter");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<string>("ManagerId");
 
@@ -262,17 +250,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
-
-                    b.Property<bool>("MarkBilledWhenPaid");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Name");
 
                     b.Property<int?>("ParentId");
-
-                    b.Property<bool>("PrintStatusReport");
 
                     b.Property<int?>("VendorId");
 
@@ -301,11 +285,12 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool?>("CostAdjustment");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("IssueDate");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("Name");
 
@@ -335,13 +320,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<decimal?>("Amount")
                         .HasColumnType("Money");
 
-                    b.Property<DateTime?>("CheckDate");
+                    b.Property<DateTime?>("CheckDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("CheckNumber");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("QBTxnId");
 
@@ -365,9 +351,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int>("CheckId");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.HasKey("Id");
 
@@ -389,9 +375,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int>("CheckId");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("OrderId");
 
@@ -412,25 +398,17 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("CompanyName");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Directions");
+
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("EmailAddress");
 
-                    b.Property<string>("Extension");
-
                     b.Property<string>("FirstName");
 
-                    b.Property<DateTime>("LastModified");
-
-                    b.Property<int?>("LastModifiedBy");
-
-                    b.Property<DateTime?>("LastModifiedDateTime");
-
                     b.Property<string>("LastName");
-
-                    b.Property<string>("MobileNumber");
 
                     b.Property<string>("Name")
                         .ValueGeneratedOnAddOrUpdate()
@@ -438,17 +416,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int?>("ParentId");
 
-                    b.Property<string>("PhoneNumber");
-
                     b.Property<string>("QBCustomerId");
-
-                    b.Property<string>("WorkNumber");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.ClientTypeReport", b =>
@@ -459,9 +433,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int>("ClientTypeId");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Location");
 
@@ -484,60 +458,23 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("Created");
-
-                    b.Property<string>("Fax1");
-
-                    b.Property<string>("Fax2");
-
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<byte[]>("Logo");
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Phone1");
-
-                    b.Property<string>("Phone2");
-
                     b.Property<string>("QRCodePrefix");
-
-                    b.Property<string>("State");
 
                     b.Property<string>("TollFree");
 
-                    b.Property<string>("VendorNumber");
-
                     b.Property<byte[]>("WaiverSignature");
-
-                    b.Property<string>("Zip");
 
                     b.HasKey("Id");
 
                     b.ToTable("CompanyInfoes");
-                });
-
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.Contact", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<bool>("Primary");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Contact");
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.CustomerType", b =>
@@ -546,11 +483,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("ImageName");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<byte[]>("Logo");
 
@@ -563,26 +500,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.ToTable("CustomerType");
                 });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.DaysOfYear", b =>
-                {
-                    b.Property<DateTime>("DateValue");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.HasKey("DateValue");
-
-                    b.ToTable("DaysOfYears");
-                });
-
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Discrepancy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created");
 
                     b.Property<string>("CurrentData");
 
@@ -596,7 +518,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int?>("DiscrepancyTypeId");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("NewData");
 
@@ -625,11 +549,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.HasKey("Id");
 
@@ -642,11 +566,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("OrderSOMerchandiseDetailId");
 
@@ -671,9 +595,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.HasKey("OrderId", "DocumentId");
 
@@ -690,11 +614,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("EmailTypeId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<string>("Name");
 
@@ -711,11 +635,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.HasKey("Id");
 
@@ -730,7 +654,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Email");
 
@@ -739,8 +665,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<DateTime?>("HireDate");
 
                     b.Property<string>("HomeNumber");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<string>("LastName");
 
@@ -769,11 +693,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.HasKey("Id");
 
@@ -790,13 +714,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int>("BranchId");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("CrewName");
 
-                    b.Property<bool>("InstallationManager");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.Property<bool>("InstallationManager");
 
                     b.Property<int>("LeadId");
 
@@ -821,9 +745,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int>("JobTypeId");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("MaxSizeId");
 
@@ -848,13 +772,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("ApplyToMinimun");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
-                    b.Property<bool>("JobSize");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.Property<bool>("JobSize");
 
                     b.Property<int?>("ParentId");
 
@@ -896,11 +820,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("ItemId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int?>("MarketId");
 
@@ -919,11 +843,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("ItemId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int?>("MarketId");
 
@@ -942,11 +866,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("ItemId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int?>("MarketId");
 
@@ -965,13 +889,13 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("ItemI");
 
                     b.Property<int?>("ItemId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.HasKey("Id");
 
@@ -986,11 +910,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("JobStatusDescription");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.HasKey("Id");
 
@@ -1005,11 +929,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("AlwaysSkipInitialCall");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.HasKey("Id");
 
@@ -1024,11 +948,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("EmployeeId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int?>("ManagerId");
 
@@ -1053,11 +977,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.HasKey("Id");
 
@@ -1074,17 +998,17 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("Color");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
+
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<bool>("Furnish");
 
                     b.Property<bool>("IsPadding");
 
                     b.Property<int?>("ItemId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<string>("Manufacturer");
 
@@ -1117,9 +1041,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("MarketId");
 
@@ -1140,9 +1064,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("MarketId");
 
@@ -1167,11 +1091,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Billable");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<bool>("Installable");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<string>("Status");
 
@@ -1186,17 +1110,17 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<int>("CustomerId");
 
                     b.Property<bool>("Deleted");
 
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
+
                     b.Property<DateTime>("Enterred");
 
                     b.Property<string>("EnterredById");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<string>("SpecialInstructions");
 
@@ -1225,11 +1149,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int?>("BranchId");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<DateTime?>("Enterred");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int?>("MeasureId");
 
@@ -1250,11 +1174,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("EmailTemplateId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int>("MeasureId");
 
@@ -1277,13 +1201,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int?>("AltWidthId");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("MaterialTypeId");
 
@@ -1314,11 +1238,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<bool>("IncludeCloset");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int>("MaterialId");
 
@@ -1345,13 +1269,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("CanSendToExpeditor");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<byte?>("DisplayOrder");
 
-                    b.Property<bool>("EnableSchedulingInfo");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.Property<bool>("EnableSchedulingInfo");
 
                     b.Property<string>("NoteTypeDescription");
 
@@ -1378,8 +1302,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AssignedToId");
-
                     b.Property<bool>("Billed");
 
                     b.Property<decimal>("BilledAmount")
@@ -1391,16 +1313,8 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Cancelled");
 
-                    b.Property<string>("CorrelationId");
-
                     b.Property<decimal>("CostAmount")
                         .HasColumnType("Money");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<int?>("CreatedById");
-
-                    b.Property<DateTime?>("CreatedDateTime");
 
                     b.Property<int>("CustomerId");
 
@@ -1408,15 +1322,15 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("CustomerToCall");
 
-                    b.Property<DateTime?>("DateEntered");
-
                     b.Property<bool>("Deleted");
 
                     b.Property<DateTime?>("DrawingDate");
 
                     b.Property<string>("DrawingNumber");
 
-                    b.Property<int?>("EnteredById");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("EntryMethodId");
 
@@ -1435,14 +1349,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<double?>("JobSize");
 
                     b.Property<int?>("JobStatusId");
-
-                    b.Property<DateTime?>("KeyRecDate");
-
-                    b.Property<string>("KeyRecNumber");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.Property<DateTime?>("LastModifiedDateTime");
 
                     b.Property<int?>("MarkDown");
 
@@ -1472,12 +1378,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<decimal>("RetailAmount")
                         .HasColumnType("Money");
 
-                    b.Property<bool>("Reviewed");
-
-                    b.Property<int?>("ReviewedById");
-
-                    b.Property<DateTime?>("ReviewedDate");
-
                     b.Property<string>("SPNNotes");
 
                     b.Property<int?>("SalesPersonId");
@@ -1490,8 +1390,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<bool>("Scheduled");
 
                     b.Property<bool>("ScheduledAM");
-
-                    b.Property<int?>("ServiceLineNo");
 
                     b.Property<bool>("SevenDay");
 
@@ -1510,23 +1408,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssignedToId");
-
-                    b.HasIndex("CreatedById");
-
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("EntryMethodId");
 
-                    b.HasIndex("JobStatusId");
-
                     b.HasIndex("PrimaryOrderId");
 
                     b.HasIndex("ProgramId");
-
-                    b.HasIndex("ReviewedById");
-
-                    b.HasIndex("SalesPersonId");
 
                     b.ToTable("Orders");
                 });
@@ -1537,13 +1425,15 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<int?>("CustomItemNumber");
 
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Description");
+
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("EmployeeId");
 
@@ -1554,8 +1444,6 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<decimal>("ExtendedPrice")
                         .HasColumnType("Money");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<bool?>("NotOnInvoice");
 
@@ -1613,15 +1501,15 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<DateTime?>("DiagramDateTime");
 
                     b.Property<string>("DiagramFileName");
 
                     b.Property<string>("DiagramNumber");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("OrderId");
 
@@ -1638,9 +1526,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("EntryMethodId");
 
@@ -1653,8 +1543,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<double>("InstallQuantity");
 
                     b.Property<int>("ItemId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<decimal>("MaterialCost")
                         .HasColumnType("Money");
@@ -1714,8 +1602,6 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("ContactName");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<bool>("CustomerToCallBack");
 
                     b.Property<DateTime>("DateTimeEntered");
@@ -1724,9 +1610,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Deleted");
 
-                    b.Property<int?>("EnteredById");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.Property<int?>("EnteredById");
 
                     b.Property<string>("NoteText");
 
@@ -1757,95 +1645,23 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.ToTable("OrderNotes");
                 });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderOption", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<int>("EntryMethodId");
-
-                    b.Property<decimal>("ExtendedCost")
-                        .HasColumnType("Money");
-
-                    b.Property<decimal>("ExtendedPrice")
-                        .HasColumnType("Money");
-
-                    b.Property<int>("ItemId");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.Property<decimal>("MaterialCost")
-                        .HasColumnType("Money");
-
-                    b.Property<int>("OrderId");
-
-                    b.Property<bool>("PrintOnInvoice");
-
-                    b.Property<bool>("PrintOnWO");
-
-                    b.Property<double>("Quantity");
-
-                    b.Property<bool>("Reviewed");
-
-                    b.Property<int?>("ReviewedById");
-
-                    b.Property<DateTime?>("ReviewedDate");
-
-                    b.Property<int?>("SubContractorId");
-
-                    b.Property<bool?>("SubContractorPaid");
-
-                    b.Property<decimal?>("SubContractorPay")
-                        .HasColumnType("Money");
-
-                    b.Property<decimal>("UnitCost")
-                        .HasColumnType("Money");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("Money");
-
-                    b.Property<decimal?>("UnitRetail")
-                        .HasColumnType("Money");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EntryMethodId");
-
-                    b.HasIndex("ItemId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ReviewedById");
-
-                    b.ToTable("OrderOption");
-                });
-
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderRegMerchandiseDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Description");
 
-                    b.Property<int?>("EmployeeId");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("EntryMethodId");
 
-                    b.Property<int?>("HDLineNumber");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.Property<int?>("Material_StatusId");
+                    b.Property<int?>("MaterialStatusId");
 
                     b.Property<string>("Notes");
 
@@ -1861,17 +1677,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<decimal?>("Retail")
                         .HasColumnType("Money");
 
-                    b.Property<bool>("Reviewed");
-
-                    b.Property<int?>("ReviewedById");
-
-                    b.Property<DateTime?>("ReviewedDate");
-
                     b.Property<string>("SKUNumber");
 
                     b.Property<string>("ShortDescription");
-
-                    b.Property<int?>("StatusId");
 
                     b.Property<int?>("TransferredFrom");
 
@@ -1879,15 +1687,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int?>("UnitOfMeasureId");
 
-                    b.Property<int?>("XMLStatusId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("EntryMethodId");
 
-                    b.HasIndex("Material_StatusId");
+                    b.HasIndex("MaterialStatusId");
 
                     b.HasIndex("OrderId");
 
@@ -1902,41 +1706,34 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<bool>("Deleted");
 
                     b.Property<string>("Description");
 
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
+
                     b.Property<int>("EntryMethodId");
 
-                    b.Property<DateTime?>("ExpectedArrivalDate");
+                    b.Property<DateTime?>("ExpectedArrivalDate")
+                        .HasColumnType("Date");
 
                     b.Property<int?>("ItemId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int?>("MaterialStatusId");
 
                     b.Property<bool>("NotNeeded");
 
-                    b.Property<int>("OrderId");
+                    b.Property<string>("Notes");
 
-                    b.Property<int?>("OriginalId");
+                    b.Property<int>("OrderId");
 
                     b.Property<int?>("OriginalOrderId");
 
                     b.Property<double?>("PreSplitQty");
 
                     b.Property<double?>("Quantity");
-
-                    b.Property<DateTime?>("Received");
-
-                    b.Property<bool>("Reviewed");
-
-                    b.Property<int?>("ReviewedById");
-
-                    b.Property<DateTime?>("ReviewedDate");
 
                     b.Property<string>("SKUNumber");
 
@@ -1952,13 +1749,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int?>("TransferredTo");
 
-                    b.Property<int?>("UOMId");
-
                     b.Property<int?>("UnitOfMeasureId");
 
                     b.Property<int?>("WillCallLineNumber");
-
-                    b.Property<int?>("XMLStatusId");
 
                     b.HasKey("Id");
 
@@ -1967,8 +1760,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasIndex("MaterialStatusId");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("ReviewedById");
 
                     b.HasIndex("UnitOfMeasureId");
 
@@ -1981,17 +1772,15 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<DateTime>("DateTimeEntered");
 
                     b.Property<bool>("Deleted");
 
-                    b.Property<int?>("EnteredByUserId");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("FilePath");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int>("OrderId");
 
@@ -2010,17 +1799,23 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<string>("PermissionName");
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ParentId");
+
+                    b.Property<int?>("PermissionId");
 
                     b.Property<int>("PermissionTypeId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PermissionId");
 
                     b.HasIndex("PermissionTypeId");
 
@@ -2033,9 +1828,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Name");
 
@@ -2050,9 +1845,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.Property<int?>("EmployeeId");
 
                     b.Property<string>("Number");
 
@@ -2060,47 +1860,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployeeId");
+
                     b.HasIndex("PhoneNumberTypeId");
 
                     b.ToTable("PhoneNumber");
-                });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberClient", b =>
-                {
-                    b.Property<int>("PhoneNumberId");
-
-                    b.Property<int>("ClientId");
-
-                    b.Property<bool>("Active");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.HasKey("PhoneNumberId", "ClientId");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("PhoneNumberClient");
-                });
-
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberContact", b =>
-                {
-                    b.Property<int>("PhoneNumberId");
-
-                    b.Property<int>("ContactId");
-
-                    b.Property<bool>("Active");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.HasKey("PhoneNumberId", "ContactId");
-
-                    b.HasIndex("ContactId");
-
-                    b.ToTable("PhoneNumberContact");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("PhoneNumber");
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberType", b =>
@@ -2109,9 +1875,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Name");
 
@@ -2136,23 +1902,21 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<double?>("CostMultiplier");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<bool>("CustomCostByRetail");
 
                     b.Property<double?>("CustomMultiplier");
 
                     b.Property<int?>("CustomerTypeId");
 
-                    b.Property<bool>("Furnish");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<string>("HDType");
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.Property<bool>("Furnish");
 
                     b.Property<bool>("InsuranceReplacement");
 
                     b.Property<int?>("JobTypeId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int?>("MarkDown");
 
@@ -2196,15 +1960,34 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.ToTable("Program");
                 });
 
+            modelBuilder.Entity("RandREng.MeasuresCore.Domain.ProgramMarketMapping", b =>
+                {
+                    b.Property<int>("ProgramId");
+
+                    b.Property<int>("MarketId");
+
+                    b.Property<bool>("AllowEntry");
+
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.HasKey("ProgramId", "MarketId");
+
+                    b.HasIndex("MarketId");
+
+                    b.ToTable("ProgramMarketMapping");
+                });
+
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.ProgramReport", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Name");
 
@@ -2229,9 +2012,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int>("Class");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Name");
 
@@ -2248,9 +2031,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Name");
 
@@ -2267,11 +2050,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<DateTime>("Date");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("MeasureId");
 
@@ -2298,9 +2081,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Name");
 
@@ -2317,9 +2100,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("Abbreviation");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("Name");
 
@@ -2336,13 +2119,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("AspNetUserId");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<int?>("CustomerTypeId");
 
-                    b.Property<int?>("EmployeeId");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.Property<int?>("EmployeeId");
 
                     b.Property<int?>("MarketId");
 
@@ -2383,7 +2166,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("CellPhoneNumber");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("FirstName");
 
@@ -2395,8 +2180,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .HasColumnType("Money");
 
                     b.Property<double>("InsuranceRate");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<string>("LastName");
 
@@ -2451,15 +2234,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("EmailAddress");
 
-                    b.Property<DateTime>("LastModified");
-
                     b.Property<string>("LastModifiedById");
-
-                    b.Property<DateTime>("LastModifiedDateTime");
 
                     b.Property<string>("PhoneNumber1");
 
@@ -2484,11 +2265,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<byte>("Capacity");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<byte>("DayOfWeek");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("SlotTypeId");
 
@@ -2511,13 +2292,13 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
                     b.Property<int>("Divisor");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<string>("LongDescription");
 
@@ -2538,9 +2319,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int>("BusinessUnitId");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("ManagerId");
 
@@ -2565,11 +2346,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<int>("BusinessUnitId");
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("EmployeeId");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<int>("MarketId");
 
@@ -2596,35 +2377,19 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddedById");
-
-                    b.Property<DateTime>("AddedDate");
-
-                    b.Property<int?>("AssignedToId");
-
-                    b.Property<int?>("CompletedById");
-
-                    b.Property<DateTime?>("CompletedDate");
-
-                    b.Property<DateTime>("Created");
-
                     b.Property<DateTime>("DueDate");
 
-                    b.Property<int?>("JobId");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
+
+                    b.Property<int?>("JobId");
 
                     b.Property<int?>("OrderId");
 
                     b.Property<int>("UserTaskTypeId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddedById");
-
-                    b.HasIndex("AssignedToId");
-
-                    b.HasIndex("CompletedById");
 
                     b.HasIndex("OrderId");
 
@@ -2639,11 +2404,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("Priority");
 
@@ -2652,173 +2417,15 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.ToTable("UserTaskType");
                 });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.VOC", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<short?>("After_Sales_Svc_Overall");
-
-                    b.Property<short?>("Class_Nbr");
-
-                    b.Property<short?>("Communication_Overall");
-
-                    b.Property<short?>("Complete_Within_Timeframe");
-
-                    b.Property<short?>("Correct_Project");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<short?>("Department_Nbr");
-
-                    b.Property<string>("Division_Name");
-
-                    b.Property<string>("Final_Comments");
-
-                    b.Property<string>("General_Comment");
-
-                    b.Property<short?>("Installer_Appearance");
-
-                    b.Property<float?>("Installer_Attributes_Aggregated");
-
-                    b.Property<short?>("Installer_Care");
-
-                    b.Property<short?>("Installer_Cleanup");
-
-                    b.Property<short?>("Installer_Complete_On_Time");
-
-                    b.Property<short?>("Installer_Courtesy");
-
-                    b.Property<short?>("Installer_Informing");
-
-                    b.Property<short?>("Installer_On_Time");
-
-                    b.Property<string>("Installer_Other_Comments");
-
-                    b.Property<short?>("Installer_Overall");
-
-                    b.Property<short?>("Installer_Review_Project");
-
-                    b.Property<short?>("Intrvw_Fiscal_Month");
-
-                    b.Property<short?>("Intrvw_Fiscal_Quarter");
-
-                    b.Property<short?>("Intrvw_Fiscal_Week");
-
-                    b.Property<short?>("Intrvw_Fiscal_Year");
-
-                    b.Property<short?>("Issue_Communication");
-
-                    b.Property<short?>("Issue_Completion_Time");
-
-                    b.Property<short?>("Issue_Customer_Service");
-
-                    b.Property<short?>("Issue_Damaged_Product");
-
-                    b.Property<short?>("Issue_Handling_Overall");
-
-                    b.Property<short?>("Issue_Incorrect_Measurement");
-
-                    b.Property<short?>("Issue_Installer_Professionalism");
-
-                    b.Property<short?>("Issue_Material_Quality");
-
-                    b.Property<short?>("Issue_Occurred");
-
-                    b.Property<string>("Issue_Other");
-
-                    b.Property<short?>("Issue_Property_Damage");
-
-                    b.Property<short?>("Issue_Resolved");
-
-                    b.Property<short?>("Issue_Store_Support");
-
-                    b.Property<short?>("Issue_Workmanship");
-
-                    b.Property<DateTime?>("Key_Rec_Date");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.Property<short?>("Loyalty");
-
-                    b.Property<string>("Market_Name");
-
-                    b.Property<short?>("Market_Nbr");
-
-                    b.Property<short?>("Measure_Consult_Overall");
-
-                    b.Property<string>("Mvendor_Name");
-
-                    b.Property<int?>("Mvendor_Nbr");
-
-                    b.Property<int?>("OrderId");
-
-                    b.Property<short?>("Overall_Sat");
-
-                    b.Property<int?>("PO_Nbr");
-
-                    b.Property<short?>("Product_Overall");
-
-                    b.Property<short?>("Project_Code");
-
-                    b.Property<string>("Project_Name");
-
-                    b.Property<string>("Pvendor_Name");
-
-                    b.Property<short?>("Pvendor_Nbr");
-
-                    b.Property<long?>("Reference_Nbr");
-
-                    b.Property<short?>("Referral");
-
-                    b.Property<string>("Region_Name");
-
-                    b.Property<int?>("SKU");
-
-                    b.Property<short?>("Shopping_Overall");
-
-                    b.Property<short?>("Store_Nbr");
-
-                    b.Property<short?>("Subclass_Nbr");
-
-                    b.Property<DateTime?>("Survey_Date");
-
-                    b.Property<short?>("Value_Overall");
-
-                    b.Property<short?>("Workmanship_Overall");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("VOC");
-                });
-
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.Week", b =>
-                {
-                    b.Property<int>("Weeks")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<DateTime>("LastModified");
-
-                    b.HasKey("Weeks");
-
-                    b.ToTable("Weeks");
-                });
-
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Width", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
 
-                    b.Property<DateTime>("LastModified");
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("MaterialTypeId");
 
@@ -2837,21 +2444,23 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<bool>("Cancel");
 
-                    b.Property<DateTime>("Created");
-
                     b.Property<int?>("CrewId");
+
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int?>("InstallationCrewId");
 
                     b.Property<int?>("JobId");
 
-                    b.Property<DateTime>("LastModified");
-
                     b.Property<int?>("OrderId");
 
-                    b.Property<DateTime>("ScheduleEndDate");
+                    b.Property<DateTime>("ScheduleEndDate")
+                        .HasColumnType("Date");
 
-                    b.Property<DateTime>("ScheduleStartDate");
+                    b.Property<DateTime>("ScheduleStartDate")
+                        .HasColumnType("Date");
 
                     b.Property<bool>("ScheduledAM");
 
@@ -2870,11 +2479,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Created");
+                    b.Property<DateTime>("ENTRY_Created");
+
+                    b.Property<DateTime>("ENTRY_LastModified");
 
                     b.Property<int>("EmailType");
-
-                    b.Property<DateTime>("LastModified");
 
                     b.Property<DateTime>("Sent");
 
@@ -2887,19 +2496,24 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.ToTable("WorkOrderEmail");
                 });
 
+            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberClient", b =>
+                {
+                    b.HasBaseType("RandREng.MeasuresCore.Domain.PhoneNumber");
+
+                    b.Property<bool>("Active");
+
+                    b.Property<int>("ClientId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasDiscriminator().HasValue("PhoneNumberClient");
+                });
+
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.ActionReport", b =>
                 {
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("ActionReports")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.Admin", b =>
-                {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "Employee")
-                        .WithOne("Admin")
-                        .HasForeignKey("RandREng.MeasuresCore.Domain.Admin", "EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -3044,7 +2658,7 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                             b1.HasKey("ClientId");
 
-                            b1.ToTable("Customers");
+                            b1.ToTable("Clients");
 
                             b1.WithOwner()
                                 .HasForeignKey("ClientId");
@@ -3072,10 +2686,35 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                             b1.HasKey("ClientId");
 
-                            b1.ToTable("Customers");
+                            b1.ToTable("Clients");
 
                             b1.WithOwner()
                                 .HasForeignKey("ClientId");
+                        });
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Modified", b1 =>
+                        {
+                            b1.Property<int>("ClientId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("ClientId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("Clients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClientId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
                         });
                 });
 
@@ -3136,7 +2775,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Employee", "ReviewedBy")
-                        .WithMany("Discrepancies")
+                        .WithMany()
                         .HasForeignKey("ReviewedById")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
@@ -3525,7 +3164,7 @@ namespace RandREng.MeasureCore.Data.Migrations
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Market", b =>
                 {
                     b.HasOne("RandREng.MeasuresCore.Domain.Employee", "Employee")
-                        .WithMany("Markets")
+                        .WithMany()
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
@@ -3784,29 +3423,14 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Order", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "AssignedTo")
-                        .WithMany("AssignedOrders")
-                        .HasForeignKey("AssignedToId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "CreatedBy")
-                        .WithMany("CreatedOrders")
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("RandREng.MeasuresCore.Domain.Client", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("EntryMethodId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.JobStatus")
-                        .WithMany("Orders")
-                        .HasForeignKey("JobStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "PrimaryOrder")
@@ -3817,16 +3441,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Program", "Program")
                         .WithMany()
                         .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "ReviewedBy")
-                        .WithMany("ReviewedOrders")
-                        .HasForeignKey("ReviewedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "SalesPerson")
-                        .WithMany("SalesOrders")
-                        .HasForeignKey("SalesPersonId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.OwnsOne("RandREng.MeasuresCore.Domain.Address", "Address", b1 =>
@@ -3856,17 +3470,117 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");
                         });
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Assigned", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("OrderId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+                        });
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Created", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("OrderId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+                        });
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Entered", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("OrderId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+                        });
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Reviewed", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("OrderId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+                        });
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderCustom", b =>
                 {
                     b.HasOne("RandREng.MeasuresCore.Domain.Employee", "Employee")
-                        .WithMany("OrderCustomDetails")
+                        .WithMany()
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
-                        .WithMany("OrderCustomDetails")
+                        .WithMany()
                         .HasForeignKey("EntryMethodId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -3897,7 +3611,7 @@ namespace RandREng.MeasureCore.Data.Migrations
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderItems", b =>
                 {
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
-                        .WithMany("OrderBasicLaborDetails")
+                        .WithMany()
                         .HasForeignKey("EntryMethodId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -3907,7 +3621,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.MaterialStatus", "MaterialStatus")
-                        .WithMany("OrderBasicLaborDetails")
+                        .WithMany()
                         .HasForeignKey("MaterialStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -3917,7 +3631,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Employee", "ReviewedBy")
-                        .WithMany("OrderBasicLaborDetails")
+                        .WithMany()
                         .HasForeignKey("ReviewedById")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
@@ -3925,7 +3639,7 @@ namespace RandREng.MeasureCore.Data.Migrations
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderNote", b =>
                 {
                     b.HasOne("RandREng.MeasuresCore.Domain.Employee", "EnteredBy")
-                        .WithMany("PONotes")
+                        .WithMany()
                         .HasForeignKey("EnteredById")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -3940,44 +3654,16 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderOption", b =>
-                {
-                    b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
-                        .WithMany("Order_Options_Details")
-                        .HasForeignKey("EntryMethodId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Item", "Option")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "ReviewedBy")
-                        .WithMany("Order_Options_Details")
-                        .HasForeignKey("ReviewedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderRegMerchandiseDetail", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "Employee")
-                        .WithMany("OrderRegMerchandiseDetails")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
-                        .WithMany("OrderRegMerchandiseDetails")
+                        .WithMany()
                         .HasForeignKey("EntryMethodId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.MaterialStatus", "Material_Status")
-                        .WithMany("OrderRegMerchandiseDetails")
-                        .HasForeignKey("Material_StatusId")
+                        .WithMany()
+                        .HasForeignKey("MaterialStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
@@ -3989,17 +3675,42 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UnitOfMeasureId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Reviewed", b1 =>
+                        {
+                            b1.Property<int>("OrderRegMerchandiseDetailId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("OrderRegMerchandiseDetailId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("OrderRegMerchandiseDetail");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderRegMerchandiseDetailId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+                        });
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderSOMerchandiseDetail", b =>
                 {
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
-                        .WithMany("OrderSOMerchandiseDetails")
+                        .WithMany()
                         .HasForeignKey("EntryMethodId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.MaterialStatus", "Material_Status")
-                        .WithMany("OrderSOMerchandiseDetails")
+                        .WithMany()
                         .HasForeignKey("MaterialStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -4008,15 +3719,60 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "ReviewedBy")
-                        .WithMany("OrderSOMerchandiseDetails")
-                        .HasForeignKey("ReviewedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("RandREng.MeasuresCore.Domain.UnitOfMeasure", "UnitOfMeasure")
                         .WithMany()
                         .HasForeignKey("UnitOfMeasureId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Received", b1 =>
+                        {
+                            b1.Property<int>("OrderSOMerchandiseDetailId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("OrderSOMerchandiseDetailId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("OrderSOMerchandiseDetail");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderSOMerchandiseDetailId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+                        });
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Reviewed", b1 =>
+                        {
+                            b1.Property<int>("OrderSOMerchandiseDetailId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("OrderSOMerchandiseDetailId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("OrderSOMerchandiseDetail");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderSOMerchandiseDetailId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+                        });
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.POPhoto", b =>
@@ -4025,10 +3781,40 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .WithMany("POPhotos")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "EnterredBy", b1 =>
+                        {
+                            b1.Property<int>("POPhotoId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("POPhotoId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("POPhotos");
+
+                            b1.WithOwner()
+                                .HasForeignKey("POPhotoId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+                        });
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Permission", b =>
                 {
+                    b.HasOne("RandREng.MeasuresCore.Domain.Permission")
+                        .WithMany("SubPermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("RandREng.MeasuresCore.Domain.PermissionType", "PermissionType")
                         .WithMany("Permissions")
                         .HasForeignKey("PermissionTypeId")
@@ -4037,35 +3823,14 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumber", b =>
                 {
+                    b.HasOne("RandREng.MeasuresCore.Domain.Employee")
+                        .WithMany("PhoneNumbers")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("RandREng.MeasuresCore.Domain.PhoneNumberType", "PhoneNumberType")
                         .WithMany()
                         .HasForeignKey("PhoneNumberTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberClient", b =>
-                {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Client", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.PhoneNumber", "PhoneNumber")
-                        .WithMany()
-                        .HasForeignKey("PhoneNumberId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberContact", b =>
-                {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.PhoneNumber", "PhoneNumber")
-                        .WithMany()
-                        .HasForeignKey("PhoneNumberId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -4084,6 +3849,19 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.JobType")
                         .WithMany("Programs")
                         .HasForeignKey("JobTypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("RandREng.MeasuresCore.Domain.ProgramMarketMapping", b =>
+                {
+                    b.HasOne("RandREng.MeasuresCore.Domain.Market", "Market")
+                        .WithMany()
+                        .HasForeignKey("MarketId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RandREng.MeasuresCore.Domain.Program", "Program")
+                        .WithMany()
+                        .HasForeignKey("ProgramId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -4330,21 +4108,6 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.UserTask", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "AddedBy")
-                        .WithMany("AddedTasks")
-                        .HasForeignKey("AddedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "AssignedTo")
-                        .WithMany("AssignedTasks")
-                        .HasForeignKey("AssignedToId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", "CompletedBy")
-                        .WithMany("CompletedTasks")
-                        .HasForeignKey("CompletedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("UserTasks")
                         .HasForeignKey("OrderId")
@@ -4354,14 +4117,81 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .WithMany("UserTasks")
                         .HasForeignKey("UserTaskTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.VOC", b =>
-                {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
-                        .WithMany("VOCs")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Added", b1 =>
+                        {
+                            b1.Property<int>("UserTaskId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("UserTaskId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("UserTask");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserTaskId");
+                        });
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Assinged", b1 =>
+                        {
+                            b1.Property<int>("UserTaskId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("UserTaskId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("UserTask");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserTaskId");
+                        });
+
+                    b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Completed", b1 =>
+                        {
+                            b1.Property<int>("UserTaskId")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("DateTimeEntered");
+
+                            b1.Property<int?>("UserId");
+
+                            b1.HasKey("UserTaskId");
+
+                            b1.HasIndex("UserId");
+
+                            b1.ToTable("UserTask");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Employee", "User")
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Restrict);
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserTaskId");
+                        });
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.WorkOrder", b =>
@@ -4382,6 +4212,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.WorkOrder", "WorkOrder")
                         .WithMany("WorkOrderEmails")
                         .HasForeignKey("WorkOrderId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberClient", b =>
+                {
+                    b.HasOne("RandREng.MeasuresCore.Domain.Client")
+                        .WithMany("PhoneNumbers")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

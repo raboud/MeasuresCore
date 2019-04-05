@@ -113,12 +113,21 @@ namespace RandREng.Types
 		public override bool Equals(object obj)
 		{
 			if (obj is ShortGuid)
-				return _guid.Equals(((ShortGuid)obj)._guid);
-			if (obj is Guid)
-				return _guid.Equals((Guid)obj);
-			if (obj is string)
-				return _guid.Equals(((ShortGuid)obj)._guid);
-			return false;
+            {
+                return _guid.Equals(((ShortGuid)obj)._guid);
+            }
+
+            if (obj is Guid)
+            {
+                return _guid.Equals((Guid)obj);
+            }
+
+            if (obj is string)
+            {
+                return _guid.Equals(((ShortGuid)obj)._guid);
+            }
+
+            return false;
 		}
 
 		#endregion

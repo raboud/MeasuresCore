@@ -17,6 +17,7 @@ namespace RandREng.MeasuresCore.Domain
         public string Number { get; set; }
         public string Name { get; set; }
         public string Reason { get; set; }
+        [Date]
         public System.DateTime IssueDate { get; set; }
         public string OriginalPO { get; set; }
         public Nullable<bool> CostAdjustment { get; set; }

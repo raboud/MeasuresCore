@@ -19,7 +19,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{AD65805F-496A-42F9-B0F2-06728EF6852F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.WebHost", "BuildingBlocks\WebHost.Extensions\Extensions.WebHost.csproj", "{DAEAC23A-4EAC-4F83-8300-44922B39A99A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.WebHost", "BuildingBlocks\WebHost.Extensions\Extensions.WebHost.csproj", "{DAEAC23A-4EAC-4F83-8300-44922B39A99A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeasureCore.WinForms", "MeasureCore.WinForms\MeasureCore.WinForms.csproj", "{28987619-00B7-447D-8BF5-88E6B0BBE108}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{DAEAC23A-4EAC-4F83-8300-44922B39A99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAEAC23A-4EAC-4F83-8300-44922B39A99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAEAC23A-4EAC-4F83-8300-44922B39A99A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28987619-00B7-447D-8BF5-88E6B0BBE108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28987619-00B7-447D-8BF5-88E6B0BBE108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28987619-00B7-447D-8BF5-88E6B0BBE108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28987619-00B7-447D-8BF5-88E6B0BBE108}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,6 +14,7 @@ namespace RandREng.MeasuresCore.Domain
         public decimal Retainage { get; set; }
 		[Money]
         public decimal Insurance { get; set; }
+        [Date]
         public System.DateTime PayDay { get; set; }
         public bool Paid { get; set; }
         public int OwnerId { get; set; }

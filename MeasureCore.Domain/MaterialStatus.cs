@@ -9,9 +9,6 @@ namespace RandREng.MeasuresCore.Domain
         public string Status { get; set; }
         public bool Billable { get; set; }
         public bool Installable { get; set; }
-    
-        public List<OrderItems> OrderBasicLaborDetails { get; set; }
-        public List<OrderRegMerchandiseDetail> OrderRegMerchandiseDetails { get; set; }
-        public List<OrderSOMerchandiseDetail> OrderSOMerchandiseDetails { get; set; }
+   
     }
 }

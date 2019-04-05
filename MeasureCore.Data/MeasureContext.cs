@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using RandREng.Extensions.DbContexts;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore.Metadata;
+using System.Collections.Generic;
 
 namespace RandREng.MeasuresCore.Data
 {
@@ -20,7 +22,7 @@ namespace RandREng.MeasuresCore.Data
 
 		public DbSet<Order> Orders { get; set; }
 		public DbSet<Document> Documents { get; set; }
-		public DbSet<Client> Customers { get; set; }
+		public DbSet<Client> Clients { get; set; }
 		public DbSet<Employee> Employees { get; set; }
 
 		public DbSet<Item> Items { get; set; }
@@ -45,7 +47,6 @@ namespace RandREng.MeasuresCore.Data
 		public DbSet<CheckDetail> CheckDetails { get; set; }
 		public DbSet<ClientTypeReport> ClientTypeReports { get; set; }
 		public DbSet<CompanyInfo> CompanyInfoes { get; set; }
-		public DbSet<DaysOfYear> DaysOfYears { get; set; }
 		public DbSet<EntryMethod> EntryMethods { get; set; }
 		public DbSet<JobStatus> JobStatus { get; set; }
 		public DbSet<JobType> JobTypes { get; set; }
@@ -57,7 +58,6 @@ namespace RandREng.MeasuresCore.Data
 		public DbSet<State> States { get; set; }
 		public DbSet<SubContractor> SubContractors { get; set; }
 		public DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
-		public DbSet<Week> Weeks { get; set; }
 		public DbSet<ChargeBack> ChargeBacks { get; set; }
 		public DbSet<Check> Checks { get; set; }
 		public DbSet<CheckCBDetail> CheckCBDetails { get; set; }
@@ -68,12 +68,20 @@ namespace RandREng.MeasuresCore.Data
         public MeasureContext(DbContextOptions<MeasureContext> options, IConfiguration config)
 			: base(options)
 		{
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             this._config = config;
         }
         public MeasureContext(IConfiguration config)
             : base()
         {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             this._config = config;
+        }
+        public MeasureContext()
+            : base()
+        {
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            this._config = null;
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -88,13 +96,13 @@ namespace RandREng.MeasuresCore.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //                optionsBuilder.UseInMemoryDatabase("tet");
                 if (this._config != null)
                 {
                     optionsBuilder.ConfigureFromSettings<MeasureContext>(this._config);
                 }
                 else
                 {
+                    optionsBuilder.EnableSensitiveDataLogging();
                     optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=test;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                 }
             }
@@ -103,28 +111,26 @@ namespace RandREng.MeasuresCore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-            modelBuilder.Entity<PhoneNumberContact>().HasKey(s => new { s.PhoneNumberId, s.ContactId });
-            modelBuilder.Entity<PhoneNumberClient>().HasKey(s => new { s.PhoneNumberId, s.ClientId });
-
-			modelBuilder.Entity<DocumentOrder>().HasKey(s => new { s.OrderId, s.DocumentId });
+            modelBuilder.Entity<DocumentOrder>().HasKey(s => new { s.OrderId, s.DocumentId });
 			modelBuilder.Entity<InstallationCrewType>().HasKey(s => new { s.InstallationCrewId, s.JobTypeId });
+            modelBuilder.Entity<ProgramMarketMapping>().HasKey(s => new { s.ProgramId, s.MarketId });
 
             modelBuilder.Entity<Client>()
                 .Property(p => p.Name)
                 .HasComputedColumnSql("ISnull(CompanyName, LastName + ', ' + FirstName)");
 
 
-			foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+			foreach (IMutableForeignKey relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
 			{
 				relationship.DeleteBehavior = DeleteBehavior.Restrict;
 			}
 
-			foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+			foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
 			{
 				if (!entityType.IsOwned())
 				{
-					modelBuilder.Entity(entityType.Name).Property<DateTime>("Created");
-					modelBuilder.Entity(entityType.Name).Property<DateTime>("LastModified");
+					modelBuilder.Entity(entityType.Name).Property<DateTime>("ENTRY_Created");
+					modelBuilder.Entity(entityType.Name).Property<DateTime>("ENTRY_LastModified");
 				}
 			}
             base.OnModelCreating(modelBuilder);
@@ -132,7 +138,7 @@ namespace RandREng.MeasuresCore.Data
 
 		public override int SaveChanges()
 		{
-			var validationErrors = ChangeTracker
+            IEnumerable<ValidationResult> validationErrors = ChangeTracker
 				.Entries<IValidatableObject>()
 				.SelectMany(e => e.Entity.Validate(null))
 				.Where(r => r != ValidationResult.Success);
@@ -145,23 +151,6 @@ namespace RandREng.MeasuresCore.Data
 			return base.SaveChanges();
 		}
 
-		/*
-
-
-
-
-
-
-
-				protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-				{
-					optionsBuilder.UseSqlServer("Server = (localdb)\\mssqllocaldb; Database = TestDB; Trusted_Connection = True;");
-				}
-
-
-
-
-		*/
 	}
 
 }

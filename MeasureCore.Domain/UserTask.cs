@@ -9,16 +9,12 @@ namespace RandREng.MeasuresCore.Domain
         public Nullable<int> JobId { get; set; }
         public System.DateTime DueDate { get; set; }
         public int UserTaskTypeId { get; set; }
-        public int AddedById { get; set; }
-        public System.DateTime AddedDate { get; set; }
-        public Nullable<int> AssignedToId { get; set; }
-        public Nullable<int> CompletedById { get; set; }
-        public Nullable<System.DateTime> CompletedDate { get; set; }
+        public WhoDidIt Added { get; set; }
+        public WhoDidIt Completed { get; set; }
+        public WhoDidIt Assinged { get; set; }
+
         public Nullable<int> OrderId { get; set; }
     
-        public Employee AssignedTo { get; set; }
-        public Employee CompletedBy { get; set; }
-        public Employee AddedBy { get; set; }
         public Order Order { get; set; }
         public UserTaskType UserTaskType { get; set; }
     }

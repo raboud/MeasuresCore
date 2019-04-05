@@ -28,6 +28,7 @@ namespace RandREng.MeasuresCore.Domain
 
 		[Phone]
         public string PhoneNumber { get; set; }
+        [Phone]
         public string FaxNumber { get; set; }
         public string ManagerId { get; set; }
         public bool Active { get; set; }

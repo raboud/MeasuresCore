@@ -30,8 +30,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     ManagerId = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
                     LabelPrinter = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,12 +46,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     ParentId = table.Column<int>(nullable: true),
-                    PrintStatusReport = table.Column<bool>(nullable: false),
-                    MarkBilledWhenPaid = table.Column<bool>(nullable: false),
                     Active = table.Column<bool>(nullable: false),
                     VendorId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,12 +69,12 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CheckNumber = table.Column<string>(nullable: true),
-                    CheckDate = table.Column<DateTime>(nullable: true),
+                    CheckDate = table.Column<DateTime>(type: "Date", nullable: true),
                     Amount = table.Column<decimal>(type: "Money", nullable: true),
                     VendorId = table.Column<int>(nullable: false),
                     QBTxnId = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,89 +95,16 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Address_ZipCode = table.Column<string>(nullable: true),
                     Address_Latitude = table.Column<double>(nullable: true),
                     Address_Longitude = table.Column<double>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    State = table.Column<string>(nullable: true),
-                    Zip = table.Column<string>(nullable: true),
-                    Phone1 = table.Column<string>(nullable: true),
-                    Phone2 = table.Column<string>(nullable: true),
-                    Fax1 = table.Column<string>(nullable: true),
-                    Fax2 = table.Column<string>(nullable: true),
-                    VendorNumber = table.Column<string>(nullable: true),
                     WaiverSignature = table.Column<byte[]>(nullable: true),
                     Logo = table.Column<byte[]>(nullable: true),
                     QRCodePrefix = table.Column<string>(nullable: true),
                     TollFree = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CompanyInfoes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Contact",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Primary = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contact", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyName = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
-                    Address_City = table.Column<string>(nullable: true),
-                    Address_State = table.Column<string>(nullable: true),
-                    Address_ZipCode = table.Column<string>(nullable: true),
-                    Address_Latitude = table.Column<double>(nullable: true),
-                    Address_Longitude = table.Column<double>(nullable: true),
-                    BillingAddress_Address1 = table.Column<string>(nullable: true),
-                    BillingAddress_Address2 = table.Column<string>(nullable: true),
-                    BillingAddress_City = table.Column<string>(nullable: true),
-                    BillingAddress_State = table.Column<string>(nullable: true),
-                    BillingAddress_ZipCode = table.Column<string>(nullable: true),
-                    BillingAddress_Latitude = table.Column<double>(nullable: true),
-                    BillingAddress_Longitude = table.Column<double>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    WorkNumber = table.Column<string>(nullable: true),
-                    Directions = table.Column<string>(nullable: true),
-                    Extension = table.Column<string>(nullable: true),
-                    LastModifiedBy = table.Column<int>(nullable: true),
-                    LastModifiedDateTime = table.Column<DateTime>(nullable: true),
-                    MobileNumber = table.Column<string>(nullable: true),
-                    EmailAddress = table.Column<string>(nullable: true),
-                    QBCustomerId = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true, computedColumnSql: "ISnull(CompanyName, LastName + ', ' + FirstName)"),
-                    ParentId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Customers_Customers_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,25 +117,12 @@ namespace RandREng.MeasureCore.Data.Migrations
                     ImageName = table.Column<string>(nullable: true),
                     Logo = table.Column<byte[]>(nullable: true),
                     QBClass = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CustomerType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DaysOfYears",
-                columns: table => new
-                {
-                    DateValue = table.Column<DateTime>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DaysOfYears", x => x.DateValue);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,8 +132,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -235,8 +147,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -269,8 +181,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     SMTPEmail = table.Column<string>(nullable: true),
                     UserName = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -284,8 +196,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -299,8 +211,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     JobStatusDescription = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -315,8 +227,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
                     AlwaysSkipInitialCall = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -332,8 +244,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Status = table.Column<string>(nullable: true),
                     Billable = table.Column<bool>(nullable: false),
                     Installable = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -347,8 +259,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -375,8 +287,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Branch = table.Column<string>(nullable: true),
                     BranchId = table.Column<int>(nullable: true),
                     MeasureId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -399,8 +311,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     ShowStoreManagement = table.Column<bool>(nullable: false),
                     PermissionRequiredToSelect = table.Column<bool>(nullable: false),
                     DisplayOrder = table.Column<byte>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -414,8 +326,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -429,8 +341,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -445,8 +357,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Class = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -462,8 +374,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
                     ShowCloset = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -478,8 +390,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -494,8 +406,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Abbreviation = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -543,8 +455,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     PictureFilename = table.Column<string>(nullable: true),
                     LiabilityInsuranceOK = table.Column<bool>(nullable: true),
                     QBSubContractorId = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -562,8 +474,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     NumberOfDecimals = table.Column<int>(nullable: true),
                     LongDescription = table.Column<string>(nullable: true),
                     LongDescriptionSOSI = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -578,26 +490,12 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
                     Priority = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserTaskType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Weeks",
-                columns: table => new
-                {
-                    Weeks = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Weeks", x => x.Weeks);
                 });
 
             migrationBuilder.CreateTable(
@@ -608,8 +506,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Value = table.Column<double>(nullable: false),
                     MaterialTypeId = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -624,9 +522,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    EmailTypeId = table.Column<int>(nullable: true),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    EmailTypeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -635,25 +533,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                         name: "FK_EmailTemplates_EmailTypes_EmailTypeId",
                         column: x => x.EmailTypeId,
                         principalTable: "EmailTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Admin",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Admin", x => x.EmployeeId);
-                    table.ForeignKey(
-                        name: "FK_Admin_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -681,8 +560,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -690,6 +569,56 @@ namespace RandREng.MeasureCore.Data.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Employees_EmployeeId",
                         column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clients",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompanyName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Address_Address1 = table.Column<string>(nullable: true),
+                    Address_Address2 = table.Column<string>(nullable: true),
+                    Address_City = table.Column<string>(nullable: true),
+                    Address_State = table.Column<string>(nullable: true),
+                    Address_ZipCode = table.Column<string>(nullable: true),
+                    Address_Latitude = table.Column<double>(nullable: true),
+                    Address_Longitude = table.Column<double>(nullable: true),
+                    BillingAddress_Address1 = table.Column<string>(nullable: true),
+                    BillingAddress_Address2 = table.Column<string>(nullable: true),
+                    BillingAddress_City = table.Column<string>(nullable: true),
+                    BillingAddress_State = table.Column<string>(nullable: true),
+                    BillingAddress_ZipCode = table.Column<string>(nullable: true),
+                    BillingAddress_Latitude = table.Column<double>(nullable: true),
+                    BillingAddress_Longitude = table.Column<double>(nullable: true),
+                    Directions = table.Column<string>(nullable: true),
+                    Modified_UserId = table.Column<int>(nullable: true),
+                    Modified_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    EmailAddress = table.Column<string>(nullable: true),
+                    QBCustomerId = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true, computedColumnSql: "ISnull(CompanyName, LastName + ', ' + FirstName)"),
+                    ParentId = table.Column<int>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Clients_Clients_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Clients_Employees_Modified_UserId",
+                        column: x => x.Modified_UserId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -708,8 +637,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     ManagerId = table.Column<int>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -743,7 +672,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Furnish = table.Column<bool>(nullable: false),
                     SKU = table.Column<string>(nullable: true),
                     SKUDesc = table.Column<string>(nullable: true),
-                    HDType = table.Column<string>(nullable: true),
                     MaterialTypeName = table.Column<string>(nullable: true),
                     InsuranceReplacement = table.Column<bool>(nullable: false),
                     AllowMaterialStatusUpdate = table.Column<bool>(nullable: false),
@@ -754,8 +682,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     MarkDownMin = table.Column<int>(nullable: true),
                     MarkDownMax = table.Column<int>(nullable: true),
                     BusinessUnitId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -786,41 +714,27 @@ namespace RandREng.MeasureCore.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    PermissionName = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     PermissionTypeId = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ParentId = table.Column<int>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    PermissionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Permission", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Permission_Permission_PermissionId",
+                        column: x => x.PermissionId,
+                        principalTable: "Permission",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Permission_PermissionType_PermissionTypeId",
                         column: x => x.PermissionTypeId,
                         principalTable: "PermissionType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PhoneNumber",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Number = table.Column<string>(nullable: true),
-                    PhoneNumberTypeId = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PhoneNumber", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PhoneNumber_PhoneNumberTypes_PhoneNumberTypeId",
-                        column: x => x.PhoneNumberTypeId,
-                        principalTable: "PhoneNumberTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -835,8 +749,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     ClientTypeId = table.Column<int>(nullable: false),
                     Location = table.Column<string>(nullable: true),
                     StoreTypeId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -865,12 +779,12 @@ namespace RandREng.MeasureCore.Data.Migrations
                     TotalPaid = table.Column<decimal>(type: "Money", nullable: false),
                     Retainage = table.Column<decimal>(type: "Money", nullable: false),
                     Insurance = table.Column<decimal>(type: "Money", nullable: false),
-                    PayDay = table.Column<DateTime>(nullable: false),
+                    PayDay = table.Column<DateTime>(type: "Date", nullable: false),
                     Paid = table.Column<bool>(nullable: false),
                     OwnerId = table.Column<int>(nullable: false),
                     QBTxnId = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -897,14 +811,13 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Address_Latitude = table.Column<double>(nullable: true),
                     Address_Longitude = table.Column<double>(nullable: true),
                     EmailAddress = table.Column<string>(nullable: true),
-                    LastModifiedById = table.Column<string>(nullable: true),
-                    LastModifiedDateTime = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
                     PhoneNumber1 = table.Column<string>(nullable: true),
                     PhoneNumber2 = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    LastModifiedById = table.Column<string>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -924,6 +837,44 @@ namespace RandREng.MeasureCore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PhoneNumber",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Number = table.Column<string>(nullable: true),
+                    PhoneNumberTypeId = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    EmployeeId = table.Column<int>(nullable: true),
+                    ClientId = table.Column<int>(nullable: true),
+                    Active = table.Column<bool>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhoneNumber", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PhoneNumber_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PhoneNumber_PhoneNumberTypes_PhoneNumberTypeId",
+                        column: x => x.PhoneNumberTypeId,
+                        principalTable: "PhoneNumberTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PhoneNumber_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "InstallationCrew",
                 columns: table => new
                 {
@@ -936,8 +887,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Active = table.Column<bool>(nullable: false),
                     InstallationManager = table.Column<bool>(nullable: false),
                     MarketId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -971,8 +922,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     ManagerId = table.Column<int>(nullable: false),
                     MarketId = table.Column<int>(nullable: false),
                     BusinessUnitId = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1018,8 +969,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     RetailPrice = table.Column<decimal>(type: "Money", nullable: true),
                     ProgramId = table.Column<int>(nullable: false),
                     ParentId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1051,6 +1002,13 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CustomerId = table.Column<int>(nullable: false),
+                    Address_Address1 = table.Column<string>(nullable: true),
+                    Address_Address2 = table.Column<string>(nullable: true),
+                    Address_City = table.Column<string>(nullable: true),
+                    Address_State = table.Column<string>(nullable: true),
+                    Address_ZipCode = table.Column<string>(nullable: true),
+                    Address_Latitude = table.Column<double>(nullable: true),
+                    Address_Longitude = table.Column<double>(nullable: true),
                     OrderDate = table.Column<DateTime>(nullable: true),
                     PurchaseOrderNumber = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
@@ -1079,24 +1037,22 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Invoice = table.Column<bool>(nullable: false),
                     OriginalPO = table.Column<string>(nullable: true),
                     OrderNo = table.Column<string>(nullable: true),
-                    DateEntered = table.Column<DateTime>(nullable: true),
-                    EnteredById = table.Column<int>(nullable: true),
                     EntryMethodId = table.Column<int>(nullable: false),
+                    Assigned_UserId = table.Column<int>(nullable: true),
+                    Assigned_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Created_UserId = table.Column<int>(nullable: true),
+                    Created_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Entered_UserId = table.Column<int>(nullable: true),
+                    Entered_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Reviewed_UserId = table.Column<int>(nullable: true),
+                    Reviewed_DateTimeEntered = table.Column<DateTime>(nullable: false),
                     FollowUpDate = table.Column<DateTime>(nullable: true),
                     FollowUpAction = table.Column<string>(nullable: true),
-                    ServiceLineNo = table.Column<int>(nullable: true),
-                    LastModifiedDateTime = table.Column<DateTime>(nullable: true),
                     SPNNotes = table.Column<string>(nullable: true),
                     XMLOrderCostAmount = table.Column<int>(nullable: false),
                     Deleted = table.Column<bool>(nullable: false),
-                    Reviewed = table.Column<bool>(nullable: false),
-                    ReviewedById = table.Column<int>(nullable: true),
-                    ReviewedDate = table.Column<DateTime>(nullable: true),
                     VendorId = table.Column<int>(nullable: true),
                     CustomerOrderNumber = table.Column<string>(nullable: true),
-                    CorrelationId = table.Column<string>(nullable: true),
-                    KeyRecNumber = table.Column<string>(nullable: true),
-                    KeyRecDate = table.Column<DateTime>(nullable: true),
                     SvcCompleteSentDate = table.Column<DateTime>(nullable: true),
                     ScheduleEndDate = table.Column<DateTime>(nullable: true),
                     SalesPersonId = table.Column<int>(nullable: true),
@@ -1106,51 +1062,23 @@ namespace RandREng.MeasureCore.Data.Migrations
                     MarkDown = table.Column<int>(nullable: true),
                     JobSize = table.Column<double>(nullable: true),
                     JobStatusId = table.Column<int>(nullable: true),
-                    AssignedToId = table.Column<int>(nullable: true),
                     PrimaryOrderId = table.Column<int>(nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(nullable: true),
-                    CreatedById = table.Column<int>(nullable: true),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
-                    Address_City = table.Column<string>(nullable: true),
-                    Address_State = table.Column<string>(nullable: true),
-                    Address_ZipCode = table.Column<string>(nullable: true),
-                    Address_Latitude = table.Column<double>(nullable: true),
-                    Address_Longitude = table.Column<double>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Orders_Employees_AssignedToId",
-                        column: x => x.AssignedToId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Employees_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Customers_CustomerId",
+                        name: "FK_Orders_Clients_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_EntryMethods_EntryMethodId",
                         column: x => x.EntryMethodId,
                         principalTable: "EntryMethods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_JobStatus_JobStatusId",
-                        column: x => x.JobStatusId,
-                        principalTable: "JobStatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -1166,15 +1094,54 @@ namespace RandREng.MeasureCore.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_Employees_ReviewedById",
-                        column: x => x.ReviewedById,
+                        name: "FK_Orders_Employees_Assigned_UserId",
+                        column: x => x.Assigned_UserId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_Employees_SalesPersonId",
-                        column: x => x.SalesPersonId,
+                        name: "FK_Orders_Employees_Created_UserId",
+                        column: x => x.Created_UserId,
                         principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Employees_Entered_UserId",
+                        column: x => x.Entered_UserId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Employees_Reviewed_UserId",
+                        column: x => x.Reviewed_UserId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProgramMarketMapping",
+                columns: table => new
+                {
+                    ProgramId = table.Column<int>(nullable: false),
+                    MarketId = table.Column<int>(nullable: false),
+                    AllowEntry = table.Column<bool>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProgramMarketMapping", x => new { x.ProgramId, x.MarketId });
+                    table.ForeignKey(
+                        name: "FK_ProgramMarketMapping_Markets_MarketId",
+                        column: x => x.MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProgramMarketMapping_Program_ProgramId",
+                        column: x => x.ProgramId,
+                        principalTable: "Program",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1188,8 +1155,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     ReportTypeId = table.Column<int>(nullable: false),
                     ProgramId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1219,8 +1186,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     BusinessUnitId = table.Column<int>(nullable: false),
                     PermissionId = table.Column<int>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1252,60 +1219,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PhoneNumberClient",
-                columns: table => new
-                {
-                    PhoneNumberId = table.Column<int>(nullable: false),
-                    ClientId = table.Column<int>(nullable: false),
-                    Active = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PhoneNumberClient", x => new { x.PhoneNumberId, x.ClientId });
-                    table.ForeignKey(
-                        name: "FK_PhoneNumberClient_Customers_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PhoneNumberClient_PhoneNumber_PhoneNumberId",
-                        column: x => x.PhoneNumberId,
-                        principalTable: "PhoneNumber",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PhoneNumberContact",
-                columns: table => new
-                {
-                    PhoneNumberId = table.Column<int>(nullable: false),
-                    ContactId = table.Column<int>(nullable: false),
-                    Active = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PhoneNumberContact", x => new { x.PhoneNumberId, x.ContactId });
-                    table.ForeignKey(
-                        name: "FK_PhoneNumberContact_Contact_ContactId",
-                        column: x => x.ContactId,
-                        principalTable: "Contact",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PhoneNumberContact_PhoneNumber_PhoneNumberId",
-                        column: x => x.PhoneNumberId,
-                        principalTable: "PhoneNumber",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Store",
                 columns: table => new
                 {
@@ -1327,10 +1240,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                     BillingAddress_Latitude = table.Column<double>(nullable: true),
                     BillingAddress_Longitude = table.Column<double>(nullable: true),
                     AspNetUserId = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
                     CustomerTypeId = table.Column<int>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: true),
-                    LastModified = table.Column<DateTime>(nullable: false),
                     MarketId = table.Column<int>(nullable: true),
                     TechId = table.Column<int>(nullable: true)
                 },
@@ -1380,8 +1293,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Capacity = table.Column<byte>(nullable: false),
                     DayOfWeek = table.Column<byte>(nullable: false),
                     TechId1 = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1408,8 +1321,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     JobTypeId = table.Column<int>(nullable: false),
                     Rating = table.Column<double>(nullable: true),
                     MaxSizeId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1446,9 +1359,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Furnish = table.Column<bool>(nullable: false),
                     Active = table.Column<bool>(nullable: false),
                     MatSubCatId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    ItemId = table.Column<int>(nullable: true),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    ItemId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1496,8 +1409,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     EnteredBy = table.Column<int>(nullable: true),
                     LastEditedDate = table.Column<DateTime>(nullable: true),
                     LastEditedBy = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1522,14 +1435,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Number = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Reason = table.Column<string>(nullable: true),
-                    IssueDate = table.Column<DateTime>(nullable: false),
+                    IssueDate = table.Column<DateTime>(type: "Date", nullable: false),
                     OriginalPO = table.Column<string>(nullable: true),
                     CostAdjustment = table.Column<bool>(nullable: true),
                     OrderId = table.Column<int>(nullable: true),
                     ApprovalNumber = table.Column<int>(nullable: false),
                     Approved = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1551,8 +1464,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     CheckId = table.Column<int>(nullable: false),
                     OrderId = table.Column<int>(nullable: false),
                     Amount = table.Column<decimal>(type: "Money", nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1588,8 +1501,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Reviewed = table.Column<bool>(nullable: false),
                     ReviewedById = table.Column<int>(nullable: true),
                     DateReviewed = table.Column<DateTime>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1643,8 +1556,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     PrintOnWorkOrder = table.Column<bool>(nullable: false),
                     PrintOnInvoice = table.Column<bool>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1691,8 +1604,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     DiagramNumber = table.Column<string>(nullable: true),
                     DiagramDateTime = table.Column<DateTime>(nullable: true),
                     DiagramFileName = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1732,8 +1645,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     MaterialStatusId = table.Column<int>(nullable: true),
                     Deleted = table.Column<bool>(nullable: false),
                     Reviewed = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1791,8 +1704,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Deleted = table.Column<bool>(nullable: false),
                     SentViaXML = table.Column<bool>(nullable: false),
                     DateTimeSent = table.Column<DateTime>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1818,63 +1731,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderOption",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OrderId = table.Column<int>(nullable: false),
-                    ItemId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<double>(nullable: false),
-                    UnitCost = table.Column<decimal>(type: "Money", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "Money", nullable: false),
-                    UnitRetail = table.Column<decimal>(type: "Money", nullable: true),
-                    MaterialCost = table.Column<decimal>(type: "Money", nullable: false),
-                    ExtendedPrice = table.Column<decimal>(type: "Money", nullable: false),
-                    ExtendedCost = table.Column<decimal>(type: "Money", nullable: false),
-                    SubContractorId = table.Column<int>(nullable: true),
-                    PrintOnInvoice = table.Column<bool>(nullable: false),
-                    PrintOnWO = table.Column<bool>(nullable: false),
-                    EntryMethodId = table.Column<int>(nullable: false),
-                    ReviewedById = table.Column<int>(nullable: true),
-                    ReviewedDate = table.Column<DateTime>(nullable: true),
-                    SubContractorPaid = table.Column<bool>(nullable: true),
-                    SubContractorPay = table.Column<decimal>(type: "Money", nullable: true),
-                    Deleted = table.Column<bool>(nullable: false),
-                    Reviewed = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderOption", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderOption_EntryMethods_EntryMethodId",
-                        column: x => x.EntryMethodId,
-                        principalTable: "EntryMethods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OrderOption_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OrderOption_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_OrderOption_Employees_ReviewedById",
-                        column: x => x.ReviewedById,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrderRegMerchandiseDetail",
                 columns: table => new
                 {
@@ -1886,34 +1742,23 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Description = table.Column<string>(nullable: true),
                     Quantity = table.Column<double>(nullable: true),
                     UnitOfMeasureId = table.Column<int>(nullable: true),
-                    Price = table.Column<decimal>(type: "Money", nullable: true),
-                    Retail = table.Column<decimal>(type: "Money", nullable: true),
-                    HDLineNumber = table.Column<int>(nullable: true),
-                    Notes = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: true),
                     Deleted = table.Column<bool>(nullable: false),
                     EntryMethodId = table.Column<int>(nullable: false),
+                    MaterialStatusId = table.Column<int>(nullable: true),
                     TransferredTo = table.Column<int>(nullable: true),
                     TransferredFrom = table.Column<int>(nullable: true),
-                    XMLStatusId = table.Column<int>(nullable: true),
-                    Reviewed = table.Column<bool>(nullable: false),
-                    ReviewedById = table.Column<int>(nullable: true),
-                    ReviewedDate = table.Column<DateTime>(nullable: true),
+                    Reviewed_UserId = table.Column<int>(nullable: true),
+                    Reviewed_DateTimeEntered = table.Column<DateTime>(nullable: false),
                     OriginalOrderId = table.Column<int>(nullable: true),
-                    EmployeeId = table.Column<int>(nullable: true),
-                    Material_StatusId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    Notes = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(type: "Money", nullable: true),
+                    Retail = table.Column<decimal>(type: "Money", nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderRegMerchandiseDetail", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderRegMerchandiseDetail_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_OrderRegMerchandiseDetail_EntryMethods_EntryMethodId",
                         column: x => x.EntryMethodId,
@@ -1921,8 +1766,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderRegMerchandiseDetail_MaterialStatus_Material_StatusId",
-                        column: x => x.Material_StatusId,
+                        name: "FK_OrderRegMerchandiseDetail_MaterialStatus_MaterialStatusId",
+                        column: x => x.MaterialStatusId,
                         principalTable: "MaterialStatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -1938,6 +1783,12 @@ namespace RandREng.MeasureCore.Data.Migrations
                         principalTable: "UnitOfMeasures",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderRegMerchandiseDetail_Employees_Reviewed_UserId",
+                        column: x => x.Reviewed_UserId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1947,34 +1798,32 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     OrderId = table.Column<int>(nullable: false),
-                    SONumber = table.Column<string>(nullable: true),
                     SKUNumber = table.Column<string>(nullable: true),
-                    ItemId = table.Column<int>(nullable: true),
                     ShortDescription = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Quantity = table.Column<double>(nullable: true),
-                    UOMId = table.Column<int>(nullable: true),
-                    ExpectedArrivalDate = table.Column<DateTime>(nullable: true),
-                    SOLineNumber = table.Column<int>(nullable: true),
-                    MaterialStatusId = table.Column<int>(nullable: true),
-                    EntryMethodId = table.Column<int>(nullable: false),
+                    UnitOfMeasureId = table.Column<int>(nullable: true),
                     Deleted = table.Column<bool>(nullable: false),
+                    EntryMethodId = table.Column<int>(nullable: false),
+                    MaterialStatusId = table.Column<int>(nullable: true),
                     TransferredTo = table.Column<int>(nullable: true),
                     TransferredFrom = table.Column<int>(nullable: true),
-                    SOMerLineNumber = table.Column<int>(nullable: true),
-                    OriginalId = table.Column<int>(nullable: true),
-                    PreSplitQty = table.Column<double>(nullable: true),
-                    XMLStatusId = table.Column<int>(nullable: true),
-                    Reviewed = table.Column<bool>(nullable: false),
-                    ReviewedById = table.Column<int>(nullable: true),
-                    ReviewedDate = table.Column<DateTime>(nullable: true),
-                    WillCallLineNumber = table.Column<int>(nullable: true),
+                    Reviewed_UserId = table.Column<int>(nullable: true),
+                    Reviewed_DateTimeEntered = table.Column<DateTime>(nullable: false),
                     OriginalOrderId = table.Column<int>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
+                    ItemId = table.Column<int>(nullable: true),
+                    ExpectedArrivalDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    SOLineNumber = table.Column<int>(nullable: true),
+                    SOMerLineNumber = table.Column<int>(nullable: true),
+                    PreSplitQty = table.Column<double>(nullable: true),
+                    Received_UserId = table.Column<int>(nullable: true),
+                    Received_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    WillCallLineNumber = table.Column<int>(nullable: true),
                     NotNeeded = table.Column<bool>(nullable: false),
-                    Received = table.Column<DateTime>(nullable: true),
-                    UnitOfMeasureId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    SONumber = table.Column<string>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1998,15 +1847,21 @@ namespace RandREng.MeasureCore.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderSOMerchandiseDetail_Employees_ReviewedById",
-                        column: x => x.ReviewedById,
+                        name: "FK_OrderSOMerchandiseDetail_UnitOfMeasures_UnitOfMeasureId",
+                        column: x => x.UnitOfMeasureId,
+                        principalTable: "UnitOfMeasures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_OrderSOMerchandiseDetail_Employees_Received_UserId",
+                        column: x => x.Received_UserId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderSOMerchandiseDetail_UnitOfMeasures_UnitOfMeasureId",
-                        column: x => x.UnitOfMeasureId,
-                        principalTable: "UnitOfMeasures",
+                        name: "FK_OrderSOMerchandiseDetail_Employees_Reviewed_UserId",
+                        column: x => x.Reviewed_UserId,
+                        principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2018,13 +1873,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FilePath = table.Column<string>(nullable: true),
-                    EnteredByUserId = table.Column<int>(nullable: true),
+                    EnterredBy_UserId = table.Column<int>(nullable: true),
+                    EnterredBy_DateTimeEntered = table.Column<DateTime>(nullable: false),
                     OrderId = table.Column<int>(nullable: false),
                     Deleted = table.Column<bool>(nullable: false),
                     DateTimeEntered = table.Column<DateTime>(nullable: false),
                     Title = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2033,6 +1889,12 @@ namespace RandREng.MeasureCore.Data.Migrations
                         name: "FK_POPhotos_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_POPhotos_Employees_EnterredBy_UserId",
+                        column: x => x.EnterredBy_UserId,
+                        principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2046,36 +1908,19 @@ namespace RandREng.MeasureCore.Data.Migrations
                     JobId = table.Column<int>(nullable: true),
                     DueDate = table.Column<DateTime>(nullable: false),
                     UserTaskTypeId = table.Column<int>(nullable: false),
-                    AddedById = table.Column<int>(nullable: false),
-                    AddedDate = table.Column<DateTime>(nullable: false),
-                    AssignedToId = table.Column<int>(nullable: true),
-                    CompletedById = table.Column<int>(nullable: true),
-                    CompletedDate = table.Column<DateTime>(nullable: true),
+                    Added_UserId = table.Column<int>(nullable: true),
+                    Added_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Completed_UserId = table.Column<int>(nullable: true),
+                    Completed_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Assinged_UserId = table.Column<int>(nullable: true),
+                    Assinged_DateTimeEntered = table.Column<DateTime>(nullable: false),
                     OrderId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserTask", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserTask_Employees_AddedById",
-                        column: x => x.AddedById,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserTask_Employees_AssignedToId",
-                        column: x => x.AssignedToId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserTask_Employees_CompletedById",
-                        column: x => x.CompletedById,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserTask_Orders_OrderId",
                         column: x => x.OrderId,
@@ -2088,87 +1933,22 @@ namespace RandREng.MeasureCore.Data.Migrations
                         principalTable: "UserTaskType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VOC",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    OrderId = table.Column<int>(nullable: true),
-                    Pvendor_Nbr = table.Column<short>(nullable: true),
-                    Pvendor_Name = table.Column<string>(nullable: true),
-                    Project_Code = table.Column<short>(nullable: true),
-                    Project_Name = table.Column<string>(nullable: true),
-                    Survey_Date = table.Column<DateTime>(nullable: true),
-                    Key_Rec_Date = table.Column<DateTime>(nullable: true),
-                    Mvendor_Nbr = table.Column<int>(nullable: true),
-                    Mvendor_Name = table.Column<string>(nullable: true),
-                    Store_Nbr = table.Column<short>(nullable: true),
-                    PO_Nbr = table.Column<int>(nullable: true),
-                    Overall_Sat = table.Column<short>(nullable: true),
-                    Referral = table.Column<short>(nullable: true),
-                    Loyalty = table.Column<short>(nullable: true),
-                    Shopping_Overall = table.Column<short>(nullable: true),
-                    Measure_Consult_Overall = table.Column<short>(nullable: true),
-                    Product_Overall = table.Column<short>(nullable: true),
-                    Value_Overall = table.Column<short>(nullable: true),
-                    Installer_Overall = table.Column<short>(nullable: true),
-                    Installer_On_Time = table.Column<short>(nullable: true),
-                    Installer_Courtesy = table.Column<short>(nullable: true),
-                    Installer_Care = table.Column<short>(nullable: true),
-                    Installer_Appearance = table.Column<short>(nullable: true),
-                    Installer_Cleanup = table.Column<short>(nullable: true),
-                    Installer_Review_Project = table.Column<short>(nullable: true),
-                    Installer_Complete_On_Time = table.Column<short>(nullable: true),
-                    Installer_Informing = table.Column<short>(nullable: true),
-                    Installer_Other_Comments = table.Column<string>(nullable: true),
-                    Installer_Attributes_Aggregated = table.Column<float>(nullable: true),
-                    Workmanship_Overall = table.Column<short>(nullable: true),
-                    Communication_Overall = table.Column<short>(nullable: true),
-                    Complete_Within_Timeframe = table.Column<short>(nullable: true),
-                    After_Sales_Svc_Overall = table.Column<short>(nullable: true),
-                    Issue_Occurred = table.Column<short>(nullable: true),
-                    Issue_Workmanship = table.Column<short>(nullable: true),
-                    Issue_Material_Quality = table.Column<short>(nullable: true),
-                    Issue_Property_Damage = table.Column<short>(nullable: true),
-                    Issue_Installer_Professionalism = table.Column<short>(nullable: true),
-                    Issue_Store_Support = table.Column<short>(nullable: true),
-                    Issue_Damaged_Product = table.Column<short>(nullable: true),
-                    Issue_Incorrect_Measurement = table.Column<short>(nullable: true),
-                    Issue_Customer_Service = table.Column<short>(nullable: true),
-                    Issue_Communication = table.Column<short>(nullable: true),
-                    Issue_Completion_Time = table.Column<short>(nullable: true),
-                    Issue_Other = table.Column<string>(nullable: true),
-                    Issue_Resolved = table.Column<short>(nullable: true),
-                    Issue_Handling_Overall = table.Column<short>(nullable: true),
-                    Final_Comments = table.Column<string>(nullable: true),
-                    General_Comment = table.Column<string>(nullable: true),
-                    Intrvw_Fiscal_Week = table.Column<short>(nullable: true),
-                    Intrvw_Fiscal_Month = table.Column<short>(nullable: true),
-                    Intrvw_Fiscal_Quarter = table.Column<short>(nullable: true),
-                    Intrvw_Fiscal_Year = table.Column<short>(nullable: true),
-                    Division_Name = table.Column<string>(nullable: true),
-                    Region_Name = table.Column<string>(nullable: true),
-                    Department_Nbr = table.Column<short>(nullable: true),
-                    Class_Nbr = table.Column<short>(nullable: true),
-                    Subclass_Nbr = table.Column<short>(nullable: true),
-                    Reference_Nbr = table.Column<long>(nullable: true),
-                    Correct_Project = table.Column<short>(nullable: true),
-                    Market_Nbr = table.Column<short>(nullable: true),
-                    Market_Name = table.Column<string>(nullable: true),
-                    SKU = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VOC", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_VOC_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
+                        name: "FK_UserTask_Employees_Added_UserId",
+                        column: x => x.Added_UserId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserTask_Employees_Assinged_UserId",
+                        column: x => x.Assinged_UserId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserTask_Employees_Completed_UserId",
+                        column: x => x.Completed_UserId,
+                        principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2179,16 +1959,16 @@ namespace RandREng.MeasureCore.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ScheduleStartDate = table.Column<DateTime>(nullable: false),
-                    CrewId = table.Column<int>(nullable: true),
-                    JobId = table.Column<int>(nullable: true),
                     Cancel = table.Column<bool>(nullable: false),
                     ScheduledAM = table.Column<bool>(nullable: false),
-                    ScheduleEndDate = table.Column<DateTime>(nullable: false),
+                    ScheduleEndDate = table.Column<DateTime>(type: "Date", nullable: false),
+                    ScheduleStartDate = table.Column<DateTime>(type: "Date", nullable: false),
+                    CrewId = table.Column<int>(nullable: true),
+                    JobId = table.Column<int>(nullable: true),
                     OrderId = table.Column<int>(nullable: true),
                     InstallationCrewId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2222,8 +2002,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Cost_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
                     Cost_BusinessUnitId = table.Column<int>(nullable: true),
                     Cost_SalesTax = table.Column<double>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
                     MarketId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -2276,8 +2056,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     MatCost_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
                     MatCost_BusinessUnitId = table.Column<int>(nullable: true),
                     MatCost_SalesTax = table.Column<double>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
                     MarketId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -2330,8 +2110,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Price_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
                     Price_BusinessUnitId = table.Column<int>(nullable: true),
                     Price_SalesTax = table.Column<double>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
                     MarketId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -2385,8 +2165,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Retail_BusinessUnitId = table.Column<int>(nullable: true),
                     Retail_SalesTax = table.Column<double>(nullable: true),
                     ItemId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2430,16 +2210,16 @@ namespace RandREng.MeasureCore.Data.Migrations
                     SpecialInstructions = table.Column<string>(nullable: true),
                     Deleted = table.Column<bool>(nullable: false),
                     Status = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Measures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Measures_Customers_CustomerId",
+                        name: "FK_Measures_Clients_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -2471,8 +2251,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Cost_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
                     Cost_BusinessUnitId = table.Column<int>(nullable: true),
                     Cost_SalesTax = table.Column<double>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
                     MarketId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -2526,8 +2306,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Price_BusinessUnitId = table.Column<int>(nullable: true),
                     Price_SalesTax = table.Column<double>(nullable: true),
                     Material_CatagoryId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
                     MarketId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -2574,8 +2354,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     CheckId = table.Column<int>(nullable: false),
                     ChargeBackId = table.Column<int>(nullable: false),
                     Amount = table.Column<decimal>(type: "Money", nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2612,8 +2392,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     ChargeBackId = table.Column<int>(nullable: true),
                     QBUid = table.Column<string>(nullable: true),
                     SubContractorId = table.Column<int>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2652,8 +2432,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
                     PathAndFilename = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
                     OrderSOMerchandiseDetailId = table.Column<int>(nullable: true),
                     WorkOrderId = table.Column<int>(nullable: true)
                 },
@@ -2683,8 +2463,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     WorkOrderId = table.Column<int>(nullable: false),
                     EmailType = table.Column<int>(nullable: false),
                     Sent = table.Column<DateTime>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2706,8 +2486,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     MeasureId = table.Column<int>(nullable: false),
                     Sent = table.Column<DateTime>(nullable: false),
                     EmailTemplateId = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2740,8 +2520,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     PatternMatchLength = table.Column<double>(nullable: true),
                     PatternMatchWidth = table.Column<double>(nullable: true),
                     Deleted = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2782,8 +2562,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     UserId = table.Column<string>(nullable: true),
                     SlotTypeId = table.Column<int>(nullable: false),
                     MeasureId = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2815,8 +2595,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     OrderId = table.Column<int>(nullable: false),
                     DocumentId = table.Column<int>(nullable: false),
                     Active = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false)
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -2845,8 +2625,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     MaterialId = table.Column<int>(nullable: false),
                     IncludeCloset = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    LastModified = table.Column<DateTime>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
                     MeasureMaterialId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -2932,6 +2712,16 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clients_ParentId",
+                table: "Clients",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_Modified_UserId",
+                table: "Clients",
+                column: "Modified_UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ClientTypeReports_ReportTypeId",
                 table: "ClientTypeReports",
                 column: "ReportTypeId");
@@ -2940,11 +2730,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "IX_ClientTypeReports_StoreTypeId",
                 table: "ClientTypeReports",
                 column: "StoreTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Customers_ParentId",
-                table: "Customers",
-                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Discrepancy_DiscrepancyTypeId",
@@ -3307,39 +3092,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderOption_EntryMethodId",
-                table: "OrderOption",
-                column: "EntryMethodId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderOption_ItemId",
-                table: "OrderOption",
-                column: "ItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderOption_OrderId",
-                table: "OrderOption",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderOption_ReviewedById",
-                table: "OrderOption",
-                column: "ReviewedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderRegMerchandiseDetail_EmployeeId",
-                table: "OrderRegMerchandiseDetail",
-                column: "EmployeeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OrderRegMerchandiseDetail_EntryMethodId",
                 table: "OrderRegMerchandiseDetail",
                 column: "EntryMethodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderRegMerchandiseDetail_Material_StatusId",
+                name: "IX_OrderRegMerchandiseDetail_MaterialStatusId",
                 table: "OrderRegMerchandiseDetail",
-                column: "Material_StatusId");
+                column: "MaterialStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderRegMerchandiseDetail_OrderId",
@@ -3352,14 +3112,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "UnitOfMeasureId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_AssignedToId",
-                table: "Orders",
-                column: "AssignedToId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_CreatedById",
-                table: "Orders",
-                column: "CreatedById");
+                name: "IX_OrderRegMerchandiseDetail_Reviewed_UserId",
+                table: "OrderRegMerchandiseDetail",
+                column: "Reviewed_UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
@@ -3372,11 +3127,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "EntryMethodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_JobStatusId",
-                table: "Orders",
-                column: "JobStatusId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_PrimaryOrderId",
                 table: "Orders",
                 column: "PrimaryOrderId");
@@ -3387,14 +3137,24 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "ProgramId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ReviewedById",
+                name: "IX_Orders_Assigned_UserId",
                 table: "Orders",
-                column: "ReviewedById");
+                column: "Assigned_UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_SalesPersonId",
+                name: "IX_Orders_Created_UserId",
                 table: "Orders",
-                column: "SalesPersonId");
+                column: "Created_UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_Entered_UserId",
+                table: "Orders",
+                column: "Entered_UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_Reviewed_UserId",
+                table: "Orders",
+                column: "Reviewed_UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderSOMerchandiseDetail_EntryMethodId",
@@ -3412,14 +3172,24 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderSOMerchandiseDetail_ReviewedById",
-                table: "OrderSOMerchandiseDetail",
-                column: "ReviewedById");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OrderSOMerchandiseDetail_UnitOfMeasureId",
                 table: "OrderSOMerchandiseDetail",
                 column: "UnitOfMeasureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderSOMerchandiseDetail_Received_UserId",
+                table: "OrderSOMerchandiseDetail",
+                column: "Received_UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderSOMerchandiseDetail_Reviewed_UserId",
+                table: "OrderSOMerchandiseDetail",
+                column: "Reviewed_UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Permission_PermissionId",
+                table: "Permission",
+                column: "PermissionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permission_PermissionTypeId",
@@ -3427,24 +3197,29 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "PermissionTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PhoneNumber_EmployeeId",
+                table: "PhoneNumber",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PhoneNumber_PhoneNumberTypeId",
                 table: "PhoneNumber",
                 column: "PhoneNumberTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PhoneNumberClient_ClientId",
-                table: "PhoneNumberClient",
+                name: "IX_PhoneNumber_ClientId",
+                table: "PhoneNumber",
                 column: "ClientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PhoneNumberContact_ContactId",
-                table: "PhoneNumberContact",
-                column: "ContactId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_POPhotos_OrderId",
                 table: "POPhotos",
                 column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_POPhotos_EnterredBy_UserId",
+                table: "POPhotos",
+                column: "EnterredBy_UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Program_BusinessUnitId",
@@ -3460,6 +3235,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "IX_Program_JobTypeId",
                 table: "Program",
                 column: "JobTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProgramMarketMapping_MarketId",
+                table: "ProgramMarketMapping",
+                column: "MarketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProgramReport_ProgramId",
@@ -3567,21 +3347,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "PermissionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserTask_AddedById",
-                table: "UserTask",
-                column: "AddedById");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserTask_AssignedToId",
-                table: "UserTask",
-                column: "AssignedToId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserTask_CompletedById",
-                table: "UserTask",
-                column: "CompletedById");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserTask_OrderId",
                 table: "UserTask",
                 column: "OrderId");
@@ -3592,9 +3357,19 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "UserTaskTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VOC_OrderId",
-                table: "VOC",
-                column: "OrderId");
+                name: "IX_UserTask_Added_UserId",
+                table: "UserTask",
+                column: "Added_UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserTask_Assinged_UserId",
+                table: "UserTask",
+                column: "Assinged_UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserTask_Completed_UserId",
+                table: "UserTask",
+                column: "Completed_UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkOrder_InstallationCrewId",
@@ -3618,9 +3393,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "ActionReport");
 
             migrationBuilder.DropTable(
-                name: "Admin");
-
-            migrationBuilder.DropTable(
                 name: "BillDetail");
 
             migrationBuilder.DropTable(
@@ -3637,9 +3409,6 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CompanyInfoes");
-
-            migrationBuilder.DropTable(
-                name: "DaysOfYears");
 
             migrationBuilder.DropTable(
                 name: "Discrepancy");
@@ -3661,6 +3430,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ItemRetailPricing");
+
+            migrationBuilder.DropTable(
+                name: "JobStatus");
 
             migrationBuilder.DropTable(
                 name: "MaterialCost");
@@ -3690,19 +3462,16 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "OrderNotes");
 
             migrationBuilder.DropTable(
-                name: "OrderOption");
-
-            migrationBuilder.DropTable(
                 name: "OrderRegMerchandiseDetail");
 
             migrationBuilder.DropTable(
-                name: "PhoneNumberClient");
-
-            migrationBuilder.DropTable(
-                name: "PhoneNumberContact");
+                name: "PhoneNumber");
 
             migrationBuilder.DropTable(
                 name: "POPhotos");
+
+            migrationBuilder.DropTable(
+                name: "ProgramMarketMapping");
 
             migrationBuilder.DropTable(
                 name: "ProgramReport");
@@ -3724,12 +3493,6 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTask");
-
-            migrationBuilder.DropTable(
-                name: "VOC");
-
-            migrationBuilder.DropTable(
-                name: "Weeks");
 
             migrationBuilder.DropTable(
                 name: "WorkOrderEmail");
@@ -3765,10 +3528,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "NoteTypes");
 
             migrationBuilder.DropTable(
-                name: "Contact");
-
-            migrationBuilder.DropTable(
-                name: "PhoneNumber");
+                name: "PhoneNumberTypes");
 
             migrationBuilder.DropTable(
                 name: "ReportTypes");
@@ -3804,9 +3564,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "Measures");
 
             migrationBuilder.DropTable(
-                name: "PhoneNumberTypes");
-
-            migrationBuilder.DropTable(
                 name: "PermissionType");
 
             migrationBuilder.DropTable(
@@ -3828,13 +3585,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "SubContractors");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "EntryMethods");
-
-            migrationBuilder.DropTable(
-                name: "JobStatus");
 
             migrationBuilder.DropTable(
                 name: "Program");

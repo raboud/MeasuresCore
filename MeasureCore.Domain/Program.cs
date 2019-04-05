@@ -6,17 +6,7 @@ namespace RandREng.MeasuresCore.Domain
 {
     public partial class Program
     {
-        public Program()
-        {
-            //this.BasicLabors = new HashSet<BasicLabor>();
-            //this.MaterialCosts = new HashSet<MaterialCost>();
-            //this.MaterialPrices = new HashSet<MaterialPrice>();
-            //this.MaterialTypesMarketMappings = new HashSet<ProgramMarketMapping>();
-            //this.Options = new HashSet<Option>();
-            //this.Orders = new HashSet<Order>();
-            //this.ProgramReports = new HashSet<ProgramReport>();
-        }
-    
+   
         public int Id { get; set; }
         public Nullable<int> CustomerTypeId { get; set; }
 		[Money]
@@ -37,7 +27,6 @@ namespace RandREng.MeasuresCore.Domain
         public bool Furnish { get; set; }
         public string SKU { get; set; }
         public string SKUDesc { get; set; }
-        public string HDType { get; set; }
         public string MaterialTypeName { get; set; }
         public bool InsuranceReplacement { get; set; }
         public bool AllowMaterialStatusUpdate { get; set; }

@@ -7,7 +7,7 @@ namespace RandREng.MeasuresCore.Domain
     {
         public int Id { get; set; }
         public string FilePath { get; set; }
-        public Nullable<int> EnteredByUserId { get; set; }
+        public WhoDidIt EnterredBy { get; set; }
         public int OrderId { get; set; }
         public bool Deleted { get; set; }
         public System.DateTime DateTimeEntered { get; set; }
