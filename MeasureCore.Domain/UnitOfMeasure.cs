@@ -8,8 +8,5 @@ namespace RandREng.MeasuresCore.Domain
         public int Id { get; set; }
         public string Description { get; set; }
         public int Divisor { get; set; }
-        public Nullable<int> NumberOfDecimals { get; set; }
-        public string LongDescription { get; set; }
-        public string LongDescriptionSOSI { get; set; }
     }
 }

@@ -16,6 +16,6 @@ namespace RandREng.MeasuresCore.Domain
         public AspNetUser User { get; set; }
         public AspNetUser LastModifiedBy { get; set; }
         public List<TechCapacity> Capacities { get; set; }
-        public List<Store> Stores { get; set; }
+		public List<Client> Clients { get; set; }
     }
 }

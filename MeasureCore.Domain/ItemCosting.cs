@@ -8,6 +8,6 @@ namespace RandREng.MeasuresCore.Domain
 		public int ItemId { get; set; }
 		public Pricing Cost {get;set;}
 
-		public Item Item { get; set; }
+//		public Item Item { get; set; }
 	}
 }

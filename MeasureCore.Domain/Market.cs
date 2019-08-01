@@ -21,7 +21,7 @@ namespace RandREng.MeasuresCore.Domain
         public List<MaterialCost> MaterialCosts { get; set; }
         public List<MaterialPrice> MaterialPrices { get; set; }
         //public List<ProgramMarketMapping> MaterialTypesMarketMappings { get; set; }
-        public List<Store> Stores { get; set; }
+        public List<Client> Clients { get; set; }
         //public List<UserMarketDivisionAssignment> UserMarketDivisionAssignments { get; set; }
         //public List<UserPermission> UserPermissions { get; set; }
     }

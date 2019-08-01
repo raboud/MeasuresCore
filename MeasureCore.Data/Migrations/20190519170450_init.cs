@@ -18,15 +18,13 @@ namespace RandREng.MeasureCore.Data.Migrations
                     PrinterName = table.Column<string>(nullable: true),
                     PrinterPort = table.Column<string>(nullable: true),
                     PrinterDriver = table.Column<string>(nullable: true),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
+                    Address_Street1 = table.Column<string>(nullable: true),
+                    Address_Street2 = table.Column<string>(nullable: true),
                     Address_City = table.Column<string>(nullable: true),
                     Address_State = table.Column<string>(nullable: true),
                     Address_ZipCode = table.Column<string>(nullable: true),
                     Address_Latitude = table.Column<double>(nullable: true),
                     Address_Longitude = table.Column<double>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    FaxNumber = table.Column<string>(nullable: true),
                     ManagerId = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
                     LabelPrinter = table.Column<string>(nullable: true),
@@ -44,10 +42,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
                     ParentId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
-                    VendorId = table.Column<int>(nullable: true),
                     ENTRY_Created = table.Column<DateTime>(nullable: false),
                     ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
@@ -88,8 +85,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
+                    Address_Street1 = table.Column<string>(nullable: true),
+                    Address_Street2 = table.Column<string>(nullable: true),
                     Address_City = table.Column<string>(nullable: true),
                     Address_State = table.Column<string>(nullable: true),
                     Address_ZipCode = table.Column<string>(nullable: true),
@@ -164,8 +161,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     NickName = table.Column<string>(nullable: true),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
+                    Address_Street1 = table.Column<string>(nullable: true),
+                    Address_Street2 = table.Column<string>(nullable: true),
                     Address_City = table.Column<string>(nullable: true),
                     Address_State = table.Column<string>(nullable: true),
                     Address_ZipCode = table.Column<string>(nullable: true),
@@ -274,8 +271,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
+                    Address_Street1 = table.Column<string>(nullable: true),
+                    Address_Street2 = table.Column<string>(nullable: true),
                     Address_City = table.Column<string>(nullable: true),
                     Address_State = table.Column<string>(nullable: true),
                     Address_ZipCode = table.Column<string>(nullable: true),
@@ -423,8 +420,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     NickName = table.Column<string>(nullable: true),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
+                    Address_Street1 = table.Column<string>(nullable: true),
+                    Address_Street2 = table.Column<string>(nullable: true),
                     Address_City = table.Column<string>(nullable: true),
                     Address_State = table.Column<string>(nullable: true),
                     Address_ZipCode = table.Column<string>(nullable: true),
@@ -471,9 +468,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Description = table.Column<string>(nullable: true),
                     Divisor = table.Column<int>(nullable: false),
-                    NumberOfDecimals = table.Column<int>(nullable: true),
-                    LongDescription = table.Column<string>(nullable: true),
-                    LongDescriptionSOSI = table.Column<string>(nullable: true),
                     ENTRY_Created = table.Column<DateTime>(nullable: false),
                     ENTRY_LastModified = table.Column<DateTime>(nullable: false)
                 },
@@ -569,56 +563,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUsers_Employees_EmployeeId",
                         column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Clients",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyName = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
-                    Address_City = table.Column<string>(nullable: true),
-                    Address_State = table.Column<string>(nullable: true),
-                    Address_ZipCode = table.Column<string>(nullable: true),
-                    Address_Latitude = table.Column<double>(nullable: true),
-                    Address_Longitude = table.Column<double>(nullable: true),
-                    BillingAddress_Address1 = table.Column<string>(nullable: true),
-                    BillingAddress_Address2 = table.Column<string>(nullable: true),
-                    BillingAddress_City = table.Column<string>(nullable: true),
-                    BillingAddress_State = table.Column<string>(nullable: true),
-                    BillingAddress_ZipCode = table.Column<string>(nullable: true),
-                    BillingAddress_Latitude = table.Column<double>(nullable: true),
-                    BillingAddress_Longitude = table.Column<double>(nullable: true),
-                    Directions = table.Column<string>(nullable: true),
-                    Modified_UserId = table.Column<int>(nullable: true),
-                    Modified_DateTimeEntered = table.Column<DateTime>(nullable: false),
-                    EmailAddress = table.Column<string>(nullable: true),
-                    QBCustomerId = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true, computedColumnSql: "ISnull(CompanyName, LastName + ', ' + FirstName)"),
-                    ParentId = table.Column<int>(nullable: true),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clients", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Clients_Clients_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Clients_Employees_Modified_UserId",
-                        column: x => x.Modified_UserId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -740,6 +684,62 @@ namespace RandREng.MeasureCore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Branches_PhoneNumbers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BranchId = table.Column<int>(nullable: false),
+                    Number = table.Column<string>(nullable: true),
+                    PhoneNumberTypeId = table.Column<int>(nullable: false),
+                    Active = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Branches_PhoneNumbers", x => new { x.BranchId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Branches_PhoneNumbers_Branches_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branches",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Branches_PhoneNumbers_PhoneNumberTypes_PhoneNumberTypeId",
+                        column: x => x.PhoneNumberTypeId,
+                        principalTable: "PhoneNumberTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees_PhoneNumbers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EmployeeId = table.Column<int>(nullable: false),
+                    Number = table.Column<string>(nullable: true),
+                    PhoneNumberTypeId = table.Column<int>(nullable: false),
+                    Active = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees_PhoneNumbers", x => new { x.EmployeeId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Employees_PhoneNumbers_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Employees_PhoneNumbers_PhoneNumberTypes_PhoneNumberTypeId",
+                        column: x => x.PhoneNumberTypeId,
+                        principalTable: "PhoneNumberTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ClientTypeReports",
                 columns: table => new
                 {
@@ -803,8 +803,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
+                    Address_Street1 = table.Column<string>(nullable: true),
+                    Address_Street2 = table.Column<string>(nullable: true),
                     Address_City = table.Column<string>(nullable: true),
                     Address_State = table.Column<string>(nullable: true),
                     Address_ZipCode = table.Column<string>(nullable: true),
@@ -832,44 +832,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                         name: "FK_Teches_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PhoneNumber",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Number = table.Column<string>(nullable: true),
-                    PhoneNumberTypeId = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
-                    EmployeeId = table.Column<int>(nullable: true),
-                    ClientId = table.Column<int>(nullable: true),
-                    Active = table.Column<bool>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PhoneNumber", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PhoneNumber_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PhoneNumber_PhoneNumberTypes_PhoneNumberTypeId",
-                        column: x => x.PhoneNumberTypeId,
-                        principalTable: "PhoneNumberTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PhoneNumber_Clients_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -996,130 +958,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CustomerId = table.Column<int>(nullable: false),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
-                    Address_City = table.Column<string>(nullable: true),
-                    Address_State = table.Column<string>(nullable: true),
-                    Address_ZipCode = table.Column<string>(nullable: true),
-                    Address_Latitude = table.Column<double>(nullable: true),
-                    Address_Longitude = table.Column<double>(nullable: true),
-                    OrderDate = table.Column<DateTime>(nullable: true),
-                    PurchaseOrderNumber = table.Column<string>(nullable: true),
-                    Notes = table.Column<string>(nullable: true),
-                    ScheduleStartDate = table.Column<DateTime>(type: "Date", nullable: true),
-                    BilledDate = table.Column<DateTime>(nullable: true),
-                    Scheduled = table.Column<bool>(nullable: false),
-                    Billed = table.Column<bool>(nullable: false),
-                    Paid = table.Column<bool>(nullable: false),
-                    Called = table.Column<bool>(nullable: false),
-                    ProgramId = table.Column<int>(nullable: false),
-                    InternalNotes = table.Column<string>(nullable: true),
-                    CostAmount = table.Column<decimal>(type: "Money", nullable: false),
-                    BilledAmount = table.Column<decimal>(type: "Money", nullable: false),
-                    OrderAmount = table.Column<decimal>(type: "Money", nullable: false),
-                    TripCharge = table.Column<decimal>(type: "Money", nullable: false),
-                    RetailAmount = table.Column<decimal>(type: "Money", nullable: false),
-                    NoMinimum = table.Column<bool>(nullable: false),
-                    ScheduledAM = table.Column<bool>(nullable: false),
-                    Cancelled = table.Column<bool>(nullable: false),
-                    Warrenty = table.Column<bool>(nullable: false),
-                    StoreId = table.Column<int>(nullable: false),
-                    SevenDay = table.Column<bool>(nullable: false),
-                    DrawingNumber = table.Column<string>(nullable: true),
-                    DrawingDate = table.Column<DateTime>(nullable: true),
-                    CustomerToCall = table.Column<bool>(nullable: false),
-                    Invoice = table.Column<bool>(nullable: false),
-                    OriginalPO = table.Column<string>(nullable: true),
-                    OrderNo = table.Column<string>(nullable: true),
-                    EntryMethodId = table.Column<int>(nullable: false),
-                    Assigned_UserId = table.Column<int>(nullable: true),
-                    Assigned_DateTimeEntered = table.Column<DateTime>(nullable: false),
-                    Created_UserId = table.Column<int>(nullable: true),
-                    Created_DateTimeEntered = table.Column<DateTime>(nullable: false),
-                    Entered_UserId = table.Column<int>(nullable: true),
-                    Entered_DateTimeEntered = table.Column<DateTime>(nullable: false),
-                    Reviewed_UserId = table.Column<int>(nullable: true),
-                    Reviewed_DateTimeEntered = table.Column<DateTime>(nullable: false),
-                    FollowUpDate = table.Column<DateTime>(nullable: true),
-                    FollowUpAction = table.Column<string>(nullable: true),
-                    SPNNotes = table.Column<string>(nullable: true),
-                    XMLOrderCostAmount = table.Column<int>(nullable: false),
-                    Deleted = table.Column<bool>(nullable: false),
-                    VendorId = table.Column<int>(nullable: true),
-                    CustomerOrderNumber = table.Column<string>(nullable: true),
-                    SvcCompleteSentDate = table.Column<DateTime>(nullable: true),
-                    ScheduleEndDate = table.Column<DateTime>(nullable: true),
-                    SalesPersonId = table.Column<int>(nullable: true),
-                    Estimate = table.Column<bool>(nullable: false),
-                    NUMBER = table.Column<string>(nullable: true),
-                    JobId = table.Column<int>(nullable: true),
-                    MarkDown = table.Column<int>(nullable: true),
-                    JobSize = table.Column<double>(nullable: true),
-                    JobStatusId = table.Column<int>(nullable: true),
-                    PrimaryOrderId = table.Column<int>(nullable: true),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Clients_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_EntryMethods_EntryMethodId",
-                        column: x => x.EntryMethodId,
-                        principalTable: "EntryMethods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Orders_PrimaryOrderId",
-                        column: x => x.PrimaryOrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Program_ProgramId",
-                        column: x => x.ProgramId,
-                        principalTable: "Program",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Employees_Assigned_UserId",
-                        column: x => x.Assigned_UserId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Employees_Created_UserId",
-                        column: x => x.Created_UserId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Employees_Entered_UserId",
-                        column: x => x.Entered_UserId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Orders_Employees_Reviewed_UserId",
-                        column: x => x.Reviewed_UserId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProgramMarketMapping",
                 columns: table => new
                 {
@@ -1219,26 +1057,35 @@ namespace RandREng.MeasureCore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Store",
+                name: "Clients",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Address_Address1 = table.Column<string>(nullable: true),
-                    Address_Address2 = table.Column<string>(nullable: true),
+                    ParentId = table.Column<int>(nullable: true),
+                    CompanyName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Address_Street1 = table.Column<string>(nullable: true),
+                    Address_Street2 = table.Column<string>(nullable: true),
                     Address_City = table.Column<string>(nullable: true),
                     Address_State = table.Column<string>(nullable: true),
                     Address_ZipCode = table.Column<string>(nullable: true),
                     Address_Latitude = table.Column<double>(nullable: true),
                     Address_Longitude = table.Column<double>(nullable: true),
-                    BillingAddress_Address1 = table.Column<string>(nullable: true),
-                    BillingAddress_Address2 = table.Column<string>(nullable: true),
+                    BillingAddress_Street1 = table.Column<string>(nullable: true),
+                    BillingAddress_Street2 = table.Column<string>(nullable: true),
                     BillingAddress_City = table.Column<string>(nullable: true),
                     BillingAddress_State = table.Column<string>(nullable: true),
                     BillingAddress_ZipCode = table.Column<string>(nullable: true),
                     BillingAddress_Latitude = table.Column<double>(nullable: true),
                     BillingAddress_Longitude = table.Column<double>(nullable: true),
+                    Directions = table.Column<string>(nullable: true),
+                    Modified_UserId = table.Column<int>(nullable: true),
+                    Modified_DateTimeEntered = table.Column<DateTime>(nullable: true),
+                    EmailAddress = table.Column<string>(nullable: true),
+                    QBCustomerId = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true, computedColumnSql: "ISnull(CompanyName, LastName + ', ' + FirstName)"),
                     AspNetUserId = table.Column<string>(nullable: true),
                     CustomerTypeId = table.Column<int>(nullable: true),
                     ENTRY_Created = table.Column<DateTime>(nullable: false),
@@ -1249,35 +1096,47 @@ namespace RandREng.MeasureCore.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Store", x => x.Id);
+                    table.PrimaryKey("PK_Clients", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Store_AspNetUsers_AspNetUserId",
+                        name: "FK_Clients_AspNetUsers_AspNetUserId",
                         column: x => x.AspNetUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Store_CustomerType_CustomerTypeId",
+                        name: "FK_Clients_CustomerType_CustomerTypeId",
                         column: x => x.CustomerTypeId,
                         principalTable: "CustomerType",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Store_Employees_EmployeeId",
+                        name: "FK_Clients_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Store_Markets_MarketId",
+                        name: "FK_Clients_Markets_MarketId",
                         column: x => x.MarketId,
                         principalTable: "Markets",
                         principalColumn: "MarketId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Store_Teches_TechId",
+                        name: "FK_Clients_Clients_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Clients_Teches_TechId",
                         column: x => x.TechId,
                         principalTable: "Teches",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Clients_Employees_Modified_UserId",
+                        column: x => x.Modified_UserId,
+                        principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1382,6 +1241,627 @@ namespace RandREng.MeasureCore.Data.Migrations
                         name: "FK_MaterialCatagory_UnitOfMeasures_UnitOfMeasureId",
                         column: x => x.UnitOfMeasureId,
                         principalTable: "UnitOfMeasures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clients_PhoneNumbers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ClientId = table.Column<int>(nullable: false),
+                    Number = table.Column<string>(nullable: true),
+                    PhoneNumberTypeId = table.Column<int>(nullable: false),
+                    Active = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients_PhoneNumbers", x => new { x.ClientId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Clients_PhoneNumbers_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Clients_PhoneNumbers_PhoneNumberTypes_PhoneNumberTypeId",
+                        column: x => x.PhoneNumberTypeId,
+                        principalTable: "PhoneNumberTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItemCostings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ItemId = table.Column<int>(nullable: false),
+                    Cost_MarketId = table.Column<int>(nullable: true),
+                    Cost_StoreId = table.Column<int>(nullable: true),
+                    Cost_Amount = table.Column<decimal>(type: "Money", nullable: true),
+                    Cost_Freight = table.Column<decimal>(type: "Money", nullable: true),
+                    Cost_StartDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Cost_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Cost_BusinessUnitId = table.Column<int>(nullable: true),
+                    Cost_SalesTax = table.Column<double>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    MarketId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemCostings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemCostings_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemCostings_Markets_MarketId",
+                        column: x => x.MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemCostings_BusinessUnits_Cost_BusinessUnitId",
+                        column: x => x.Cost_BusinessUnitId,
+                        principalTable: "BusinessUnits",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemCostings_Markets_Cost_MarketId",
+                        column: x => x.Cost_MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemCostings_Clients_Cost_StoreId",
+                        column: x => x.Cost_StoreId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItemMatCostings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ItemId = table.Column<int>(nullable: false),
+                    MatCost_MarketId = table.Column<int>(nullable: true),
+                    MatCost_StoreId = table.Column<int>(nullable: true),
+                    MatCost_Amount = table.Column<decimal>(type: "Money", nullable: true),
+                    MatCost_Freight = table.Column<decimal>(type: "Money", nullable: true),
+                    MatCost_StartDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    MatCost_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    MatCost_BusinessUnitId = table.Column<int>(nullable: true),
+                    MatCost_SalesTax = table.Column<double>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    MarketId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemMatCostings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemMatCostings_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemMatCostings_Markets_MarketId",
+                        column: x => x.MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemMatCostings_BusinessUnits_MatCost_BusinessUnitId",
+                        column: x => x.MatCost_BusinessUnitId,
+                        principalTable: "BusinessUnits",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemMatCostings_Markets_MatCost_MarketId",
+                        column: x => x.MatCost_MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemMatCostings_Clients_MatCost_StoreId",
+                        column: x => x.MatCost_StoreId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItemPricings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ItemId = table.Column<int>(nullable: false),
+                    Price_MarketId = table.Column<int>(nullable: true),
+                    Price_StoreId = table.Column<int>(nullable: true),
+                    Price_Amount = table.Column<decimal>(type: "Money", nullable: true),
+                    Price_Freight = table.Column<decimal>(type: "Money", nullable: true),
+                    Price_StartDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Price_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Price_BusinessUnitId = table.Column<int>(nullable: true),
+                    Price_SalesTax = table.Column<double>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    MarketId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemPricings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemPricings_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemPricings_Markets_MarketId",
+                        column: x => x.MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemPricings_BusinessUnits_Price_BusinessUnitId",
+                        column: x => x.Price_BusinessUnitId,
+                        principalTable: "BusinessUnits",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemPricings_Markets_Price_MarketId",
+                        column: x => x.Price_MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemPricings_Clients_Price_StoreId",
+                        column: x => x.Price_StoreId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ItemRetailPricing",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ItemI = table.Column<int>(nullable: false),
+                    Retail_MarketId = table.Column<int>(nullable: true),
+                    Retail_StoreId = table.Column<int>(nullable: true),
+                    Retail_Amount = table.Column<decimal>(type: "Money", nullable: true),
+                    Retail_Freight = table.Column<decimal>(type: "Money", nullable: true),
+                    Retail_StartDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Retail_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Retail_BusinessUnitId = table.Column<int>(nullable: true),
+                    Retail_SalesTax = table.Column<double>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    ItemId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemRetailPricing", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemRetailPricing_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemRetailPricing_BusinessUnits_Retail_BusinessUnitId",
+                        column: x => x.Retail_BusinessUnitId,
+                        principalTable: "BusinessUnits",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemRetailPricing_Markets_Retail_MarketId",
+                        column: x => x.Retail_MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ItemRetailPricing_Clients_Retail_StoreId",
+                        column: x => x.Retail_StoreId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Measures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CustomerId = table.Column<int>(nullable: false),
+                    Enterred = table.Column<DateTime>(nullable: false),
+                    StoreId = table.Column<int>(nullable: false),
+                    EnterredById = table.Column<string>(nullable: true),
+                    SpecialInstructions = table.Column<string>(nullable: true),
+                    Deleted = table.Column<bool>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Measures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Measures_Clients_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Measures_AspNetUsers_EnterredById",
+                        column: x => x.EnterredById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Measures_Clients_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CustomerId = table.Column<int>(nullable: false),
+                    Address_Street1 = table.Column<string>(nullable: true),
+                    Address_Street2 = table.Column<string>(nullable: true),
+                    Address_City = table.Column<string>(nullable: true),
+                    Address_State = table.Column<string>(nullable: true),
+                    Address_ZipCode = table.Column<string>(nullable: true),
+                    Address_Latitude = table.Column<double>(nullable: true),
+                    Address_Longitude = table.Column<double>(nullable: true),
+                    OrderDate = table.Column<DateTime>(nullable: true),
+                    PurchaseOrderNumber = table.Column<string>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
+                    ScheduleStartDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    BilledDate = table.Column<DateTime>(nullable: true),
+                    Scheduled = table.Column<bool>(nullable: false),
+                    Billed = table.Column<bool>(nullable: false),
+                    Paid = table.Column<bool>(nullable: false),
+                    Called = table.Column<bool>(nullable: false),
+                    ProgramId = table.Column<int>(nullable: false),
+                    InternalNotes = table.Column<string>(nullable: true),
+                    CostAmount = table.Column<decimal>(type: "Money", nullable: false),
+                    BilledAmount = table.Column<decimal>(type: "Money", nullable: false),
+                    OrderAmount = table.Column<decimal>(type: "Money", nullable: false),
+                    TripCharge = table.Column<decimal>(type: "Money", nullable: false),
+                    RetailAmount = table.Column<decimal>(type: "Money", nullable: false),
+                    NoMinimum = table.Column<bool>(nullable: false),
+                    ScheduledAM = table.Column<bool>(nullable: false),
+                    Cancelled = table.Column<bool>(nullable: false),
+                    Warrenty = table.Column<bool>(nullable: false),
+                    StoreId = table.Column<int>(nullable: false),
+                    SevenDay = table.Column<bool>(nullable: false),
+                    DrawingNumber = table.Column<string>(nullable: true),
+                    DrawingDate = table.Column<DateTime>(nullable: true),
+                    CustomerToCall = table.Column<bool>(nullable: false),
+                    Invoice = table.Column<bool>(nullable: false),
+                    OriginalPO = table.Column<string>(nullable: true),
+                    OrderNo = table.Column<string>(nullable: true),
+                    EntryMethodId = table.Column<int>(nullable: false),
+                    Assigned_UserId = table.Column<int>(nullable: true),
+                    Assigned_DateTimeEntered = table.Column<DateTime>(nullable: true),
+                    Created_UserId = table.Column<int>(nullable: true),
+                    Created_DateTimeEntered = table.Column<DateTime>(nullable: true),
+                    Entered_UserId = table.Column<int>(nullable: true),
+                    Entered_DateTimeEntered = table.Column<DateTime>(nullable: true),
+                    Reviewed_UserId = table.Column<int>(nullable: true),
+                    Reviewed_DateTimeEntered = table.Column<DateTime>(nullable: true),
+                    FollowUpDate = table.Column<DateTime>(nullable: true),
+                    FollowUpAction = table.Column<string>(nullable: true),
+                    SPNNotes = table.Column<string>(nullable: true),
+                    XMLOrderCostAmount = table.Column<int>(nullable: false),
+                    Deleted = table.Column<bool>(nullable: false),
+                    VendorId = table.Column<int>(nullable: true),
+                    CustomerOrderNumber = table.Column<string>(nullable: true),
+                    SvcCompleteSentDate = table.Column<DateTime>(nullable: true),
+                    ScheduleEndDate = table.Column<DateTime>(nullable: true),
+                    SalesPersonId = table.Column<int>(nullable: true),
+                    Estimate = table.Column<bool>(nullable: false),
+                    NUMBER = table.Column<string>(nullable: true),
+                    JobId = table.Column<int>(nullable: true),
+                    MarkDown = table.Column<int>(nullable: true),
+                    JobSize = table.Column<double>(nullable: true),
+                    JobStatusId = table.Column<int>(nullable: true),
+                    PrimaryOrderId = table.Column<int>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Clients_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_EntryMethods_EntryMethodId",
+                        column: x => x.EntryMethodId,
+                        principalTable: "EntryMethods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Orders_PrimaryOrderId",
+                        column: x => x.PrimaryOrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Program_ProgramId",
+                        column: x => x.ProgramId,
+                        principalTable: "Program",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Employees_Assigned_UserId",
+                        column: x => x.Assigned_UserId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Employees_Created_UserId",
+                        column: x => x.Created_UserId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Employees_Entered_UserId",
+                        column: x => x.Entered_UserId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_Employees_Reviewed_UserId",
+                        column: x => x.Reviewed_UserId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MaterialCost",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MaterialCatId = table.Column<int>(nullable: false),
+                    Cost_MarketId = table.Column<int>(nullable: true),
+                    Cost_StoreId = table.Column<int>(nullable: true),
+                    Cost_Amount = table.Column<decimal>(type: "Money", nullable: true),
+                    Cost_Freight = table.Column<decimal>(type: "Money", nullable: true),
+                    Cost_StartDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Cost_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Cost_BusinessUnitId = table.Column<int>(nullable: true),
+                    Cost_SalesTax = table.Column<double>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    MarketId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MaterialCost", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MaterialCost_Markets_MarketId",
+                        column: x => x.MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MaterialCost_MaterialCatagory_MaterialCatId",
+                        column: x => x.MaterialCatId,
+                        principalTable: "MaterialCatagory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MaterialCost_BusinessUnits_Cost_BusinessUnitId",
+                        column: x => x.Cost_BusinessUnitId,
+                        principalTable: "BusinessUnits",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MaterialCost_Markets_Cost_MarketId",
+                        column: x => x.Cost_MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MaterialCost_Clients_Cost_StoreId",
+                        column: x => x.Cost_StoreId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MaterialPrice",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MaterialCatId = table.Column<int>(nullable: false),
+                    Price_MarketId = table.Column<int>(nullable: true),
+                    Price_StoreId = table.Column<int>(nullable: true),
+                    Price_Amount = table.Column<decimal>(type: "Money", nullable: true),
+                    Price_Freight = table.Column<decimal>(type: "Money", nullable: true),
+                    Price_StartDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Price_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    Price_BusinessUnitId = table.Column<int>(nullable: true),
+                    Price_SalesTax = table.Column<double>(nullable: true),
+                    Material_CatagoryId = table.Column<int>(nullable: true),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
+                    MarketId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MaterialPrice", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MaterialPrice_Markets_MarketId",
+                        column: x => x.MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MaterialPrice_MaterialCatagory_Material_CatagoryId",
+                        column: x => x.Material_CatagoryId,
+                        principalTable: "MaterialCatagory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MaterialPrice_BusinessUnits_Price_BusinessUnitId",
+                        column: x => x.Price_BusinessUnitId,
+                        principalTable: "BusinessUnits",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MaterialPrice_Markets_Price_MarketId",
+                        column: x => x.Price_MarketId,
+                        principalTable: "Markets",
+                        principalColumn: "MarketId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MaterialPrice_Clients_Price_StoreId",
+                        column: x => x.Price_StoreId,
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MeasureEmails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MeasureId = table.Column<int>(nullable: false),
+                    Sent = table.Column<DateTime>(nullable: false),
+                    EmailTemplateId = table.Column<int>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MeasureEmails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MeasureEmails_EmailTemplates_EmailTemplateId",
+                        column: x => x.EmailTemplateId,
+                        principalTable: "EmailTemplates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MeasureEmails_Measures_MeasureId",
+                        column: x => x.MeasureId,
+                        principalTable: "Measures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MeasureMaterials",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MaterialTypeId = table.Column<int>(nullable: false),
+                    MeasureId = table.Column<int>(nullable: false),
+                    WidthId = table.Column<int>(nullable: true),
+                    AltWidthId = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    PatternMatchLength = table.Column<double>(nullable: true),
+                    PatternMatchWidth = table.Column<double>(nullable: true),
+                    Deleted = table.Column<bool>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MeasureMaterials", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MeasureMaterials_Widths_AltWidthId",
+                        column: x => x.AltWidthId,
+                        principalTable: "Widths",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MeasureMaterials_Program_MaterialTypeId",
+                        column: x => x.MaterialTypeId,
+                        principalTable: "Program",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MeasureMaterials_Measures_MeasureId",
+                        column: x => x.MeasureId,
+                        principalTable: "Measures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_MeasureMaterials_Widths_WidthId",
+                        column: x => x.WidthId,
+                        principalTable: "Widths",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Slots",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Date = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    SlotTypeId = table.Column<int>(nullable: false),
+                    MeasureId = table.Column<int>(nullable: false),
+                    ENTRY_Created = table.Column<DateTime>(nullable: false),
+                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Slots", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Slots_Measures_MeasureId",
+                        column: x => x.MeasureId,
+                        principalTable: "Measures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Slots_SlotTypes_SlotTypeId",
+                        column: x => x.SlotTypeId,
+                        principalTable: "SlotTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Slots_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1748,7 +2228,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                     TransferredTo = table.Column<int>(nullable: true),
                     TransferredFrom = table.Column<int>(nullable: true),
                     Reviewed_UserId = table.Column<int>(nullable: true),
-                    Reviewed_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Reviewed_DateTimeEntered = table.Column<DateTime>(nullable: true),
                     OriginalOrderId = table.Column<int>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(type: "Money", nullable: true),
@@ -1809,7 +2289,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                     TransferredTo = table.Column<int>(nullable: true),
                     TransferredFrom = table.Column<int>(nullable: true),
                     Reviewed_UserId = table.Column<int>(nullable: true),
-                    Reviewed_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Reviewed_DateTimeEntered = table.Column<DateTime>(nullable: true),
                     OriginalOrderId = table.Column<int>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
                     ItemId = table.Column<int>(nullable: true),
@@ -1818,7 +2298,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                     SOMerLineNumber = table.Column<int>(nullable: true),
                     PreSplitQty = table.Column<double>(nullable: true),
                     Received_UserId = table.Column<int>(nullable: true),
-                    Received_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Received_DateTimeEntered = table.Column<DateTime>(nullable: true),
                     WillCallLineNumber = table.Column<int>(nullable: true),
                     NotNeeded = table.Column<bool>(nullable: false),
                     SONumber = table.Column<string>(nullable: true),
@@ -1874,7 +2354,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FilePath = table.Column<string>(nullable: true),
                     EnterredBy_UserId = table.Column<int>(nullable: true),
-                    EnterredBy_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    EnterredBy_DateTimeEntered = table.Column<DateTime>(nullable: true),
                     OrderId = table.Column<int>(nullable: false),
                     Deleted = table.Column<bool>(nullable: false),
                     DateTimeEntered = table.Column<DateTime>(nullable: false),
@@ -1909,11 +2389,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                     DueDate = table.Column<DateTime>(nullable: false),
                     UserTaskTypeId = table.Column<int>(nullable: false),
                     Added_UserId = table.Column<int>(nullable: true),
-                    Added_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Added_DateTimeEntered = table.Column<DateTime>(nullable: true),
                     Completed_UserId = table.Column<int>(nullable: true),
-                    Completed_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Completed_DateTimeEntered = table.Column<DateTime>(nullable: true),
                     Assinged_UserId = table.Column<int>(nullable: true),
-                    Assinged_DateTimeEntered = table.Column<DateTime>(nullable: false),
+                    Assinged_DateTimeEntered = table.Column<DateTime>(nullable: true),
                     OrderId = table.Column<int>(nullable: true),
                     ENTRY_Created = table.Column<DateTime>(nullable: false),
                     ENTRY_LastModified = table.Column<DateTime>(nullable: false)
@@ -1988,359 +2468,32 @@ namespace RandREng.MeasureCore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ItemCostings",
+                name: "MeasureRooms",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ItemId = table.Column<int>(nullable: false),
-                    Cost_MarketId = table.Column<int>(nullable: true),
-                    Cost_StoreId = table.Column<int>(nullable: true),
-                    Cost_Amount = table.Column<decimal>(type: "Money", nullable: false),
-                    Cost_Freight = table.Column<decimal>(type: "Money", nullable: true),
-                    Cost_StartDate = table.Column<DateTime>(type: "Date", nullable: false),
-                    Cost_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
-                    Cost_BusinessUnitId = table.Column<int>(nullable: true),
-                    Cost_SalesTax = table.Column<double>(nullable: true),
+                    RoomId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    MaterialId = table.Column<int>(nullable: false),
+                    IncludeCloset = table.Column<bool>(nullable: false),
                     ENTRY_Created = table.Column<DateTime>(nullable: false),
                     ENTRY_LastModified = table.Column<DateTime>(nullable: false),
-                    MarketId = table.Column<int>(nullable: true)
+                    MeasureMaterialId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ItemCostings", x => x.Id);
+                    table.PrimaryKey("PK_MeasureRooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ItemCostings_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
+                        name: "FK_MeasureRooms_MeasureMaterials_MeasureMaterialId",
+                        column: x => x.MeasureMaterialId,
+                        principalTable: "MeasureMaterials",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ItemCostings_Markets_MarketId",
-                        column: x => x.MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemCostings_BusinessUnits_Cost_BusinessUnitId",
-                        column: x => x.Cost_BusinessUnitId,
-                        principalTable: "BusinessUnits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemCostings_Markets_Cost_MarketId",
-                        column: x => x.Cost_MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemCostings_Store_Cost_StoreId",
-                        column: x => x.Cost_StoreId,
-                        principalTable: "Store",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ItemMatCostings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ItemId = table.Column<int>(nullable: false),
-                    MatCost_MarketId = table.Column<int>(nullable: true),
-                    MatCost_StoreId = table.Column<int>(nullable: true),
-                    MatCost_Amount = table.Column<decimal>(type: "Money", nullable: false),
-                    MatCost_Freight = table.Column<decimal>(type: "Money", nullable: true),
-                    MatCost_StartDate = table.Column<DateTime>(type: "Date", nullable: false),
-                    MatCost_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
-                    MatCost_BusinessUnitId = table.Column<int>(nullable: true),
-                    MatCost_SalesTax = table.Column<double>(nullable: true),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
-                    MarketId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemMatCostings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ItemMatCostings_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemMatCostings_Markets_MarketId",
-                        column: x => x.MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemMatCostings_BusinessUnits_MatCost_BusinessUnitId",
-                        column: x => x.MatCost_BusinessUnitId,
-                        principalTable: "BusinessUnits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemMatCostings_Markets_MatCost_MarketId",
-                        column: x => x.MatCost_MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemMatCostings_Store_MatCost_StoreId",
-                        column: x => x.MatCost_StoreId,
-                        principalTable: "Store",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ItemPricings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ItemId = table.Column<int>(nullable: false),
-                    Price_MarketId = table.Column<int>(nullable: true),
-                    Price_StoreId = table.Column<int>(nullable: true),
-                    Price_Amount = table.Column<decimal>(type: "Money", nullable: false),
-                    Price_Freight = table.Column<decimal>(type: "Money", nullable: true),
-                    Price_StartDate = table.Column<DateTime>(type: "Date", nullable: false),
-                    Price_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
-                    Price_BusinessUnitId = table.Column<int>(nullable: true),
-                    Price_SalesTax = table.Column<double>(nullable: true),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
-                    MarketId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemPricings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ItemPricings_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemPricings_Markets_MarketId",
-                        column: x => x.MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemPricings_BusinessUnits_Price_BusinessUnitId",
-                        column: x => x.Price_BusinessUnitId,
-                        principalTable: "BusinessUnits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemPricings_Markets_Price_MarketId",
-                        column: x => x.Price_MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemPricings_Store_Price_StoreId",
-                        column: x => x.Price_StoreId,
-                        principalTable: "Store",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ItemRetailPricing",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ItemI = table.Column<int>(nullable: false),
-                    Retail_MarketId = table.Column<int>(nullable: true),
-                    Retail_StoreId = table.Column<int>(nullable: true),
-                    Retail_Amount = table.Column<decimal>(type: "Money", nullable: false),
-                    Retail_Freight = table.Column<decimal>(type: "Money", nullable: true),
-                    Retail_StartDate = table.Column<DateTime>(type: "Date", nullable: false),
-                    Retail_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
-                    Retail_BusinessUnitId = table.Column<int>(nullable: true),
-                    Retail_SalesTax = table.Column<double>(nullable: true),
-                    ItemId = table.Column<int>(nullable: true),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemRetailPricing", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ItemRetailPricing_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemRetailPricing_BusinessUnits_Retail_BusinessUnitId",
-                        column: x => x.Retail_BusinessUnitId,
-                        principalTable: "BusinessUnits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemRetailPricing_Markets_Retail_MarketId",
-                        column: x => x.Retail_MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ItemRetailPricing_Store_Retail_StoreId",
-                        column: x => x.Retail_StoreId,
-                        principalTable: "Store",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Measures",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CustomerId = table.Column<int>(nullable: false),
-                    Enterred = table.Column<DateTime>(nullable: false),
-                    StoreId = table.Column<int>(nullable: false),
-                    EnterredById = table.Column<string>(nullable: true),
-                    SpecialInstructions = table.Column<string>(nullable: true),
-                    Deleted = table.Column<bool>(nullable: false),
-                    Status = table.Column<int>(nullable: false),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Measures", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Measures_Clients_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Measures_AspNetUsers_EnterredById",
-                        column: x => x.EnterredById,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Measures_Store_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "Store",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MaterialCost",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MaterialCatId = table.Column<int>(nullable: false),
-                    Cost_MarketId = table.Column<int>(nullable: true),
-                    Cost_StoreId = table.Column<int>(nullable: true),
-                    Cost_Amount = table.Column<decimal>(type: "Money", nullable: false),
-                    Cost_Freight = table.Column<decimal>(type: "Money", nullable: true),
-                    Cost_StartDate = table.Column<DateTime>(type: "Date", nullable: false),
-                    Cost_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
-                    Cost_BusinessUnitId = table.Column<int>(nullable: true),
-                    Cost_SalesTax = table.Column<double>(nullable: true),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
-                    MarketId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MaterialCost", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MaterialCost_Markets_MarketId",
-                        column: x => x.MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MaterialCost_MaterialCatagory_MaterialCatId",
-                        column: x => x.MaterialCatId,
-                        principalTable: "MaterialCatagory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MaterialCost_BusinessUnits_Cost_BusinessUnitId",
-                        column: x => x.Cost_BusinessUnitId,
-                        principalTable: "BusinessUnits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MaterialCost_Markets_Cost_MarketId",
-                        column: x => x.Cost_MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MaterialCost_Store_Cost_StoreId",
-                        column: x => x.Cost_StoreId,
-                        principalTable: "Store",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MaterialPrice",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MaterialCatId = table.Column<int>(nullable: false),
-                    Price_MarketId = table.Column<int>(nullable: true),
-                    Price_StoreId = table.Column<int>(nullable: true),
-                    Price_Amount = table.Column<decimal>(type: "Money", nullable: false),
-                    Price_Freight = table.Column<decimal>(type: "Money", nullable: true),
-                    Price_StartDate = table.Column<DateTime>(type: "Date", nullable: false),
-                    Price_EndDate = table.Column<DateTime>(type: "Date", nullable: true),
-                    Price_BusinessUnitId = table.Column<int>(nullable: true),
-                    Price_SalesTax = table.Column<double>(nullable: true),
-                    Material_CatagoryId = table.Column<int>(nullable: true),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
-                    MarketId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MaterialPrice", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MaterialPrice_Markets_MarketId",
-                        column: x => x.MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MaterialPrice_MaterialCatagory_Material_CatagoryId",
-                        column: x => x.Material_CatagoryId,
-                        principalTable: "MaterialCatagory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MaterialPrice_BusinessUnits_Price_BusinessUnitId",
-                        column: x => x.Price_BusinessUnitId,
-                        principalTable: "BusinessUnits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MaterialPrice_Markets_Price_MarketId",
-                        column: x => x.Price_MarketId,
-                        principalTable: "Markets",
-                        principalColumn: "MarketId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MaterialPrice_Store_Price_StoreId",
-                        column: x => x.Price_StoreId,
-                        principalTable: "Store",
+                        name: "FK_MeasureRooms_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2478,117 +2631,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MeasureEmails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MeasureId = table.Column<int>(nullable: false),
-                    Sent = table.Column<DateTime>(nullable: false),
-                    EmailTemplateId = table.Column<int>(nullable: false),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MeasureEmails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MeasureEmails_EmailTemplates_EmailTemplateId",
-                        column: x => x.EmailTemplateId,
-                        principalTable: "EmailTemplates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MeasureEmails_Measures_MeasureId",
-                        column: x => x.MeasureId,
-                        principalTable: "Measures",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MeasureMaterials",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MaterialTypeId = table.Column<int>(nullable: false),
-                    MeasureId = table.Column<int>(nullable: false),
-                    WidthId = table.Column<int>(nullable: true),
-                    AltWidthId = table.Column<int>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    PatternMatchLength = table.Column<double>(nullable: true),
-                    PatternMatchWidth = table.Column<double>(nullable: true),
-                    Deleted = table.Column<bool>(nullable: false),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MeasureMaterials", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MeasureMaterials_Widths_AltWidthId",
-                        column: x => x.AltWidthId,
-                        principalTable: "Widths",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MeasureMaterials_Program_MaterialTypeId",
-                        column: x => x.MaterialTypeId,
-                        principalTable: "Program",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MeasureMaterials_Measures_MeasureId",
-                        column: x => x.MeasureId,
-                        principalTable: "Measures",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MeasureMaterials_Widths_WidthId",
-                        column: x => x.WidthId,
-                        principalTable: "Widths",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Slots",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Date = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<string>(nullable: true),
-                    SlotTypeId = table.Column<int>(nullable: false),
-                    MeasureId = table.Column<int>(nullable: false),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Slots", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Slots_Measures_MeasureId",
-                        column: x => x.MeasureId,
-                        principalTable: "Measures",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Slots_SlotTypes_SlotTypeId",
-                        column: x => x.SlotTypeId,
-                        principalTable: "SlotTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Slots_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DocumentOrder",
                 columns: table => new
                 {
@@ -2611,37 +2653,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                         name: "FK_DocumentOrder_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MeasureRooms",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RoomId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    MaterialId = table.Column<int>(nullable: false),
-                    IncludeCloset = table.Column<bool>(nullable: false),
-                    ENTRY_Created = table.Column<DateTime>(nullable: false),
-                    ENTRY_LastModified = table.Column<DateTime>(nullable: false),
-                    MeasureMaterialId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MeasureRooms", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MeasureRooms_MeasureMaterials_MeasureMaterialId",
-                        column: x => x.MeasureMaterialId,
-                        principalTable: "MeasureMaterials",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_MeasureRooms_Rooms_RoomId",
-                        column: x => x.RoomId,
-                        principalTable: "Rooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -2682,6 +2693,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "WorkOrderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Branches_PhoneNumbers_PhoneNumberTypeId",
+                table: "Branches_PhoneNumbers",
+                column: "PhoneNumberTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BusinessUnits_ParentId",
                 table: "BusinessUnits",
                 column: "ParentId");
@@ -2712,14 +2728,44 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clients_AspNetUserId",
+                table: "Clients",
+                column: "AspNetUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_CustomerTypeId",
+                table: "Clients",
+                column: "CustomerTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_EmployeeId",
+                table: "Clients",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_MarketId",
+                table: "Clients",
+                column: "MarketId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clients_ParentId",
                 table: "Clients",
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Clients_TechId",
+                table: "Clients",
+                column: "TechId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clients_Modified_UserId",
                 table: "Clients",
                 column: "Modified_UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clients_PhoneNumbers_PhoneNumberTypeId",
+                table: "Clients_PhoneNumbers",
+                column: "PhoneNumberTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientTypeReports_ReportTypeId",
@@ -2765,6 +2811,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "IX_EmailTemplates_EmailTypeId",
                 table: "EmailTemplates",
                 column: "EmailTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_PhoneNumbers_PhoneNumberTypeId",
+                table: "Employees_PhoneNumbers",
+                column: "PhoneNumberTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InstallationCrew_LeadId",
@@ -3197,21 +3248,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 column: "PermissionTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PhoneNumber_EmployeeId",
-                table: "PhoneNumber",
-                column: "EmployeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PhoneNumber_PhoneNumberTypeId",
-                table: "PhoneNumber",
-                column: "PhoneNumberTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PhoneNumber_ClientId",
-                table: "PhoneNumber",
-                column: "ClientId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_POPhotos_OrderId",
                 table: "POPhotos",
                 column: "OrderId");
@@ -3265,31 +3301,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "IX_Slots_UserId",
                 table: "Slots",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Store_AspNetUserId",
-                table: "Store",
-                column: "AspNetUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Store_CustomerTypeId",
-                table: "Store",
-                column: "CustomerTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Store_EmployeeId",
-                table: "Store",
-                column: "EmployeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Store_MarketId",
-                table: "Store",
-                column: "MarketId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Store_TechId",
-                table: "Store",
-                column: "TechId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TechCapacities_SlotTypeId",
@@ -3396,13 +3407,16 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "BillDetail");
 
             migrationBuilder.DropTable(
-                name: "Branches");
+                name: "Branches_PhoneNumbers");
 
             migrationBuilder.DropTable(
                 name: "CheckCBDetails");
 
             migrationBuilder.DropTable(
                 name: "CheckDetails");
+
+            migrationBuilder.DropTable(
+                name: "Clients_PhoneNumbers");
 
             migrationBuilder.DropTable(
                 name: "ClientTypeReports");
@@ -3415,6 +3429,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "DocumentOrder");
+
+            migrationBuilder.DropTable(
+                name: "Employees_PhoneNumbers");
 
             migrationBuilder.DropTable(
                 name: "InstallationCrewType");
@@ -3465,9 +3482,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "OrderRegMerchandiseDetail");
 
             migrationBuilder.DropTable(
-                name: "PhoneNumber");
-
-            migrationBuilder.DropTable(
                 name: "POPhotos");
 
             migrationBuilder.DropTable(
@@ -3501,6 +3515,9 @@ namespace RandREng.MeasureCore.Data.Migrations
                 name: "Bill");
 
             migrationBuilder.DropTable(
+                name: "Branches");
+
+            migrationBuilder.DropTable(
                 name: "ChargeBacks");
 
             migrationBuilder.DropTable(
@@ -3511,6 +3528,9 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "PhoneNumberTypes");
 
             migrationBuilder.DropTable(
                 name: "MaterialCatagory");
@@ -3526,9 +3546,6 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "NoteTypes");
-
-            migrationBuilder.DropTable(
-                name: "PhoneNumberTypes");
 
             migrationBuilder.DropTable(
                 name: "ReportTypes");
@@ -3577,9 +3594,6 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "UnitOfMeasures");
-
-            migrationBuilder.DropTable(
-                name: "Store");
 
             migrationBuilder.DropTable(
                 name: "SubContractors");

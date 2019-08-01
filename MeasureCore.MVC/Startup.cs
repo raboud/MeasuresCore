@@ -74,12 +74,11 @@ namespace MeasureCore.MVC
                 Predicate = r => r.Name.Contains("self")
             });
 
-            app.UseRouting(routes =>
+			app.UseRouting();
+
+			app.UseEndpoints(endtpoints =>
             {
-                routes.MapControllerRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRazorPages();
+				endtpoints.MapControllers();
             });
 
             app.UseCookiePolicy();

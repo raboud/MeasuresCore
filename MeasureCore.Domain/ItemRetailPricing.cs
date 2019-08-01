@@ -6,7 +6,7 @@
 		public int ItemI { get; set; }
 		public Pricing Retail { get; set; }
 
-		public Item Item { get; set; }
+//		public Item Item { get; set; }
 	}
 
 }

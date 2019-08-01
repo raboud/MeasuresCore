@@ -25,7 +25,7 @@ namespace RandREng.MeasuresCore.Domain
         public int AccessFailedCount { get; set; }
     
         public List<Slot> Slots { get; set; }
-        public List<Store> Stores { get; set; }
+        public List<Client> Clients { get; set; }
         public Employee Employee { get; set; }
     }
 }

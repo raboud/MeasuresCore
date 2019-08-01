@@ -26,6 +26,6 @@ namespace RandREng.MeasuresCore.Domain
 
 		public BusinessUnit BusinessUnit { get; set; }
 		public Market Market { get; set; }
-		public Store Store { get; set; }
+		public Client Store { get; set; }
 	}
 }

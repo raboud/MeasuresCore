@@ -14,6 +14,6 @@ namespace RandREng.MeasuresCore.Domain
     
         //public List<ClientTypeReport> ClientTypeReports { get; set; }
         //public List<Program> Programs { get; set; }
-        public List<Store> Stores { get; set; }
+        public List<Client> Clients { get; set; }
     }
 }

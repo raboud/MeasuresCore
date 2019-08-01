@@ -46,6 +46,6 @@ namespace RandREng.MeasuresCore.Domain
         public Employee ReviewedBy { get; set; }
         public EntryMethod EntryMethod { get; set; }
         public MaterialStatus MaterialStatus { get; set; }
-        public Order Order { get; set; }
+//        public Order Order { get; set; }
     }
 }

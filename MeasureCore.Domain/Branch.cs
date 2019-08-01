@@ -9,9 +9,10 @@ namespace RandREng.MeasuresCore.Domain
     {
         public Branch()
         {
-        }
-    
-        public int Id { get; set; }
+			this.PhoneNumbers = new HashSet<PhoneNumber>();
+		}
+
+		public int Id { get; set; }
 		[Display(Name = "Branch Name", Prompt = "Branch Name")]
 		public string Name { get; set; }
 
@@ -26,12 +27,11 @@ namespace RandREng.MeasuresCore.Domain
 
 		public Address Address { get; set; }
 
-		[Phone]
-        public string PhoneNumber { get; set; }
-        [Phone]
-        public string FaxNumber { get; set; }
         public string ManagerId { get; set; }
         public bool Active { get; set; }
         public string LabelPrinter { get; set; }
-    }
+
+		public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
+	
+	}
 }

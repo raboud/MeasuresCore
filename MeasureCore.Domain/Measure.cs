@@ -14,7 +14,7 @@ namespace RandREng.MeasuresCore.Domain
         public bool Deleted { get; set; }
         public Status Status { get; set; }
     
-        public Store Store { get; set; }
+        public Client Store { get; set; }
         public List<MeasureEmail> Emails { get; set; }
         public List<MeasureMaterial> Materials { get; set; }
         public AspNetUser EnterredBy { get; set; }

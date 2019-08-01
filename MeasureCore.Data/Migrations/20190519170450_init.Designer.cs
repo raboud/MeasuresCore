@@ -10,14 +10,14 @@ using RandREng.MeasuresCore.Data;
 namespace RandREng.MeasureCore.Data.Migrations
 {
     [DbContext(typeof(MeasureContext))]
-    [Migration("20190405145602_init")]
+    [Migration("20190519170450_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0-preview3.19153.1")
+                .HasAnnotation("ProductVersion", "3.0.0-preview5.19227.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -74,8 +74,7 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.AspNetUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("Id");
 
                     b.Property<int>("AccessFailedCount");
 
@@ -221,15 +220,11 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<DateTime>("ENTRY_LastModified");
 
-                    b.Property<string>("FaxNumber");
-
                     b.Property<string>("LabelPrinter");
 
                     b.Property<string>("ManagerId");
 
                     b.Property<string>("Name");
-
-                    b.Property<string>("PhoneNumber");
 
                     b.Property<string>("PrinterDriver");
 
@@ -257,8 +252,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int?>("ParentId");
-
-                    b.Property<int?>("VendorId");
 
                     b.HasKey("Id");
 
@@ -396,7 +389,11 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AspNetUserId");
+
                     b.Property<string>("CompanyName");
+
+                    b.Property<int?>("CustomerTypeId");
 
                     b.Property<string>("Directions");
 
@@ -406,9 +403,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("EmailAddress");
 
+                    b.Property<int?>("EmployeeId");
+
                     b.Property<string>("FirstName");
 
                     b.Property<string>("LastName");
+
+                    b.Property<int?>("MarketId");
 
                     b.Property<string>("Name")
                         .ValueGeneratedOnAddOrUpdate()
@@ -418,9 +419,21 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                     b.Property<string>("QBCustomerId");
 
+                    b.Property<int?>("TechId");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("AspNetUserId");
+
+                    b.HasIndex("CustomerTypeId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("MarketId");
+
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("TechId");
 
                     b.ToTable("Clients");
                 });
@@ -1839,36 +1852,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.ToTable("PermissionType");
                 });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumber", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
-                    b.Property<DateTime>("ENTRY_Created");
-
-                    b.Property<DateTime>("ENTRY_LastModified");
-
-                    b.Property<int?>("EmployeeId");
-
-                    b.Property<string>("Number");
-
-                    b.Property<int>("PhoneNumberTypeId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("PhoneNumberTypeId");
-
-                    b.ToTable("PhoneNumber");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("PhoneNumber");
-                });
-
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberType", b =>
                 {
                     b.Property<int>("Id")
@@ -2111,43 +2094,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.ToTable("States");
                 });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.Store", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AspNetUserId");
-
-                    b.Property<int?>("CustomerTypeId");
-
-                    b.Property<DateTime>("ENTRY_Created");
-
-                    b.Property<DateTime>("ENTRY_LastModified");
-
-                    b.Property<int?>("EmployeeId");
-
-                    b.Property<int?>("MarketId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int?>("TechId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AspNetUserId");
-
-                    b.HasIndex("CustomerTypeId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("MarketId");
-
-                    b.HasIndex("TechId");
-
-                    b.ToTable("Store");
-                });
-
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.SubContractor", b =>
                 {
                     b.Property<int>("Id")
@@ -2299,12 +2245,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.Property<DateTime>("ENTRY_Created");
 
                     b.Property<DateTime>("ENTRY_LastModified");
-
-                    b.Property<string>("LongDescription");
-
-                    b.Property<string>("LongDescriptionSOSI");
-
-                    b.Property<int?>("NumberOfDecimals");
 
                     b.HasKey("Id");
 
@@ -2496,25 +2436,13 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.ToTable("WorkOrderEmail");
                 });
 
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberClient", b =>
-                {
-                    b.HasBaseType("RandREng.MeasuresCore.Domain.PhoneNumber");
-
-                    b.Property<bool>("Active");
-
-                    b.Property<int>("ClientId");
-
-                    b.HasIndex("ClientId");
-
-                    b.HasDiscriminator().HasValue("PhoneNumberClient");
-                });
-
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.ActionReport", b =>
                 {
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("ActionReports")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.AspNetUser", b =>
@@ -2530,7 +2458,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.SubContractor", "SubContractor")
                         .WithMany("Bills")
                         .HasForeignKey("SubContractorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.BillDetail", b =>
@@ -2538,7 +2467,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Bill", "Bill")
                         .WithMany("BillDetails")
                         .HasForeignKey("BillId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.ChargeBack", "ChargeBack")
                         .WithMany("BillDetails")
@@ -2564,10 +2494,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
                             b1.Property<string>("City");
 
                             b1.Property<double?>("Latitude");
@@ -2575,6 +2501,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.Property<double?>("Longitude");
 
                             b1.Property<string>("State");
+
+                            b1.Property<string>("Street1");
+
+                            b1.Property<string>("Street2");
 
                             b1.Property<string>("ZipCode");
 
@@ -2585,12 +2515,42 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("BranchId");
                         });
+
+                    b.OwnsMany("RandREng.MeasuresCore.Domain.PhoneNumber", "PhoneNumbers", b1 =>
+                        {
+                            b1.Property<int>("BranchId");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<bool>("Active");
+
+                            b1.Property<string>("Number");
+
+                            b1.Property<int>("PhoneNumberTypeId");
+
+                            b1.HasKey("BranchId", "Id");
+
+                            b1.HasIndex("PhoneNumberTypeId");
+
+                            b1.ToTable("Branches_PhoneNumbers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BranchId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.PhoneNumberType", "PhoneNumberType")
+                                .WithMany()
+                                .HasForeignKey("PhoneNumberTypeId")
+                                .OnDelete(DeleteBehavior.Restrict)
+                                .IsRequired();
+                        });
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.BusinessUnit", b =>
                 {
                     b.HasOne("RandREng.MeasuresCore.Domain.BusinessUnit", "Parent")
-                        .WithMany("BusinessUnits")
+                        .WithMany("Childrens")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
@@ -2608,12 +2568,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.ChargeBack", "ChargeBack")
                         .WithMany("CheckCBDetails")
                         .HasForeignKey("ChargeBackId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Check", "Check")
                         .WithMany("CheckCBDetails")
                         .HasForeignKey("CheckId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.CheckDetail", b =>
@@ -2621,19 +2583,46 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Check", "Check")
                         .WithMany("CheckDetails")
                         .HasForeignKey("CheckId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("CheckDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Client", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Client", "Parent")
+                    b.HasOne("RandREng.MeasuresCore.Domain.AspNetUser", null)
                         .WithMany("Clients")
+                        .HasForeignKey("AspNetUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RandREng.MeasuresCore.Domain.CustomerType", null)
+                        .WithMany("Clients")
+                        .HasForeignKey("CustomerTypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RandREng.MeasuresCore.Domain.Employee", null)
+                        .WithMany("Clients")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RandREng.MeasuresCore.Domain.Market", null)
+                        .WithMany("Clients")
+                        .HasForeignKey("MarketId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RandREng.MeasuresCore.Domain.Client", "Parent")
+                        .WithMany("Childrens")
                         .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RandREng.MeasuresCore.Domain.Tech", null)
+                        .WithMany("Clients")
+                        .HasForeignKey("TechId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.OwnsOne("RandREng.MeasuresCore.Domain.Address", "Address", b1 =>
@@ -2642,10 +2631,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
                             b1.Property<string>("City");
 
                             b1.Property<double?>("Latitude");
@@ -2653,6 +2638,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.Property<double?>("Longitude");
 
                             b1.Property<string>("State");
+
+                            b1.Property<string>("Street1");
+
+                            b1.Property<string>("Street2");
 
                             b1.Property<string>("ZipCode");
 
@@ -2670,10 +2659,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
                             b1.Property<string>("City");
 
                             b1.Property<double?>("Latitude");
@@ -2681,6 +2666,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.Property<double?>("Longitude");
 
                             b1.Property<string>("State");
+
+                            b1.Property<string>("Street1");
+
+                            b1.Property<string>("Street2");
 
                             b1.Property<string>("ZipCode");
 
@@ -2690,6 +2679,36 @@ namespace RandREng.MeasureCore.Data.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("ClientId");
+                        });
+
+                    b.OwnsMany("RandREng.MeasuresCore.Domain.PhoneNumber", "PhoneNumbers", b1 =>
+                        {
+                            b1.Property<int>("ClientId");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<bool>("Active");
+
+                            b1.Property<string>("Number");
+
+                            b1.Property<int>("PhoneNumberTypeId");
+
+                            b1.HasKey("ClientId", "Id");
+
+                            b1.HasIndex("PhoneNumberTypeId");
+
+                            b1.ToTable("Clients_PhoneNumbers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ClientId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.PhoneNumberType", "PhoneNumberType")
+                                .WithMany()
+                                .HasForeignKey("PhoneNumberTypeId")
+                                .OnDelete(DeleteBehavior.Restrict)
+                                .IsRequired();
                         });
 
                     b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Modified", b1 =>
@@ -2723,7 +2742,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.ReportType", "ReportType")
                         .WithMany("ClientTypeReports")
                         .HasForeignKey("ReportTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.CustomerType", "StoreType")
                         .WithMany()
@@ -2739,10 +2759,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
                             b1.Property<string>("City");
 
                             b1.Property<double?>("Latitude");
@@ -2750,6 +2766,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.Property<double?>("Longitude");
 
                             b1.Property<string>("State");
+
+                            b1.Property<string>("Street1");
+
+                            b1.Property<string>("Street2");
 
                             b1.Property<string>("ZipCode");
 
@@ -2782,12 +2802,12 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Document", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.OrderSOMerchandiseDetail")
+                    b.HasOne("RandREng.MeasuresCore.Domain.OrderSOMerchandiseDetail", null)
                         .WithMany("Documents")
                         .HasForeignKey("OrderSOMerchandiseDetailId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("RandREng.MeasuresCore.Domain.WorkOrder")
+                    b.HasOne("RandREng.MeasuresCore.Domain.WorkOrder", null)
                         .WithMany("Documents")
                         .HasForeignKey("WorkOrderId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -2798,17 +2818,19 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Document", "Document")
                         .WithMany("OrdersDocuments")
                         .HasForeignKey("DocumentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("OrdersDocuments")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.EmailTemplate", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.EmailType")
+                    b.HasOne("RandREng.MeasuresCore.Domain.EmailType", null)
                         .WithMany("EmailTemplates")
                         .HasForeignKey("EmailTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -2822,10 +2844,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
                             b1.Property<string>("City");
 
                             b1.Property<double?>("Latitude");
@@ -2833,6 +2851,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.Property<double?>("Longitude");
 
                             b1.Property<string>("State");
+
+                            b1.Property<string>("Street1");
+
+                            b1.Property<string>("Street2");
 
                             b1.Property<string>("ZipCode");
 
@@ -2843,6 +2865,36 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("EmployeeId");
                         });
+
+                    b.OwnsMany("RandREng.MeasuresCore.Domain.PhoneNumber", "PhoneNumbers", b1 =>
+                        {
+                            b1.Property<int>("EmployeeId");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<bool>("Active");
+
+                            b1.Property<string>("Number");
+
+                            b1.Property<int>("PhoneNumberTypeId");
+
+                            b1.HasKey("EmployeeId", "Id");
+
+                            b1.HasIndex("PhoneNumberTypeId");
+
+                            b1.ToTable("Employees_PhoneNumbers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EmployeeId");
+
+                            b1.HasOne("RandREng.MeasuresCore.Domain.PhoneNumberType", "PhoneNumberType")
+                                .WithMany()
+                                .HasForeignKey("PhoneNumberTypeId")
+                                .OnDelete(DeleteBehavior.Restrict)
+                                .IsRequired();
+                        });
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.InstallationCrew", b =>
@@ -2850,7 +2902,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.SubContractor", "Lead")
                         .WithMany()
                         .HasForeignKey("LeadId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Market", "Market")
                         .WithMany()
@@ -2860,7 +2913,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.SubContractor", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.InstallationCrewType", b =>
@@ -2868,12 +2922,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.InstallationCrew", "InstallationCrew")
                         .WithMany("InstallationCrewType")
                         .HasForeignKey("InstallationCrewId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.JobType", "JobType")
                         .WithMany("InstallationCrewType")
                         .HasForeignKey("JobTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Item", b =>
@@ -2886,7 +2942,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Program", "Program")
                         .WithMany()
                         .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.UnitOfMeasure", "UnitOfMeasure")
                         .WithMany()
@@ -2896,12 +2953,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.ItemCosting", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Item", "Item")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Item", null)
                         .WithMany("ItemCosts")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("RandREng.MeasuresCore.Domain.Market")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Market", null)
                         .WithMany("ItemCostings")
                         .HasForeignKey("MarketId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -2955,7 +3013,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .HasForeignKey("MarketId")
                                 .OnDelete(DeleteBehavior.Restrict);
 
-                            b1.HasOne("RandREng.MeasuresCore.Domain.Store", "Store")
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Client", "Store")
                                 .WithMany()
                                 .HasForeignKey("StoreId")
                                 .OnDelete(DeleteBehavior.Restrict);
@@ -2964,12 +3022,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.ItemMatCosting", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Item", "Item")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Item", null)
                         .WithMany("ItemMatCosts")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("RandREng.MeasuresCore.Domain.Market")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Market", null)
                         .WithMany("ItemMatCostings")
                         .HasForeignKey("MarketId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -3023,7 +3082,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .HasForeignKey("MarketId")
                                 .OnDelete(DeleteBehavior.Restrict);
 
-                            b1.HasOne("RandREng.MeasuresCore.Domain.Store", "Store")
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Client", "Store")
                                 .WithMany()
                                 .HasForeignKey("StoreId")
                                 .OnDelete(DeleteBehavior.Restrict);
@@ -3032,12 +3091,13 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.ItemPricing", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Item", "Item")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Item", null)
                         .WithMany("ItemPrices")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("RandREng.MeasuresCore.Domain.Market")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Market", null)
                         .WithMany("ItemPricings")
                         .HasForeignKey("MarketId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -3091,7 +3151,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .HasForeignKey("MarketId")
                                 .OnDelete(DeleteBehavior.Restrict);
 
-                            b1.HasOne("RandREng.MeasuresCore.Domain.Store", "Store")
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Client", "Store")
                                 .WithMany()
                                 .HasForeignKey("StoreId")
                                 .OnDelete(DeleteBehavior.Restrict);
@@ -3100,7 +3160,7 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.ItemRetailPricing", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Item", "Item")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Item", null)
                         .WithMany("ItemRetailPrices")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -3154,7 +3214,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .HasForeignKey("MarketId")
                                 .OnDelete(DeleteBehavior.Restrict);
 
-                            b1.HasOne("RandREng.MeasuresCore.Domain.Store", "Store")
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Client", "Store")
                                 .WithMany()
                                 .HasForeignKey("StoreId")
                                 .OnDelete(DeleteBehavior.Restrict);
@@ -3171,7 +3231,7 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.MaterialCatagory", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Item")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Item", null)
                         .WithMany("MaterialCatagories")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -3184,12 +3244,13 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.UnitOfMeasure", "UnitOfMeasure")
                         .WithMany()
                         .HasForeignKey("UnitOfMeasureId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.MaterialCost", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Market")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Market", null)
                         .WithMany("MaterialCosts")
                         .HasForeignKey("MarketId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -3197,7 +3258,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.MaterialCatagory", "MaterialCat")
                         .WithMany("MaterialCosts")
                         .HasForeignKey("MaterialCatId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.OwnsOne("RandREng.MeasuresCore.Domain.Pricing", "Cost", b1 =>
                         {
@@ -3248,7 +3310,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("MaterialCostId");
 
-                            b1.HasOne("RandREng.MeasuresCore.Domain.Store", "Store")
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Client", "Store")
                                 .WithMany()
                                 .HasForeignKey("StoreId")
                                 .OnDelete(DeleteBehavior.Restrict);
@@ -3257,7 +3319,7 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.MaterialPrice", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Market")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Market", null)
                         .WithMany("MaterialPrices")
                         .HasForeignKey("MarketId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -3316,7 +3378,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("MaterialPriceId");
 
-                            b1.HasOne("RandREng.MeasuresCore.Domain.Store", "Store")
+                            b1.HasOne("RandREng.MeasuresCore.Domain.Client", "Store")
                                 .WithMany()
                                 .HasForeignKey("StoreId")
                                 .OnDelete(DeleteBehavior.Restrict);
@@ -3328,17 +3390,19 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Client", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.AspNetUser", "EnterredBy")
                         .WithMany()
                         .HasForeignKey("EnterredById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("RandREng.MeasuresCore.Domain.Store", "Store")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Client", "Store")
                         .WithMany()
                         .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.MeasureCustomerStore", b =>
@@ -3349,10 +3413,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
                             b1.Property<string>("City");
 
                             b1.Property<double?>("Latitude");
@@ -3360,6 +3420,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.Property<double?>("Longitude");
 
                             b1.Property<string>("State");
+
+                            b1.Property<string>("Street1");
+
+                            b1.Property<string>("Street2");
 
                             b1.Property<string>("ZipCode");
 
@@ -3377,12 +3441,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.EmailTemplate", "EmailTemplate")
                         .WithMany()
                         .HasForeignKey("EmailTemplateId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Measure", "Measure")
                         .WithMany("Emails")
                         .HasForeignKey("MeasureId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.MeasureMaterial", b =>
@@ -3395,12 +3461,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Program", "MaterialType")
                         .WithMany()
                         .HasForeignKey("MaterialTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.HasOne("RandREng.MeasuresCore.Domain.Measure")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Measure", null)
                         .WithMany("Materials")
                         .HasForeignKey("MeasureId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Width", "Width")
                         .WithMany()
@@ -3410,7 +3478,7 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.MeasureRoom", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.MeasureMaterial")
+                    b.HasOne("RandREng.MeasuresCore.Domain.MeasureMaterial", null)
                         .WithMany("Rooms")
                         .HasForeignKey("MeasureMaterialId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -3418,7 +3486,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Order", b =>
@@ -3426,12 +3495,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Client", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
                         .WithMany()
                         .HasForeignKey("EntryMethodId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "PrimaryOrder")
                         .WithMany("Orders")
@@ -3441,17 +3512,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Program", "Program")
                         .WithMany()
                         .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.OwnsOne("RandREng.MeasuresCore.Domain.Address", "Address", b1 =>
                         {
                             b1.Property<int>("OrderId")
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
 
                             b1.Property<string>("City");
 
@@ -3460,6 +3528,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.Property<double?>("Longitude");
 
                             b1.Property<string>("State");
+
+                            b1.Property<string>("Street1");
+
+                            b1.Property<string>("Street2");
 
                             b1.Property<string>("ZipCode");
 
@@ -3582,12 +3654,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
                         .WithMany()
                         .HasForeignKey("EntryMethodId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("OrderCustomDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.SubContractor", "SubContractor")
                         .WithMany("OrderCustomDetails")
@@ -3605,7 +3679,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("OrderDiagrams")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderItems", b =>
@@ -3613,22 +3688,25 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
                         .WithMany()
                         .HasForeignKey("EntryMethodId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.MaterialStatus", "MaterialStatus")
                         .WithMany()
                         .HasForeignKey("MaterialStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Order", null)
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Employee", "ReviewedBy")
                         .WithMany()
@@ -3646,12 +3724,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.NoteType", "NoteType")
                         .WithMany("PONotes")
                         .HasForeignKey("NoteTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("PONotes")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.OrderRegMerchandiseDetail", b =>
@@ -3659,7 +3739,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
                         .WithMany()
                         .HasForeignKey("EntryMethodId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.MaterialStatus", "Material_Status")
                         .WithMany()
@@ -3669,7 +3750,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("OrderRegMerchandiseDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.UnitOfMeasure", "UnitOfMeasure")
                         .WithMany()
@@ -3707,7 +3789,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.EntryMethod", "EntryMethod")
                         .WithMany()
                         .HasForeignKey("EntryMethodId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.MaterialStatus", "Material_Status")
                         .WithMany()
@@ -3717,7 +3800,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("OrderSOMerchandiseDetails")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.UnitOfMeasure", "UnitOfMeasure")
                         .WithMany()
@@ -3780,7 +3864,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Order", "Order")
                         .WithMany("POPhotos")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "EnterredBy", b1 =>
                         {
@@ -3810,28 +3895,16 @@ namespace RandREng.MeasureCore.Data.Migrations
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Permission", b =>
                 {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Permission")
+                    b.HasOne("RandREng.MeasuresCore.Domain.Permission", null)
                         .WithMany("SubPermissions")
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.PermissionType", "PermissionType")
-                        .WithMany("Permissions")
-                        .HasForeignKey("PermissionTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumber", b =>
-                {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee")
-                        .WithMany("PhoneNumbers")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.PhoneNumberType", "PhoneNumberType")
                         .WithMany()
-                        .HasForeignKey("PhoneNumberTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("PermissionTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Program", b =>
@@ -3846,7 +3919,7 @@ namespace RandREng.MeasureCore.Data.Migrations
                         .HasForeignKey("CustomerTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("RandREng.MeasuresCore.Domain.JobType")
+                    b.HasOne("RandREng.MeasuresCore.Domain.JobType", null)
                         .WithMany("Programs")
                         .HasForeignKey("JobTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -3857,12 +3930,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Market", "Market")
                         .WithMany()
                         .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Program", "Program")
                         .WithMany()
                         .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.ProgramReport", b =>
@@ -3870,12 +3945,14 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Program", "Program")
                         .WithMany()
                         .HasForeignKey("ProgramId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.ReportType", "ReportType")
                         .WithMany("ProgramReports")
                         .HasForeignKey("ReportTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.Slot", b =>
@@ -3883,101 +3960,19 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.Measure", "Measure")
                         .WithMany("Slots")
                         .HasForeignKey("MeasureId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.SlotType", "SlotType")
                         .WithMany("Slots")
                         .HasForeignKey("SlotTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.AspNetUser", "User")
                         .WithMany("Slots")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.Store", b =>
-                {
-                    b.HasOne("RandREng.MeasuresCore.Domain.AspNetUser")
-                        .WithMany("Stores")
-                        .HasForeignKey("AspNetUserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.CustomerType")
-                        .WithMany("Stores")
-                        .HasForeignKey("CustomerTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Employee")
-                        .WithMany("Stores")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Market")
-                        .WithMany("Stores")
-                        .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RandREng.MeasuresCore.Domain.Tech")
-                        .WithMany("Stores")
-                        .HasForeignKey("TechId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.OwnsOne("RandREng.MeasuresCore.Domain.Address", "Address", b1 =>
-                        {
-                            b1.Property<int>("StoreId")
-                                .ValueGeneratedOnAdd()
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
-                            b1.Property<string>("City");
-
-                            b1.Property<double?>("Latitude");
-
-                            b1.Property<double?>("Longitude");
-
-                            b1.Property<string>("State");
-
-                            b1.Property<string>("ZipCode");
-
-                            b1.HasKey("StoreId");
-
-                            b1.ToTable("Store");
-
-                            b1.WithOwner()
-                                .HasForeignKey("StoreId");
-                        });
-
-                    b.OwnsOne("RandREng.MeasuresCore.Domain.Address", "BillingAddress", b1 =>
-                        {
-                            b1.Property<int>("StoreId")
-                                .ValueGeneratedOnAdd()
-                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
-                            b1.Property<string>("City");
-
-                            b1.Property<double?>("Latitude");
-
-                            b1.Property<double?>("Longitude");
-
-                            b1.Property<string>("State");
-
-                            b1.Property<string>("ZipCode");
-
-                            b1.HasKey("StoreId");
-
-                            b1.ToTable("Store");
-
-                            b1.WithOwner()
-                                .HasForeignKey("StoreId");
-                        });
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.SubContractor", b =>
@@ -3988,10 +3983,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
                             b1.Property<string>("City");
 
                             b1.Property<double?>("Latitude");
@@ -3999,6 +3990,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.Property<double?>("Longitude");
 
                             b1.Property<string>("State");
+
+                            b1.Property<string>("Street1");
+
+                            b1.Property<string>("Street2");
 
                             b1.Property<string>("ZipCode");
 
@@ -4029,10 +4024,6 @@ namespace RandREng.MeasureCore.Data.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Address1");
-
-                            b1.Property<string>("Address2");
-
                             b1.Property<string>("City");
 
                             b1.Property<double?>("Latitude");
@@ -4040,6 +4031,10 @@ namespace RandREng.MeasureCore.Data.Migrations
                             b1.Property<double?>("Longitude");
 
                             b1.Property<string>("State");
+
+                            b1.Property<string>("Street1");
+
+                            b1.Property<string>("Street2");
 
                             b1.Property<string>("ZipCode");
 
@@ -4057,7 +4052,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.SlotType", "SlotType")
                         .WithMany("TechCapacities")
                         .HasForeignKey("SlotTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Tech", "Tech")
                         .WithMany("Capacities")
@@ -4070,17 +4066,20 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.BusinessUnit", "BusinessUnit")
                         .WithMany()
                         .HasForeignKey("BusinessUnitId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Employee", "Manager")
-                        .WithMany("UserMarketDivisionAssignments")
+                        .WithMany("Assignments")
                         .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Market", "Market")
                         .WithMany()
                         .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.UserPermission", b =>
@@ -4088,22 +4087,25 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.BusinessUnit", "BusinessUnit")
                         .WithMany()
                         .HasForeignKey("BusinessUnitId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Employee", "Employee")
-                        .WithMany("UserPermissions")
+                        .WithMany("Permissions")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Market", "Market")
                         .WithMany()
                         .HasForeignKey("MarketId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("RandREng.MeasuresCore.Domain.Permission", "Permission")
                         .WithMany("UserPermissions")
                         .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RandREng.MeasuresCore.Domain.UserTask", b =>
@@ -4116,7 +4118,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.UserTaskType", "UserTaskType")
                         .WithMany("UserTasks")
                         .HasForeignKey("UserTaskTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.OwnsOne("RandREng.MeasuresCore.Domain.WhoDidIt", "Added", b1 =>
                         {
@@ -4212,15 +4215,8 @@ namespace RandREng.MeasureCore.Data.Migrations
                     b.HasOne("RandREng.MeasuresCore.Domain.WorkOrder", "WorkOrder")
                         .WithMany("WorkOrderEmails")
                         .HasForeignKey("WorkOrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("RandREng.MeasuresCore.Domain.PhoneNumberClient", b =>
-                {
-                    b.HasOne("RandREng.MeasuresCore.Domain.Client")
-                        .WithMany("PhoneNumbers")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

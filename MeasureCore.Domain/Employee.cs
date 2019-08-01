@@ -8,9 +8,11 @@ namespace RandREng.MeasuresCore.Domain
 	{
         public Employee()
         {
-
+			this.PhoneNumbers = new List<PhoneNumber>();
+			this.Permissions = new List<UserPermission>();
+			this.Clients = new List<Client>();
+			this.Assignments = new List<UserMarketDivisionAssignment>();
         }
-        public List<PhoneNumber> PhoneNumbers { get; set; }
 
 		public int Id { get; set; }
 		public string NickName { get; set; }
@@ -26,9 +28,10 @@ namespace RandREng.MeasuresCore.Domain
 		public string UserName { get; set; }
 		public bool Active { get; set; }
 
-		public List<Store> Stores { get; set; }
-		public List<UserMarketDivisionAssignment> UserMarketDivisionAssignments { get; set; }
-		public List<UserPermission> UserPermissions { get; set; }
+		public virtual List<Client> Clients { get; set; }
+		public virtual List<UserMarketDivisionAssignment> Assignments { get; set; }
+		public virtual List<UserPermission> Permissions { get; set; }
+		public virtual List<PhoneNumber> PhoneNumbers { get; set; }
 
-    }
+	}
 }

@@ -4,12 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RandREng.MeasuresCore.Domain
 {
-    public partial class Client
+    public partial class Client : WithParent<Client>
     {
         public Client()
         {
-            this.Clients = new List<Client>();
-            this.PhoneNumbers = new List<PhoneNumberClient>();
+            this.PhoneNumbers = new List<PhoneNumber>();
         }
     
         public int Id { get; set; }
@@ -23,14 +22,8 @@ namespace RandREng.MeasuresCore.Domain
         public WhoDidIt Modified { get; set; }
         public string EmailAddress { get; set; }
         public string QBCustomerId { get; set; }
-        public string Name { get; set; }
+        public override string Name { get; set; }
 
-        public Nullable<int> ParentId { get; set; }
-        public Client Parent { get; set; }
-        public List<Client> Clients { get; set; }
-        [NotMapped]
-        public string DisplayName => (this.Parent != null ? this.Parent.DisplayName + " - " : "") + this.Name;
-
-        public List<PhoneNumberClient> PhoneNumbers { get; set; }
+        public List<PhoneNumber> PhoneNumbers { get; set; }
     }
 }

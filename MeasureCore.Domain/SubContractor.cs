@@ -5,11 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RandREng.MeasuresCore.Domain
 {
-    public partial class SubContractor
+    public partial class SubContractor : Person
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string NickName { get; set; }
         public Address Address { get; set; }
         public string HomePhoneNumber { get; set; }
